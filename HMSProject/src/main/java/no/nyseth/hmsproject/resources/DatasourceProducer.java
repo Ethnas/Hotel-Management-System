@@ -17,21 +17,22 @@ import static no.nyseth.hmsproject.resources.DatasourceProducer.JNDI_NAME;
  *
  * @author nyseth
  */
-/*@DataSourceDefinition(
-        name = "java:global/jdbc/DemoDataSource",
-        className = "org.postgresql.ds.PGSimpleDataSource",
-        serverName = "postgres_db",  // set the property
-        portNumber = 5432,        // set the property
-        databaseName = "local_db",    // set the property
-        user = "",
-        password = "",
-        minPoolSize = 10,
-        maxPoolSize = 50)*/
 @Singleton
+@DataSourceDefinition(
+        name = JNDI_NAME,
+        className = "org.postgresql.xa.PGXADataSource",
+        serverName = "52.169.109.222",  // set the property
+        portNumber = 5432,        // set the property
+        databaseName = "testdb",    // set the property
+        user = "hmsprojectuser",
+        password = "SterktPassord303911",
+        minPoolSize = 10,
+        maxPoolSize = 50)
+/**@Singleton
 @DataSourceDefinition(
     name = JNDI_NAME,
     className = "org.h2.jdbcx.JdbcDataSource",
-    url = "jdbc:h2:~/hmsdb.db")
+    url = "jdbc:h2:~/hmsdb.db")*/
 public class DatasourceProducer {
     public static final String JNDI_NAME =  "java:app/jdbc/default";
 
