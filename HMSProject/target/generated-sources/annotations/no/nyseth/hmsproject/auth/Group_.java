@@ -6,7 +6,11 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import no.nyseth.hmsproject.auth.User;
 
+<<<<<<< Updated upstream
 @Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-05T10:13:01")
+=======
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-05T09:14:02")
+>>>>>>> Stashed changes
 @StaticMetamodel(Group.class)
 public class Group_ { 
 

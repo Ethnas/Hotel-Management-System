@@ -32,7 +32,8 @@ import lombok.NoArgsConstructor;
 public class Group implements Serializable {
     public static final String USER = "user";
     public static final String ADMIN = "admin";
-    public static final String[] GROUPS = {USER, ADMIN};
+    public static final String STAFF = "staff";
+    public static final String[] GROUPS = {USER, ADMIN, STAFF};
     
     
     @Id
