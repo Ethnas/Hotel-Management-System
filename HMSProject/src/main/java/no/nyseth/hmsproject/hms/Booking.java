@@ -16,7 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import no.nyseth.hmsproject.auth.User;
-//import no.nyseth.hmsproject.auth.User;
+import no.nyseth.hmsproject.hms.Room;
+import no.nyseth.hmsproject.hms.RoomType;
 
 /**
  *
@@ -41,5 +42,9 @@ public class Booking implements Serializable {
     public String bookingStatus;
     
     public User bookingGuest;
+    
+    public RoomType roomType;
+    
+    public Room room;
     
 }

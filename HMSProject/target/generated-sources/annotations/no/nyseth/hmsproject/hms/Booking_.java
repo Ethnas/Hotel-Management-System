@@ -5,12 +5,10 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import no.nyseth.hmsproject.auth.User;
+import no.nyseth.hmsproject.hms.Room;
+import no.nyseth.hmsproject.hms.RoomType;
 
-<<<<<<< Updated upstream
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-05T10:13:01")
-=======
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-05T09:14:02")
->>>>>>> Stashed changes
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-12T09:06:19")
 @StaticMetamodel(Booking.class)
 public class Booking_ { 
 
@@ -20,5 +18,7 @@ public class Booking_ {
     public static volatile SingularAttribute<Booking, Date> bookingEndDate;
     public static volatile SingularAttribute<Booking, String> bookingStatus;
     public static volatile SingularAttribute<Booking, Integer> bookingId;
+    public static volatile SingularAttribute<Booking, RoomType> roomType;
+    public static volatile SingularAttribute<Booking, Room> room;
 
 }

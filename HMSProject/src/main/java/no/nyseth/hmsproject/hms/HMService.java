@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -31,6 +33,7 @@ import lombok.extern.java.Log;
 import no.nyseth.hmsproject.auth.AuthenticationService;
 import no.nyseth.hmsproject.auth.Group;
 import no.nyseth.hmsproject.auth.User;
+import no.nyseth.hmsproject.hms.RoomType;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.jwt.JsonWebToken;
@@ -42,6 +45,7 @@ import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 @Stateless
 @Log
 public class HMService {
+    
     @PersistenceContext
     EntityManager em;
     
@@ -81,27 +85,47 @@ public class HMService {
      * 
      * 1. Creates a bookingGuest variable that is set to currentuser.
      * 2. Creates a new booking object and sets properties
-     * 3. Persists to db.
+     * 3. Persists to db. 
      */
+    
     @POST
     @Path("addbooking")
     @RolesAllowed({Group.USER})
-    @Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
-    public Response addBooking(@FormDataParam("bookingRoomType") Room bookingRoomType, 
-                @FormDataParam("bookingStartDate") Date bookingStartDate, 
-                @FormDataParam("bookingEndDate") Date bookingEndDate) {
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response addBooking(@FormParam("bookingRoomType") String bookingRoomType, 
+                @FormParam("bookingStartDate") String bookingStartDate, 
+                @FormParam("bookingEndDate") String bookingEndDate) {
         log.log(Level.INFO, "attempting to add booking");
         User bookingGuest = this.getCurrentUser();
         Booking bookingtbb = new Booking(); 
-        bookingtbb.setRoomType(bookingRoomType);
-        bookingtbb.setBookingStartDate(bookingStartDate);
-        bookingtbb.setBookingEndDate(bookingEndDate);
-        bookingtbb.setBookingGuest(bookingGuest);
-
         
+        RoomType bookingType = new RoomType();
+        bookingType.setRoomType(bookingRoomType);
+        bookingtbb.setRoomType(bookingType);
+        
+        try {
+            Date dateStart = dateParser(bookingStartDate);
+            Date dateEnd = dateParser(bookingEndDate);
+            bookingtbb.setBookingStartDate(dateStart);
+            bookingtbb.setBookingEndDate(dateEnd);
+            bookingtbb.setBookingGuest(bookingGuest);
+                
+        } catch(ParseException e) {
+            //TODO 
+            //LÆGG INN NOE
+        }
+            
         em.persist(bookingtbb);
             //IMAGE SHIT
         return Response.ok().build();
+    }
+    
+    
+    public Date dateParser(String bookingDate) throws ParseException {
+        
+        Date date = new SimpleDateFormat("yyyy-MM--dd").parse(bookingDate);
+        
+        return date;
     }
 
     /**
@@ -125,8 +149,8 @@ public class HMService {
             User bookingDeleter = this.getCurrentUser();
             if (bookingtbd.getBookingGuest().equals(bookingDeleter)) {
                 log.log(Level.INFO, "user verified, moving onto deletion", bookingid);
-                em.remove(this);
-                return Response.ok.build();
+                em.remove(bookingtbd);
+                return Response.ok().build();
             }
         }
         
@@ -154,11 +178,12 @@ public class HMService {
      * 3. Attempts to update
      */
     
+    /*
     @PUT
     @Path("updatebooking")
     @RolesAllowed({Group.USER})
     public Response updateBooking(@FormDataParam("bookingid") Long bookingid, 
-            @FormDataParam("bookingRoomType") Room bookingRoomType, 
+            @FormDataParam("bookingRoomType") String bookingRoomType, 
             @FormDataParam("bookingStartDate") Date bookingStartDate,
             @FormDataParam("bookingEndDate") Date bookingEndDate) {
         
@@ -170,7 +195,10 @@ public class HMService {
             User bookingUpdater = this.getCurrentUser();
             
              if (bookingtbu.getBookingGuest().equals(bookingUpdater)) {
-                 bookingtbu.setRoomType(bookingRoomType);
+                RoomType bookingType = new RoomType();
+                bookingType.setRoomType(bookingRoomType);
+                bookingtbu.setRoomType(bookingType);
+        
                  bookingtbu.setBookingStartDate(bookingStartDate);
                  bookingtbu.setBookingEndDate(bookingEndDate);
                  return Response.ok().build();
@@ -185,6 +213,7 @@ public class HMService {
         log.log(Level.INFO, "booking doesnt exist!");
         return Response.notModified().build();
     }
+    */
     
     @PUT
     @Path("staff/acceptBooking")
