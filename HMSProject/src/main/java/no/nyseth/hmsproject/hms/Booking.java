@@ -34,6 +34,7 @@ public class Booking implements Serializable {
     //private Long id;
     
     @Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private int bookingId;
     
     public Date bookingStartDate;
@@ -41,7 +42,7 @@ public class Booking implements Serializable {
     public String bookingAccepted; //String or boolean?
     public String bookingStatus;
     
-    public User bookingGuest;
+    public User username;
     
     public RoomType roomType;
     

@@ -62,9 +62,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 @Stateless
 @Log
 public class AuthenticationService {
-    private static final String INSERT_USERGROUP = "INSERT INTO AUSERGROUP(NAME,USERID) VALUES (?,?)";
-    private static final String DELETE_USERGROUP = "DELETE FROM AUSERGROUP WHERE NAME = ? AND USERID = ?";
-    
+   
     @Inject
     KeyService keyService;
     
@@ -93,22 +91,25 @@ public class AuthenticationService {
     public Response createUser(@FormParam("uid") String uid, @FormParam("pwd") String pwd, 
     @FormParam("firstName") String firstName, @FormParam("lastName") String lastName, 
     @FormParam("eml") String eml, @FormParam("phoneNumber") String phoneNumber) {
+        /*
         User user = em.find(User.class, uid);
         if (user != null) {
             log.log(Level.INFO, "user already exists {0}", uid);
             return Response.status(Response.Status.BAD_REQUEST).build();
         } else {
-            user = new User();
-            user.setUserid(uid);
+        */
+            User user = new User();
+            user.setUsername(uid);
             user.setPassword(hasher.generate(pwd.toCharArray()));
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(eml);
-            user.setPhoneNumber(phoneNumber);
-            Group usergroup = em.find(Group.class, Group.USER);
-            user.getGroups().add(usergroup);
+            user.setPhone(phoneNumber);
+            user.setRole("USER");
+            //Group usergroup = em.find(Group.class, Group.USER);
+            //user.getGroups().add(usergroup);
             return Response.ok(em.merge(user)).build();
-        }
+        //}
     }
 
     @GET
@@ -161,12 +162,15 @@ public class AuthenticationService {
     
     @GET
     @Path("currentuser")
-    @RolesAllowed(value = {Group.USER})
+    //@RolesAllowed(value = {Group.USER})
     @Produces(MediaType.APPLICATION_JSON)
     public User getCurrentUser() {
+        System.out.println("---------");
+        System.out.println(principal.getName());
+        System.out.println("---------");
         return em.find(User.class, principal.getName());
     }
-    
+    /*
     private boolean roleExists(String role) {
         boolean result = false;
         
@@ -222,11 +226,11 @@ public class AuthenticationService {
         }
         
         return Response.ok().build();
-    }
-    
+    }*/
+    /*
     @PUT
     @Path("changepassword")
-    @RolesAllowed(value = {Group.USER})
+    //@RolesAllowed(value = {Group.USER})
     public Response changePassword(@QueryParam("uid") String uid, @QueryParam("pwd") String password, @Context SecurityContext sc) {
         String authuser = sc.getUserPrincipal() != null ? sc.getUserPrincipal().getName() : null;
         log.log(Level.SEVERE, "attempting change {0}", uid);
@@ -248,5 +252,5 @@ public class AuthenticationService {
             log.log(Level.SEVERE, "PASSWORD CHANGED {0}", uid);
             return Response.ok().build();
         }
-    }
+    }*/
 }

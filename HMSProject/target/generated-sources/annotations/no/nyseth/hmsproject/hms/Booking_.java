@@ -8,17 +8,17 @@ import no.nyseth.hmsproject.auth.User;
 import no.nyseth.hmsproject.hms.Room;
 import no.nyseth.hmsproject.hms.RoomType;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-12T09:06:19")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-15T15:28:44")
 @StaticMetamodel(Booking.class)
 public class Booking_ { 
 
     public static volatile SingularAttribute<Booking, Date> bookingStartDate;
     public static volatile SingularAttribute<Booking, String> bookingAccepted;
-    public static volatile SingularAttribute<Booking, User> bookingGuest;
     public static volatile SingularAttribute<Booking, Date> bookingEndDate;
     public static volatile SingularAttribute<Booking, String> bookingStatus;
     public static volatile SingularAttribute<Booking, Integer> bookingId;
     public static volatile SingularAttribute<Booking, RoomType> roomType;
     public static volatile SingularAttribute<Booking, Room> room;
+    public static volatile SingularAttribute<Booking, User> username;
 
 }

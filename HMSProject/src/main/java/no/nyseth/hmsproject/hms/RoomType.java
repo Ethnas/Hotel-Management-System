@@ -30,4 +30,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoomType implements Serializable {
     private String roomType;
+    private int roomPrice;
 }

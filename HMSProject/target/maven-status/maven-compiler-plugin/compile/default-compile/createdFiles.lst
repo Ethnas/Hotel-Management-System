@@ -15,8 +15,6 @@ no/nyseth/hmsproject/resources/DatasourceProducer.class
 no/nyseth/hmsproject/resources/SecurityConfiguration.class
 no/nyseth/hmsproject/hms/HMService.class
 no/nyseth/hmsproject/auth/MailService$1.class
-no/nyseth/hmsproject/auth/Group_.class
 no/nyseth/hmsproject/auth/KeyService.class
 no/nyseth/hmsproject/auth/AuthRunOnStartup.class
-no/nyseth/hmsproject/auth/Group.class
 no/nyseth/hmsproject/resources/dbCheck.class
