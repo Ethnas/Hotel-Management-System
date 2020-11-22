@@ -30,13 +30,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Room implements Serializable {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) //Nødvendig her?
-    private Long id;
     
+    //@GeneratedValue(strategy = GenerationType.AUTO) //Nødvendig her?
+    //private Long id;
+    
+    @Id
     private int roomNumber;
     private String roomStatus;
-    private String roomType;
+    private RoomType roomType;
     
     //@OneToMany
     //private List<RoomImages> roomImage;

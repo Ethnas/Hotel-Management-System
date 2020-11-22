@@ -16,7 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import no.nyseth.hmsproject.auth.User;
-//import no.nyseth.hmsproject.auth.User;
+import no.nyseth.hmsproject.hms.Room;
+import no.nyseth.hmsproject.hms.RoomType;
 
 /**
  *
@@ -33,6 +34,7 @@ public class Booking implements Serializable {
     //private Long id;
     
     @Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private int bookingId;
     
     public Date bookingStartDate;
@@ -40,6 +42,10 @@ public class Booking implements Serializable {
     public String bookingAccepted; //String or boolean?
     public String bookingStatus;
     
-    public User bookingGuest;
+    public User username;
+    
+    public RoomType roomType;
+    
+    public Room room;
     
 }

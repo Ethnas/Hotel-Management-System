@@ -23,7 +23,7 @@ import static no.nyseth.hmsproject.resources.DatasourceProducer.JNDI_NAME;
         className = "org.postgresql.xa.PGXADataSource",
         serverName = "52.169.109.222",  // set the property
         portNumber = 5432,        // set the property
-        databaseName = "testdb",    // set the property
+        databaseName = "hmsdb",    // set the property
         user = "hmsprojectuser",
         password = "SterktPassord303911",
         minPoolSize = 10,

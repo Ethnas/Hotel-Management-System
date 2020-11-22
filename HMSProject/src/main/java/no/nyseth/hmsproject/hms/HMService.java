@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -29,8 +31,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import lombok.extern.java.Log;
 import no.nyseth.hmsproject.auth.AuthenticationService;
-import no.nyseth.hmsproject.auth.Group;
 import no.nyseth.hmsproject.auth.User;
+import no.nyseth.hmsproject.hms.RoomType;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.jwt.JsonWebToken;
@@ -42,6 +44,7 @@ import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 @Stateless
 @Log
 public class HMService {
+    
     @PersistenceContext
     EntityManager em;
     
@@ -81,27 +84,48 @@ public class HMService {
      * 
      * 1. Creates a bookingGuest variable that is set to currentuser.
      * 2. Creates a new booking object and sets properties
-     * 3. Persists to db.
+     * 3. Persists to db. 
      */
+    
     @POST
     @Path("addbooking")
-    @RolesAllowed({Group.USER})
-    @Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
-    public Response addBooking(@FormDataParam("bookingRoomType") Room bookingRoomType, 
-                @FormDataParam("bookingStartDate") Date bookingStartDate, 
-                @FormDataParam("bookingEndDate") Date bookingEndDate) {
+    //@RolesAllowed({Group.USER})
+    public Response addBooking(@FormParam("bookingRoomType") String bookingRoomType, 
+                @FormParam("bookingStartDate") String bookingStartDate, 
+                @FormParam("bookingEndDate") String bookingEndDate) {
         log.log(Level.INFO, "attempting to add booking");
-        User bookingGuest = this.getCurrentUser();
+        User booker = this.getCurrentUser();
         Booking bookingtbb = new Booking(); 
-        bookingtbb.setRoomType(bookingRoomType);
-        bookingtbb.setBookingStartDate(bookingStartDate);
-        bookingtbb.setBookingEndDate(bookingEndDate);
-        bookingtbb.setBookingGuest(bookingGuest);
-
         
+        RoomType bookingType = new RoomType();
+        bookingType.setRoomType(bookingRoomType);
+        bookingtbb.setRoomType(bookingType);
+        
+        try {
+            log.log(Level.INFO, "attempting to add date");
+            Date dateStart = dateParser(bookingStartDate);
+            Date dateEnd = dateParser(bookingEndDate);
+            bookingtbb.setBookingStartDate(dateStart);
+            bookingtbb.setBookingEndDate(dateEnd);
+            bookingtbb.setUsername(booker);
+                
+        } catch(ParseException e) {
+            //TODO 
+            //LÆGG INN NOE
+        }
+            
+        log.log(Level.INFO, "added apps");
         em.persist(bookingtbb);
             //IMAGE SHIT
         return Response.ok().build();
+    }
+    
+    
+    public Date dateParser(String bookingDate) throws ParseException {
+        
+        Date date = new SimpleDateFormat("yyyy-MM--dd").parse(bookingDate);
+        
+        return date;
     }
 
     /**
@@ -117,16 +141,17 @@ public class HMService {
      */
     @DELETE
     @Path("removebooking")
-    @RolesAllowed({Group.USER})
+    //@RolesAllowed({Group.USER})
     public Response removeBooking(@QueryParam("bookingid") Long bookingid) {
         Booking bookingtbd = em.find(Booking.class, bookingid);
         if (bookingtbd != null) {
             log.log(Level.INFO, "checking if existing", bookingid);
             User bookingDeleter = this.getCurrentUser();
-            if (bookingtbd.getBookingGuest().equals(bookingDeleter)) {
+            
+            if (bookingtbd.getUsername().equals(bookingDeleter)) {
                 log.log(Level.INFO, "user verified, moving onto deletion", bookingid);
-                em.remove(this);
-                return Response.ok.build();
+                em.remove(bookingtbd);
+                return Response.ok().build();
             }
         }
         
@@ -154,13 +179,14 @@ public class HMService {
      * 3. Attempts to update
      */
     
+    
     @PUT
     @Path("updatebooking")
-    @RolesAllowed({Group.USER})
-    public Response updateBooking(@FormDataParam("bookingid") Long bookingid, 
-            @FormDataParam("bookingRoomType") Room bookingRoomType, 
-            @FormDataParam("bookingStartDate") Date bookingStartDate,
-            @FormDataParam("bookingEndDate") Date bookingEndDate) {
+    //@RolesAllowed({Group.USER})
+    public Response updateBooking(@FormParam("bookingid") Long bookingid, 
+            @FormParam("bookingRoomType") String bookingRoomType, 
+            @FormParam("bookingStartDate") String bookingStartDate,
+            @FormParam("bookingEndDate") String bookingEndDate) {
         
         log.log(Level.INFO, "checking if booking exists", bookingid);
         Booking bookingtbu = em.find(Booking.class, bookingid);
@@ -169,10 +195,22 @@ public class HMService {
             log.log(Level.INFO, "Booking exists, moving to checking if correct user");
             User bookingUpdater = this.getCurrentUser();
             
-             if (bookingtbu.getBookingGuest().equals(bookingUpdater)) {
-                 bookingtbu.setRoomType(bookingRoomType);
-                 bookingtbu.setBookingStartDate(bookingStartDate);
-                 bookingtbu.setBookingEndDate(bookingEndDate);
+             if (bookingtbu.getUsername().equals(bookingUpdater)) {
+                 
+                RoomType bookingType = new RoomType();
+                bookingType.setRoomType(bookingRoomType);
+                bookingtbu.setRoomType(bookingType);
+
+                try {
+                    Date dateStart = dateParser(bookingStartDate);
+                    Date dateEnd = dateParser(bookingEndDate);
+                    bookingtbu.setBookingStartDate(dateStart);
+                    bookingtbu.setBookingEndDate(dateEnd);
+
+                } catch(ParseException e) {
+                    //TODO 
+                    //LÆGG INN NOE
+                }
                  return Response.ok().build();
                  
              } else {
@@ -186,9 +224,10 @@ public class HMService {
         return Response.notModified().build();
     }
     
+    
     @PUT
     @Path("staff/acceptBooking")
-    @RolesAllowed({Group.STAFF})
+    //@RolesAllowed({Group.STAFF})
     public Response staffBookingAccept(@QueryParam("bookingid") Long bookingid, 
             @QueryParam("bookingStatus") Boolean bookingStatus, 
             @Context SecurityContext sc) {
@@ -207,20 +246,214 @@ public class HMService {
                 return em.createNativeQuery("SELECT * FROM Bookings", Booking.class).getResultList();
             }
             */
-        //getBooking(specific)
-
+    /**
+     * 
+     * @return list of all bookings
+     */
+    @GET
+    @Path("getAllBookings")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Booking> getAllBookings() {
+        log.log(Level.INFO, "attempting to retrieve all bookings");
+        return em.createNativeQuery("SELECT * FROM Room", Booking.class).getResultList();
+    }
+    
+    //getBooking(specific)
+    /**
+     * 
+     * @param bookingid bookingid of booking to retrieve
+     * @return info about booking if found
+     */
+    @GET
+    @Path("getbooking")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBooking(@QueryParam("bookingid") int bookingid) {
+        log.log(Level.INFO, "attempting to retrieve booking", bookingid);
+        Booking booking = em.find(Booking.class, bookingid);
+        return Response.ok(booking).build();
+    }
+    
+    //
     //DamageReport
-        //addDamageReport - POST, kun ansatt gruppe
-        //removeDamageReport - DELETE, kun ansatt gruppe
-        //updateDamageReport - PUT, kun ansatt gruppe
-        //addImage etc.
+    //
+    //addDamageReport - POST, kun ansatt gruppe
+    /**
+     * 
+     * @param damageDesc description of damage
+     * @param bookingid id of said damage
+     * @return 
+     * 
+     * 1. checks if user is staff
+     * 2. if user is staff it creates a new damagereport object
+     * 3. creates an object of the booking in question
+     * 4. sets the properties of the damagereport object accordingly.
+     * 5. success?
+     */
+    @POST
+    @Path("addDamageReport")
+    public Response addDamageReport(@FormParam("damageTitle") String damageTitle,
+            @FormParam("damageDesc") String damageDesc, @FormParam("bookingid") int bookingid) {
+        User reportAdder = this.getCurrentUser();
+        log.log(Level.INFO, "checking if user is staff");
+                
+        if (reportAdder.getRole().equals("STAFF")) {
+            log.log(Level.INFO, "user verified as staff, attempting to add report");
+            DamageReport damageReport = new DamageReport();
+            Booking booking = new Booking();
+            booking.setBookingId(bookingid);
+            
+            damageReport.setDamageTitle(damageTitle);
+            damageReport.setDamageDescription(damageDesc);
+            damageReport.setBookingid(booking);
+            //Photo things
+            return Response.ok().build(); 
+        }
+        log.log(Level.INFO, "user not staff, rejected");
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+    
+    //removeDamageReport - DELETE, kun ansatt gruppe
+    @DELETE
+    @Path("removeDamageReport")
+    public Response removeDamageReport(@QueryParam("reportId") int reportId) {
+        User reportRemover = this.getCurrentUser();
+        log.log(Level.INFO, "checking if user is staff");
+                
+        if (reportRemover.getRole().equals("STAFF")) {
+            log.log(Level.INFO, "user verified, deleting", reportId);
+            em.remove(reportId);
+            
+            return Response.ok().build();
+        }
+        log.log(Level.INFO, "user not staff, rejected");
+        return Response.status(Response.Status.BAD_REQUEST).build();
+        
+    }
+
+    //updateDamageReport - PUT, kun ansatt gruppe
+    @PUT
+    @Path("updateDamageReport")
+    public Response updateDamageReport(@FormParam("reportId") int reportId,
+            @FormParam("damageTitle") String damageTitle,
+            @FormParam("damageDesc") String damageDesc, 
+            @FormParam("bookingid") int bookingid) {
+        User reportAdder = this.getCurrentUser();
+        log.log(Level.INFO, "checking if user is staff");
+                
+        if (reportAdder.getRole().equals("STAFF")) {
+            log.log(Level.INFO, "user verified as staff, attempting to find report");
+            
+            DamageReport damageReport = em.find(DamageReport.class, reportId);
+            if (damageReport != null) {
+                log.log(Level.INFO, "report found, attempting update");
+                Booking booking = new Booking();
+                booking.setBookingId(bookingid);
+            
+                damageReport.setDamageTitle(damageTitle);
+                damageReport.setDamageDescription(damageDesc);
+                damageReport.setBookingid(booking);
+                
+                em.merge(damageReport);
+                return Response.ok().build();
+                
+            } else {
+                log.log(Level.INFO, "report not found, rejecting");
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+        }
+        log.log(Level.INFO, "user not staff, rejected");
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+        
+        
+    //getdamagereports
+    @GET
+    @Path("getDamageReports")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<DamageReport> getAllDamageReports() {
+        log.log(Level.INFO, "attempting to retrieve all reports");
+        return em.createNativeQuery("SELECT * FROM DamageReport", DamageReport.class).getResultList();
+    }
+    //addImage etc.
 
     //Room
-        //addRoomType
-            //romtype (small, medium, large etc.), pris per dag.
-        //removeRoomType
-        //updateRoomType
-        //addImage.
+    //addRoomType - POST, staff
+        //romtype (small, medium, large etc.), pris per dag.
+    @POST
+    @Path("addRoomType")
+    public Response addRoomType(@FormParam("roomtype") String roomtype, @FormParam("roomPrice") int RoomPrice) {
+        User roomTypeAdder = this.getCurrentUser();
+        log.log(Level.INFO, "checking if user is staff");
+        
+        if (roomTypeAdder.getRole().equals("STAFF")) {
+            log.log(Level.INFO, "user verified, attempting to add roomtype");
+            
+            RoomType roomType = new RoomType();
+            roomType.setRoomType(roomtype);
+            roomType.setRoomPrice(RoomPrice);
+            
+            em.persist(roomType);
+            return Response.ok().build();
+        } 
+        log.log(Level.INFO, "user not staff, rejected");
+        return Response.status(Response.Status.BAD_REQUEST).build();
+        
+    }
     
+    //removeRoomType - DELETE, staff
+    @DELETE
+    @Path("removeRoomType")
+    public Response removeRoomType(@QueryParam("roomType") String roomType) {
+        User roomTypeRemover = this.getCurrentUser();
+        log.log(Level.INFO, "checking if user is staff");
+        
+        if (roomTypeRemover.getRole().equals("STAFF")) {
+            log.log(Level.INFO, "user verified, checking if thing exists");
+            em.remove(roomType);
+            return Response.ok().build();
+        }
+        
+        log.log(Level.INFO, "not verified, reject.");
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+    
+    //updateRoomType - PUT, staff, really only to change price lol
+    @PUT
+    @Path("updateRoomType")
+    public Response updateRoomType(@FormParam("roomType") String roomType, @FormParam("roomPrice") int roomPrice) {
+        User roomTypeUpdater = this.getCurrentUser();
+        log.log(Level.INFO, "checking if user is staff");
+        
+        if (roomTypeUpdater.getRole().equals("STAFF")) {
+            log.log(Level.INFO, "user verified as staff, attempting to find roomtype");
+            RoomType roomTypeUpdate = em.find(RoomType.class, roomType);
+            
+            if (roomTypeUpdate != null) {
+                log.log(Level.INFO, "roomtype found, updating");
+                roomTypeUpdate.setRoomPrice(roomPrice);
+                
+                em.merge(roomTypeUpdate);
+                return Response.ok().build();
+            } else {
+                log.log(Level.INFO, "roomtype not found, rejecting");
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            
+        }
+        log.log(Level.INFO, "user not staff,rejected");
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+    //addImage. lol
+    
+    //addRoom - POST, staff
+    
+    //getrooms - romoversikt - samme som alle andre *GET*
+    @GET
+    @Path("getAllRooms")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Room> getAllRooms() {
+        log.log(Level.INFO, "attempting to retrieve all rooms");
+        return em.createNativeQuery("SELECT * FROM Room", Room.class).getResultList();
+    }
 
 }

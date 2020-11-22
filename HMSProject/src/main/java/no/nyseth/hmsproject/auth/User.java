@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -42,37 +44,35 @@ public class User implements Serializable {
     public static final String FIND_ALL_USERS = "User.findAllUsers";
     
     @Id
-    String userid;
+    String username;
     
     @JsonbTransient
     String password;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
-    Date created;
+    
     
     String firstName;
     String lastName;
     @Email
     String email;
-    String phoneNumber;
+    String phone;
+    String role;
     
+    /*
     @ManyToMany
     @JoinTable(name="AUSERGROUP",
             joinColumns = @JoinColumn(name="userid", referencedColumnName = "userid"),
             inverseJoinColumns = @JoinColumn(name="name",referencedColumnName = "name"))
     List<Group> groups;
+    */
     
-    @PrePersist
-    protected void onCreate() {
-        created = new Date();
-    }
-    
+    /*
     public List<Group> getGroups() {
         if(groups == null) {
             groups = new ArrayList<>();
         }
         return groups;
-    }
+    }*/
     
     
 }

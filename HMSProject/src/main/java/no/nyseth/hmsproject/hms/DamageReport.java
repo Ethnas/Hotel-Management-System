@@ -33,10 +33,10 @@ public class DamageReport implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) //Nødvendig her?
-    private Long id;
-    
     public int reportId;
-    public String damageDescription;
     
+    public String DamageTitle;
+    public String damageDescription;
+    public Booking bookingid;
     
 }
