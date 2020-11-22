@@ -12,4 +12,5 @@
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="server_client_id">210365446598-7c6pao8dchb266hs469kqip1u9hr9200.apps.googleusercontent.com</string>
 </resources>

@@ -22,4 +22,9 @@
         android:name="no.ntnu.hmsproject.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <activity
+        android:id="@+id/activityLoginGoogle"
+        android:name="no.ntnu.hmsproject.ui.login.ActivityLoginGoogle"
+        android:label="activity_login_google"
+        tools:layout="@layout/activity_login_google" />
 </navigation>
