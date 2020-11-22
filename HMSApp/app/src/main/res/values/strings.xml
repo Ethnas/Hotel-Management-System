@@ -61,4 +61,9 @@
 
 
     <string name="server_client_id">210365446598-2trslj7u3surefvojuvoqaqq26gl08cs.apps.googleusercontent.com</string>
+
+
+    <!-- nav -->
+    <string name="nav_menu_login">Logg inn</string>
+    <string name="nav_menu_booking">Booking</string>
 </resources>
