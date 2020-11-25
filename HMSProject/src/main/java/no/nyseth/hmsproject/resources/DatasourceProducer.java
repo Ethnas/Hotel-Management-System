@@ -21,7 +21,7 @@ import static no.nyseth.hmsproject.resources.DatasourceProducer.JNDI_NAME;
 @DataSourceDefinition(
         name = JNDI_NAME,
         className = "org.postgresql.xa.PGXADataSource",
-        serverName = "52.169.109.222",  // set the property
+        serverName = "168.63.55.26",  // set the property
         portNumber = 5432,        // set the property
         databaseName = "hmsdb",    // set the property
         user = "hmsprojectuser",

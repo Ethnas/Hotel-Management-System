@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import no.nyseth.hmsproject.hms.RoomType;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-15T15:28:44")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-25T10:39:26")
 @StaticMetamodel(Room.class)
 public class Room_ { 
 

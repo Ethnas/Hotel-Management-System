@@ -6,12 +6,14 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +25,8 @@ import no.nyseth.hmsproject.hms.RoomType;
  *
  * @author nyseth
  */
-@Entity
+@Entity(name = "Booking")
+@Table(name = "Booking")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,10 +45,13 @@ public class Booking implements Serializable {
     public String bookingAccepted; //String or boolean?
     public String bookingStatus;
     
+    @ManyToOne(fetch = FetchType.LAZY)
     public User username;
     
+    @ManyToOne(fetch = FetchType.LAZY)
     public RoomType roomType;
     
+    @ManyToOne(fetch = FetchType.LAZY)
     public Room room;
     
 }

@@ -10,12 +10,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +27,8 @@ import lombok.NoArgsConstructor;
  *
  * @author nyseth
  */
-@Entity
+@Entity(name = "DamageReport")
+@Table(name = "DamageReport")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,6 +40,8 @@ public class DamageReport implements Serializable {
     
     public String DamageTitle;
     public String damageDescription;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     public Booking bookingid;
     
 }

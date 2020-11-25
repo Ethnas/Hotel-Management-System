@@ -62,6 +62,7 @@ public class HMService {
 
     //GETCURRENTUSER!
     private User getCurrentUser() {
+        System.out.println("ASDOKASDOKASODKASODKASDK = " + principal.getName());
         return em.find(User.class, principal.getName());
     }
 
@@ -142,7 +143,8 @@ public class HMService {
     @DELETE
     @Path("removebooking")
     //@RolesAllowed({Group.USER})
-    public Response removeBooking(@QueryParam("bookingid") Long bookingid) {
+    public Response removeBooking(@QueryParam("bookingid") int bookingid) {
+        log.log(Level.INFO, "checking for booking -1", bookingid);
         Booking bookingtbd = em.find(Booking.class, bookingid);
         if (bookingtbd != null) {
             log.log(Level.INFO, "checking if existing", bookingid);
@@ -183,7 +185,7 @@ public class HMService {
     @PUT
     @Path("updatebooking")
     //@RolesAllowed({Group.USER})
-    public Response updateBooking(@FormParam("bookingid") Long bookingid, 
+    public Response updateBooking(@FormParam("bookingid") int bookingid, 
             @FormParam("bookingRoomType") String bookingRoomType, 
             @FormParam("bookingStartDate") String bookingStartDate,
             @FormParam("bookingEndDate") String bookingEndDate) {
@@ -228,7 +230,7 @@ public class HMService {
     @PUT
     @Path("staff/acceptBooking")
     //@RolesAllowed({Group.STAFF})
-    public Response staffBookingAccept(@QueryParam("bookingid") Long bookingid, 
+    public Response staffBookingAccept(@QueryParam("bookingid") int bookingid, 
             @QueryParam("bookingStatus") Boolean bookingStatus, 
             @Context SecurityContext sc) {
         log.log(Level.INFO, "attempting to check if user OK", bookingid);
@@ -255,7 +257,7 @@ public class HMService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Booking> getAllBookings() {
         log.log(Level.INFO, "attempting to retrieve all bookings");
-        return em.createNativeQuery("SELECT * FROM Room", Booking.class).getResultList();
+        return em.createNativeQuery("SELECT * FROM Booking", Booking.class).getResultList();
     }
     
     //getBooking(specific)

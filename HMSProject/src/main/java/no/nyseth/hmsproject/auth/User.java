@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,24 +27,19 @@ import javax.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import static no.nyseth.hmsproject.auth.User.FIND_ALL_USERS;
-import static no.nyseth.hmsproject.auth.User.FIND_USER_BY_IDS;
 
 /**
  *
  * @author nyseth
  */
-@Entity
+@Entity(name = "AUSER")
 @Table(name = "AUSER")
 @Data 
 @AllArgsConstructor 
 @NoArgsConstructor
-@NamedQuery(name = FIND_ALL_USERS, query = "select u from User u order by u.firstName")
 public class User implements Serializable {
-    public static final String FIND_USER_BY_IDS = "User.findUserByIds";
-    public static final String FIND_ALL_USERS = "User.findAllUsers";
-    
     @Id
+    @Column(name="username")
     String username;
     
     @JsonbTransient

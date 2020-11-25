@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,11 +25,13 @@ import lombok.NoArgsConstructor;
  *
  * @author nyseth
  */
-//@Entity
+@Entity(name = "RoomType")
+@Table(name = "RoomType")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomType implements Serializable {
+    @Id
     private String roomType;
     private int roomPrice;
 }
