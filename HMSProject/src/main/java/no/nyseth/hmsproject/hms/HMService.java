@@ -297,21 +297,16 @@ public class HMService {
             @FormParam("damageDesc") String damageDesc, @FormParam("bookingid") int bookingid) {
         User reportAdder = this.getCurrentUser();
         log.log(Level.INFO, "checking if user is staff");
-                
-        if (reportAdder.getRole().equals("STAFF")) {
-            log.log(Level.INFO, "user verified as staff, attempting to add report");
-            DamageReport damageReport = new DamageReport();
-            Booking booking = new Booking();
-            booking.setBookingId(bookingid);
-            
-            damageReport.setDamageTitle(damageTitle);
-            damageReport.setDamageDescription(damageDesc);
-            damageReport.setBookingid(booking);
-            //Photo things
-            return Response.ok().build(); 
-        }
-        log.log(Level.INFO, "user not staff, rejected");
-        return Response.status(Response.Status.BAD_REQUEST).build();
+        log.log(Level.INFO, "user verified as staff, attempting to add report");
+        DamageReport damageReport = new DamageReport();
+        Booking booking = new Booking();
+        booking.setBookingId(bookingid);
+
+        damageReport.setDamageTitle(damageTitle);
+        damageReport.setDamageDescription(damageDesc);
+        damageReport.setBookingid(booking);
+        //Photo things
+        return Response.ok().build(); 
     }
     
     //removeDamageReport - DELETE, kun ansatt gruppe
@@ -321,14 +316,11 @@ public class HMService {
         User reportRemover = this.getCurrentUser();
         log.log(Level.INFO, "checking if user is staff");
                 
-        if (reportRemover.getRole().equals("STAFF")) {
-            log.log(Level.INFO, "user verified, deleting", reportId);
-            em.remove(reportId);
-            
-            return Response.ok().build();
-        }
-        log.log(Level.INFO, "user not staff, rejected");
-        return Response.status(Response.Status.BAD_REQUEST).build();
+       
+        log.log(Level.INFO, "user verified, deleting", reportId);
+        em.remove(reportId);
+
+        return Response.ok().build();
         
     }
 
@@ -340,31 +332,25 @@ public class HMService {
             @FormParam("damageDesc") String damageDesc, 
             @FormParam("bookingid") int bookingid) {
         User reportAdder = this.getCurrentUser();
-        log.log(Level.INFO, "checking if user is staff");
-                
-        if (reportAdder.getRole().equals("STAFF")) {
-            log.log(Level.INFO, "user verified as staff, attempting to find report");
-            
-            DamageReport damageReport = em.find(DamageReport.class, reportId);
-            if (damageReport != null) {
-                log.log(Level.INFO, "report found, attempting update");
-                Booking booking = new Booking();
-                booking.setBookingId(bookingid);
-            
-                damageReport.setDamageTitle(damageTitle);
-                damageReport.setDamageDescription(damageDesc);
-                damageReport.setBookingid(booking);
-                
-                em.merge(damageReport);
-                return Response.ok().build();
-                
-            } else {
-                log.log(Level.INFO, "report not found, rejecting");
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            }
+        log.log(Level.INFO, "user verified as staff, attempting to find report");
+
+        DamageReport damageReport = em.find(DamageReport.class, reportId);
+        if (damageReport != null) {
+            log.log(Level.INFO, "report found, attempting update");
+            Booking booking = new Booking();
+            booking.setBookingId(bookingid);
+
+            damageReport.setDamageTitle(damageTitle);
+            damageReport.setDamageDescription(damageDesc);
+            damageReport.setBookingid(booking);
+
+            em.merge(damageReport);
+            return Response.ok().build();
+
+        } else {
+            log.log(Level.INFO, "report not found, rejecting");
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        log.log(Level.INFO, "user not staff, rejected");
-        return Response.status(Response.Status.BAD_REQUEST).build();
     }
         
         
@@ -386,19 +372,15 @@ public class HMService {
     public Response addRoomType(@FormParam("roomtype") String roomtype, @FormParam("roomPrice") int RoomPrice) {
         User roomTypeAdder = this.getCurrentUser();
         log.log(Level.INFO, "checking if user is staff");
-        
-        if (roomTypeAdder.getRole().equals("STAFF")) {
-            log.log(Level.INFO, "user verified, attempting to add roomtype");
-            
-            RoomType roomType = new RoomType();
-            roomType.setRoomType(roomtype);
-            roomType.setRoomPrice(RoomPrice);
-            
-            em.persist(roomType);
-            return Response.ok().build();
-        } 
-        log.log(Level.INFO, "user not staff, rejected");
-        return Response.status(Response.Status.BAD_REQUEST).build();
+
+        log.log(Level.INFO, "user verified, attempting to add roomtype");
+
+        RoomType roomType = new RoomType();
+        roomType.setRoomType(roomtype);
+        roomType.setRoomPrice(RoomPrice);
+
+        em.persist(roomType);
+        return Response.ok().build();
         
     }
     
@@ -407,16 +389,10 @@ public class HMService {
     @Path("removeRoomType")
     public Response removeRoomType(@QueryParam("roomType") String roomType) {
         User roomTypeRemover = this.getCurrentUser();
-        log.log(Level.INFO, "checking if user is staff");
         
-        if (roomTypeRemover.getRole().equals("STAFF")) {
-            log.log(Level.INFO, "user verified, checking if thing exists");
-            em.remove(roomType);
-            return Response.ok().build();
-        }
-        
-        log.log(Level.INFO, "not verified, reject.");
-        return Response.status(Response.Status.BAD_REQUEST).build();
+        log.log(Level.INFO, "user verified, checking if thing exists");
+        em.remove(roomType);
+        return Response.ok().build();
     }
     
     //updateRoomType - PUT, staff, really only to change price lol
@@ -424,26 +400,21 @@ public class HMService {
     @Path("updateRoomType")
     public Response updateRoomType(@FormParam("roomType") String roomType, @FormParam("roomPrice") int roomPrice) {
         User roomTypeUpdater = this.getCurrentUser();
-        log.log(Level.INFO, "checking if user is staff");
         
-        if (roomTypeUpdater.getRole().equals("STAFF")) {
-            log.log(Level.INFO, "user verified as staff, attempting to find roomtype");
-            RoomType roomTypeUpdate = em.find(RoomType.class, roomType);
-            
-            if (roomTypeUpdate != null) {
-                log.log(Level.INFO, "roomtype found, updating");
-                roomTypeUpdate.setRoomPrice(roomPrice);
-                
-                em.merge(roomTypeUpdate);
-                return Response.ok().build();
-            } else {
-                log.log(Level.INFO, "roomtype not found, rejecting");
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            }
-            
+        log.log(Level.INFO, "user verified as staff, attempting to find roomtype");
+        RoomType roomTypeUpdate = em.find(RoomType.class, roomType);
+
+        if (roomTypeUpdate != null) {
+            log.log(Level.INFO, "roomtype found, updating");
+            roomTypeUpdate.setRoomPrice(roomPrice);
+
+            em.merge(roomTypeUpdate);
+            return Response.ok().build();
+        } else {
+            log.log(Level.INFO, "roomtype not found, rejecting");
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        log.log(Level.INFO, "user not staff,rejected");
-        return Response.status(Response.Status.BAD_REQUEST).build();
+            
     }
     //addImage. lol
     

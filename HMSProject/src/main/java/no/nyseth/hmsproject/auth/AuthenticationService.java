@@ -42,6 +42,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.InvalidKeyException;
 import javax.annotation.Resource;
+import javax.ejb.EJBContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -62,6 +63,8 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 @Stateless
 @Log
 public class AuthenticationService {
+    private static final String INSERT_USERGROUP = "INSERT INTO AUSERGROUP(NAME,USERNAME) VALUES (?,?)";
+    private static final String DELETE_USERGROUP = "DELETE FROM AUSERGROUP WHERE NAME = ? AND USERNAME = ?";
    
     @Inject
     KeyService keyService;
@@ -85,29 +88,35 @@ public class AuthenticationService {
     @Inject
     JsonWebToken principal;
     
+    @Context
+    SecurityContext sc1;
+    
+    @Resource
+    EJBContext securityContext;
+    
+    
     @POST
     @Path("create")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createUser(@FormParam("uid") String uid, @FormParam("pwd") String pwd, 
     @FormParam("firstName") String firstName, @FormParam("lastName") String lastName, 
     @FormParam("eml") String eml, @FormParam("phoneNumber") String phoneNumber) {
-        /*
         User user = em.find(User.class, uid);
         if (user != null) {
             log.log(Level.INFO, "user already exists {0}", uid);
             return Response.status(Response.Status.BAD_REQUEST).build();
         } else {
-        */
-            User user = new User();
+            user = new User();
             user.setUsername(uid);
             user.setPassword(hasher.generate(pwd.toCharArray()));
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(eml);
             user.setPhone(phoneNumber);
-            user.setRole("USER");
+            Group usergroup = em.find(Group.class, Group.USER);
+            user.getGroups().add(usergroup);
             return Response.ok(em.merge(user)).build();
-        //}
+        }
     }
 
     @GET
@@ -133,7 +142,7 @@ public class AuthenticationService {
         }
     }
     
-    private String issueToken(String name, Set<String> groups, HttpServletRequest request) {
+      private String issueToken(String name, Set<String> groups, HttpServletRequest request) {
         try {
             Date now = new Date();
             Date expiration = Date.from(LocalDateTime.now().plusDays(1L).atZone(ZoneId.systemDefault()).toInstant());
@@ -160,16 +169,54 @@ public class AuthenticationService {
     
     @GET
     @Path("currentuser")
-    //@RolesAllowed(value = {Group.USER})
+    @RolesAllowed(value = {Group.USER})
     @Produces(MediaType.APPLICATION_JSON)
     public User getCurrentUser() {
-        if (principal == null) {
+        /*if (principal == null) {
             System.out.println("sad");
         }
         
         System.out.println("---------");
         System.out.println(principal);
         System.out.println("---------");
+        
+        if (sc == null) {
+            System.out.println("shit very fuck");
+            System.out.println("shit very fuck");
+            System.out.println("shit very fuck");
+            System.out.println("shit very fuck");
+            System.out.println("shit very fuck");
+            System.out.println("shit very fuck");
+        }
+        //
+        String username = securityContext.getCallerPrincipal().getName();
+        System.out.println("---------");
+        System.out.println(username);
+        System.out.println("---------");
+        
+        System.out.println("---------");
+        System.out.println(sc.getUserPrincipal());
+        System.out.println(sc.getUserPrincipal().getName());
+        System.out.println("---------");
+        
+        
+        System.out.println("---------");
+        System.out.println("---------");
+        System.out.println("---------");
+        System.out.println(principal.getAudience());
+        System.out.println(principal.getClaimNames());
+        System.out.println(principal.getGroups());
+        System.out.println(principal.getIssuer());
+        System.out.println(principal.getName());
+        System.out.println(principal.getRawToken());
+        System.out.println(principal.getSubject());
+        System.out.println(principal.getTokenID());
+        System.out.println(principal);
+        System.out.println("---------");
+        System.out.println("---------");
+        System.out.println("---------");
+        */
+        
         return em.find(User.class, principal.getName());
     }
    

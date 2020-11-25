@@ -27,7 +27,7 @@ import static no.nyseth.hmsproject.resources.DatasourceProducer.JNDI_NAME;
         user = "hmsprojectuser",
         password = "SterktPassord303911",
         minPoolSize = 10,
-        maxPoolSize = 50)
+        maxPoolSize = 500)
 /**@Singleton
 @DataSourceDefinition(
     name = JNDI_NAME,

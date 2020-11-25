@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
  *
  * @author nyseth
  */
-@Entity(name = "AUSER")
+@Entity
 @Table(name = "AUSER")
 @Data 
 @AllArgsConstructor 
@@ -52,23 +52,22 @@ public class User implements Serializable {
     @Email
     String email;
     String phone;
-    String role;
     
-    /*
+    
     @ManyToMany
     @JoinTable(name="AUSERGROUP",
-            joinColumns = @JoinColumn(name="userid", referencedColumnName = "userid"),
+            joinColumns = @JoinColumn(name="username", referencedColumnName = "username"),
             inverseJoinColumns = @JoinColumn(name="name",referencedColumnName = "name"))
     List<Group> groups;
-    */
     
-    /*
+    
+    
     public List<Group> getGroups() {
         if(groups == null) {
             groups = new ArrayList<>();
         }
         return groups;
-    }*/
+    }
     
     
 }
