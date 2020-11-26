@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
  *
  * @author nyseth
  */
-@Entity(name = "Room")
+@Entity //(name = "Room")
 @Table(name = "Room")
 @Data
 @AllArgsConstructor
@@ -42,7 +42,7 @@ public class Room implements Serializable {
     private int roomNumber;
     private String roomStatus;
     
-    @OneToOne(fetch = FetchType.LAZY)
+    //@OneToOne(fetch = FetchType.LAZY)
     private RoomType roomType;
     
     //@OneToMany

@@ -3,6 +3,7 @@ package no.nyseth.hmsproject.hms;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ import no.nyseth.hmsproject.hms.RoomType;
  *
  * @author nyseth
  */
-@Entity(name = "Booking")
+@Entity //(name = "Booking")
 @Table(name = "Booking")
 @Data
 @AllArgsConstructor
@@ -37,21 +38,24 @@ public class Booking implements Serializable {
     //private Long id;
     
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int bookingId;
     
-    public Date bookingStartDate;
-    public Date bookingEndDate;
+    public LocalDate bookingStartDate;
+    public LocalDate bookingEndDate;
     public String bookingAccepted; //String or boolean?
     public String bookingStatus;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    public User username;
+    @JoinColumn(name="UserName")
+    public User user;
     
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="RoomType")
     public RoomType roomType;
     
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="RoomNumber")
     public Room room;
     
 }

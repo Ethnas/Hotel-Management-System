@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
  *
  * @author nyseth
  */
-@Entity(name = "DamageReport")
+@Entity//(name = "DamageReport")
 @Table(name = "DamageReport")
 @Data
 @AllArgsConstructor
@@ -41,7 +41,7 @@ public class DamageReport implements Serializable {
     public String DamageTitle;
     public String damageDescription;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    //@ManyToOne(fetch = FetchType.LAZY)
     public Booking bookingid;
     
 }

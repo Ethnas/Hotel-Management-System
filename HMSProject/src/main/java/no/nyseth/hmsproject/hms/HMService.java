@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -31,6 +33,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import lombok.extern.java.Log;
 import no.nyseth.hmsproject.auth.AuthenticationService;
+import no.nyseth.hmsproject.auth.Group;
 import no.nyseth.hmsproject.auth.User;
 import no.nyseth.hmsproject.hms.RoomType;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -61,6 +64,7 @@ public class HMService {
     JsonWebToken principal;
 
     //GETCURRENTUSER!
+    
     private User getCurrentUser() {
         System.out.println("ASDOKASDOKASODKASODKASDK = " + principal.getName());
         return em.find(User.class, principal.getName());
@@ -90,7 +94,7 @@ public class HMService {
     
     @POST
     @Path("addbooking")
-    //@RolesAllowed({Group.USER})
+    @RolesAllowed({Group.USER})
     public Response addBooking(@FormParam("bookingRoomType") String bookingRoomType, 
                 @FormParam("bookingStartDate") String bookingStartDate, 
                 @FormParam("bookingEndDate") String bookingEndDate) {
@@ -98,22 +102,30 @@ public class HMService {
         User booker = this.getCurrentUser();
         Booking bookingtbb = new Booking(); 
         
-        RoomType bookingType = new RoomType();
-        bookingType.setRoomType(bookingRoomType);
+        RoomType bookingType = em.find(RoomType.class, bookingRoomType);
         bookingtbb.setRoomType(bookingType);
+        
+        LocalDate dateStart = LocalDate.now();
+        LocalDate dateEnd = LocalDate.now();
         
         try {
             log.log(Level.INFO, "attempting to add date");
-            Date dateStart = dateParser(bookingStartDate);
-            Date dateEnd = dateParser(bookingEndDate);
-            bookingtbb.setBookingStartDate(dateStart);
-            bookingtbb.setBookingEndDate(dateEnd);
-            bookingtbb.setUsername(booker);
+            dateStart = dateParser(bookingStartDate);
+            dateEnd = dateParser(bookingEndDate);
+            
                 
         } catch(ParseException e) {
-            //TODO 
-            //LÆGG INN NOE
+            log.log(Level.INFO, "wrong when adding date");
+            e.printStackTrace();
         }
+        
+        bookingtbb.setBookingStartDate(dateStart);
+        bookingtbb.setBookingEndDate(dateEnd);
+        bookingtbb.setUser(booker);
+
+        //default values
+        bookingtbb.setBookingAccepted("false");
+        bookingtbb.setBookingStatus("inactive");
             
         log.log(Level.INFO, "added apps");
         em.persist(bookingtbb);
@@ -122,9 +134,10 @@ public class HMService {
     }
     
     
-    public Date dateParser(String bookingDate) throws ParseException {
+    public LocalDate dateParser(String bookingDate) throws ParseException {
         
-        Date date = new SimpleDateFormat("yyyy-MM--dd").parse(bookingDate);
+        //Date date = new SimpleDateFormat("yyyy-MM--dd").parse(bookingDate);
+        LocalDate date = LocalDate.parse(bookingDate/*, DateTimeFormatter.BASIC_ISO_DATE*/);
         
         return date;
     }
@@ -142,7 +155,7 @@ public class HMService {
      */
     @DELETE
     @Path("removebooking")
-    //@RolesAllowed({Group.USER})
+    @RolesAllowed({Group.USER})
     public Response removeBooking(@QueryParam("bookingid") int bookingid) {
         log.log(Level.INFO, "checking for booking -1", bookingid);
         Booking bookingtbd = em.find(Booking.class, bookingid);
@@ -150,7 +163,7 @@ public class HMService {
             log.log(Level.INFO, "checking if existing", bookingid);
             User bookingDeleter = this.getCurrentUser();
             
-            if (bookingtbd.getUsername().equals(bookingDeleter)) {
+            if (bookingtbd.getUser().equals(bookingDeleter)) {
                 log.log(Level.INFO, "user verified, moving onto deletion", bookingid);
                 em.remove(bookingtbd);
                 return Response.ok().build();
@@ -184,7 +197,7 @@ public class HMService {
     
     @PUT
     @Path("updatebooking")
-    //@RolesAllowed({Group.USER})
+    @RolesAllowed({Group.USER})
     public Response updateBooking(@FormParam("bookingid") int bookingid, 
             @FormParam("bookingRoomType") String bookingRoomType, 
             @FormParam("bookingStartDate") String bookingStartDate,
@@ -197,15 +210,15 @@ public class HMService {
             log.log(Level.INFO, "Booking exists, moving to checking if correct user");
             User bookingUpdater = this.getCurrentUser();
             
-             if (bookingtbu.getUsername().equals(bookingUpdater)) {
+             if (bookingtbu.getUser().equals(bookingUpdater)) {
                  
                 RoomType bookingType = new RoomType();
                 bookingType.setRoomType(bookingRoomType);
                 bookingtbu.setRoomType(bookingType);
 
                 try {
-                    Date dateStart = dateParser(bookingStartDate);
-                    Date dateEnd = dateParser(bookingEndDate);
+                    LocalDate dateStart = dateParser(bookingStartDate);
+                    LocalDate dateEnd = dateParser(bookingEndDate);
                     bookingtbu.setBookingStartDate(dateStart);
                     bookingtbu.setBookingEndDate(dateEnd);
 
@@ -229,9 +242,9 @@ public class HMService {
     
     @PUT
     @Path("staff/acceptBooking")
-    //@RolesAllowed({Group.STAFF})
+    @RolesAllowed({Group.STAFF})
     public Response staffBookingAccept(@QueryParam("bookingid") int bookingid, 
-            @QueryParam("bookingStatus") Boolean bookingStatus, 
+            @QueryParam("bookingStatus") String bookingStatus, 
             @Context SecurityContext sc) {
         log.log(Level.INFO, "attempting to check if user OK", bookingid);
         log.log(Level.INFO, "not verified as staff");
@@ -293,6 +306,7 @@ public class HMService {
      */
     @POST
     @Path("addDamageReport")
+    @RolesAllowed({Group.STAFF})
     public Response addDamageReport(@FormParam("damageTitle") String damageTitle,
             @FormParam("damageDesc") String damageDesc, @FormParam("bookingid") int bookingid) {
         User reportAdder = this.getCurrentUser();
@@ -312,6 +326,7 @@ public class HMService {
     //removeDamageReport - DELETE, kun ansatt gruppe
     @DELETE
     @Path("removeDamageReport")
+    @RolesAllowed({Group.STAFF})
     public Response removeDamageReport(@QueryParam("reportId") int reportId) {
         User reportRemover = this.getCurrentUser();
         log.log(Level.INFO, "checking if user is staff");
@@ -327,6 +342,7 @@ public class HMService {
     //updateDamageReport - PUT, kun ansatt gruppe
     @PUT
     @Path("updateDamageReport")
+    @RolesAllowed({Group.STAFF})
     public Response updateDamageReport(@FormParam("reportId") int reportId,
             @FormParam("damageTitle") String damageTitle,
             @FormParam("damageDesc") String damageDesc, 
@@ -369,6 +385,7 @@ public class HMService {
         //romtype (small, medium, large etc.), pris per dag.
     @POST
     @Path("addRoomType")
+    @RolesAllowed({Group.STAFF})
     public Response addRoomType(@FormParam("roomtype") String roomtype, @FormParam("roomPrice") int RoomPrice) {
         User roomTypeAdder = this.getCurrentUser();
         log.log(Level.INFO, "checking if user is staff");
@@ -387,6 +404,7 @@ public class HMService {
     //removeRoomType - DELETE, staff
     @DELETE
     @Path("removeRoomType")
+    @RolesAllowed({Group.STAFF})
     public Response removeRoomType(@QueryParam("roomType") String roomType) {
         User roomTypeRemover = this.getCurrentUser();
         
@@ -398,6 +416,7 @@ public class HMService {
     //updateRoomType - PUT, staff, really only to change price lol
     @PUT
     @Path("updateRoomType")
+    @RolesAllowed({Group.STAFF})
     public Response updateRoomType(@FormParam("roomType") String roomType, @FormParam("roomPrice") int roomPrice) {
         User roomTypeUpdater = this.getCurrentUser();
         
