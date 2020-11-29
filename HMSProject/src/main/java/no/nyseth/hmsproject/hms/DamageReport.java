@@ -41,7 +41,8 @@ public class DamageReport implements Serializable {
     public String DamageTitle;
     public String damageDescription;
     
-    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="bookingid")
     public Booking bookingid;
     
 }

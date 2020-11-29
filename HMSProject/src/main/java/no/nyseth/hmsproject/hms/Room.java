@@ -42,7 +42,8 @@ public class Room implements Serializable {
     private int roomNumber;
     private String roomStatus;
     
-    //@OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="RoomType")
     private RoomType roomType;
     
     //@OneToMany

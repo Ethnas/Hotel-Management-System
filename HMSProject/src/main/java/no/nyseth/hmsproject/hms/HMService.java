@@ -212,21 +212,26 @@ public class HMService {
             
              if (bookingtbu.getUser().equals(bookingUpdater)) {
                  
-                RoomType bookingType = new RoomType();
-                bookingType.setRoomType(bookingRoomType);
-                bookingtbu.setRoomType(bookingType);
+                RoomType bookingType = em.find(RoomType.class, bookingRoomType);
+                bookingtbu.setRoomType(bookingType);;
+                
+                LocalDate dateStart = LocalDate.now();
+                LocalDate dateEnd = LocalDate.now();
 
                 try {
-                    LocalDate dateStart = dateParser(bookingStartDate);
-                    LocalDate dateEnd = dateParser(bookingEndDate);
-                    bookingtbu.setBookingStartDate(dateStart);
-                    bookingtbu.setBookingEndDate(dateEnd);
+                    log.log(Level.INFO, "attempting to add date");
+                    dateStart = dateParser(bookingStartDate);
+                    dateEnd = dateParser(bookingEndDate);
+
 
                 } catch(ParseException e) {
-                    //TODO 
-                    //LÆGG INN NOE
+                    log.log(Level.INFO, "wrong when adding date");
+                    e.printStackTrace();
                 }
-                 return Response.ok().build();
+
+                bookingtbu.setBookingStartDate(dateStart);
+                bookingtbu.setBookingEndDate(dateEnd);
+                return Response.ok().build();
                  
              } else {
                 log.log(Level.INFO, "user not verified, cancelling");
@@ -241,26 +246,33 @@ public class HMService {
     
     
     @PUT
-    @Path("staff/acceptBooking")
+    @Path("staff/updateBookingStaff")
     @RolesAllowed({Group.STAFF})
-    public Response staffBookingAccept(@QueryParam("bookingid") int bookingid, 
-            @QueryParam("bookingStatus") String bookingStatus, 
+    public Response staffBookingAccept(@QueryParam("bookingid") int bookingid, @QueryParam("bookingStatus") String bookingStatus, 
+            @QueryParam("bookingAccepted") String bookingAccepted, @QueryParam("RoomNumber") int RoomNumber,
             @Context SecurityContext sc) {
+        
+        log.log(Level.INFO, "checking if booking exists");
+        Booking bookingtba = em.find(Booking.class, bookingid);
+        
+        if (bookingtba != null) {
+            log.log(Level.INFO, "booking exists, moving onto update");
+            
+            bookingtba.setBookingStatus(bookingStatus);
+            bookingtba.setBookingAccepted(bookingAccepted);
+            
+            Room roomN = em.find(Room.class, RoomNumber);
+            bookingtba.setRoom(roomN);
+            
+        }
+        
+        
+        
+        
         log.log(Level.INFO, "attempting to check if user OK", bookingid);
-        log.log(Level.INFO, "not verified as staff");
         return Response.ok().build();
     }
     
-        //getAllBookings(all)
-            //@GET
-            //Path("whatever")
-            //@RolesAllowed({Group.STAFF]})//Kun ansatte
-            //Produces(MediaType.APPLICATION_JSON)
-            /* 
-            public List<Booking> getBookings() {
-                return em.createNativeQuery("SELECT * FROM Bookings", Booking.class).getResultList();
-            }
-            */
     /**
      * 
      * @return list of all bookings
@@ -273,7 +285,6 @@ public class HMService {
         return em.createNativeQuery("SELECT * FROM Booking", Booking.class).getResultList();
     }
     
-    //getBooking(specific)
     /**
      * 
      * @param bookingid bookingid of booking to retrieve
@@ -288,10 +299,6 @@ public class HMService {
         return Response.ok(booking).build();
     }
     
-    //
-    //DamageReport
-    //
-    //addDamageReport - POST, kun ansatt gruppe
     /**
      * 
      * @param damageDesc description of damage
@@ -313,12 +320,14 @@ public class HMService {
         log.log(Level.INFO, "checking if user is staff");
         log.log(Level.INFO, "user verified as staff, attempting to add report");
         DamageReport damageReport = new DamageReport();
-        Booking booking = new Booking();
-        booking.setBookingId(bookingid);
+        
+        Booking booking = em.find(Booking.class, bookingid);
 
         damageReport.setDamageTitle(damageTitle);
         damageReport.setDamageDescription(damageDesc);
         damageReport.setBookingid(booking);
+        
+        em.persist(damageReport);
         //Photo things
         return Response.ok().build(); 
     }
@@ -347,14 +356,15 @@ public class HMService {
             @FormParam("damageTitle") String damageTitle,
             @FormParam("damageDesc") String damageDesc, 
             @FormParam("bookingid") int bookingid) {
+        
         User reportAdder = this.getCurrentUser();
         log.log(Level.INFO, "user verified as staff, attempting to find report");
-
         DamageReport damageReport = em.find(DamageReport.class, reportId);
+        
         if (damageReport != null) {
             log.log(Level.INFO, "report found, attempting update");
-            Booking booking = new Booking();
-            booking.setBookingId(bookingid);
+            
+            Booking booking = em.find(Booking.class, bookingid);
 
             damageReport.setDamageTitle(damageTitle);
             damageReport.setDamageDescription(damageDesc);
@@ -447,5 +457,14 @@ public class HMService {
         log.log(Level.INFO, "attempting to retrieve all rooms");
         return em.createNativeQuery("SELECT * FROM Room", Room.class).getResultList();
     }
-
+    
+    //Retrieves all roomtypes
+    @GET
+    @Path("getRoomTypes")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<RoomType> getAllRoomTypes() {
+        log.log(Level.INFO, "attempting to retrieve all rooms");
+        return em.createNativeQuery("SELECT * FROM RoomType", Room.class).getResultList();
+    }
+    
 }
