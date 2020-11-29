@@ -21,7 +21,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.Api;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +47,7 @@ public class FragmentCreate extends Fragment {
     TextView uidV;
     TextView firstNameV;
     TextView lastNameV;
+    TextView tlfV;
     TextView pwdV;
 
     @Override
@@ -56,21 +64,60 @@ public class FragmentCreate extends Fragment {
         uidV = view.findViewById(R.id.create_uid);
         firstNameV = view.findViewById(R.id.create_firstname);
         lastNameV = view.findViewById(R.id.create_lastname);
+        tlfV = view.findViewById(R.id.create_tlf);
         pwdV = view.findViewById(R.id.create_pwd);
         Button createV = (Button) view.findViewById(R.id.create_submit);
 
         createV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.create_submit:
-                        createUser();
-                        break;
-                }
+                createUser();
             }
         });
 
         return view;
+    }
+
+    public void volleyPost(){
+        String postUrl = ApiLinks.CREATE_URL;
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+        JSONObject createMap = new JSONObject();
+        try {
+            createMap.put("eml", emlV.getText().toString());
+            createMap.put("uid", uidV.getText().toString());
+            createMap.put("firstName", firstNameV.getText().toString());
+            createMap.put("lastName", lastNameV.getText().toString());
+            createMap.put("phoneNumber", tlfV.getText().toString());
+            createMap.put("pwd", pwdV.getText().toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, createMap, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_LONG).show();
+                System.out.println(error);
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+        };
+
+        System.out.println("Request: " + jsonObjectRequest);
+        System.out.println("Hashmap: " + createMap);
+        requestQueue.add(jsonObjectRequest);
+
     }
 
     private void createUser() {
@@ -81,40 +128,52 @@ public class FragmentCreate extends Fragment {
         createMap.put("uid", uidV.getText().toString());
         createMap.put("firstName", firstNameV.getText().toString());
         createMap.put("lastName", lastNameV.getText().toString());
+        createMap.put("phoneNumber", tlfV.getText().toString());
         createMap.put("pwd", pwdV.getText().toString());
 
         Context context = getActivity();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST, ApiLinks.CREATE_URL,
+                response -> {
+                    try {
+                        JSONObject obj = new JSONObject(response);
 
-        //Create request
-        GsonRequest<User> userGsonRequest = new GsonRequest(
-                ApiLinks.CREATE_URL, Request.Method.POST, User.class, new HashMap<String, String>(), new Response.Listener<User>() {
-            @Override
-            public void onResponse(User response) {
-                LoggedUser.getInstance().setUser(response);
-                Navigation.findNavController(getView()).popBackStack();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_LONG).show();
-                System.out.println(error);
-            }
-        }
+                        if (!obj.getBoolean("error")) {
+                            JSONObject jsonObject = obj.getJSONObject("user");
+                            User user = new User(
+                                    jsonObject.getString("eml"),
+                                    jsonObject.getString("uid"),
+                                    jsonObject.getString("firstName"),
+                                    jsonObject.getString("lastName"),
+                                    jsonObject.getInt("phoneNumber"),
+                                    jsonObject.getString("pwd")
+                            );
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> {
+                    System.out.println("Error: " + error);
+                }
         ) {
             @Override
-            public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
-            }
-
-            @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                final HashMap<String, String> createMap = new HashMap<>();
+                createMap.put("eml", emlV.getText().toString());
+                createMap.put("uid", uidV.getText().toString());
+                createMap.put("firstName", firstNameV.getText().toString());
+                createMap.put("lastName", lastNameV.getText().toString());
+                createMap.put("phoneNumber", tlfV.getText().toString());
+                createMap.put("pwd", pwdV.getText().toString());
                 return createMap;
             }
         };
 
-        requestQueue.add(userGsonRequest);
-
+        requestQueue.add(stringRequest);
+        System.out.println("MAp: " + createMap);
+        System.out.println("SR " + stringRequest);
     }
 }

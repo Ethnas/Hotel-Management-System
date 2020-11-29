@@ -9,6 +9,9 @@ public class User {
     String lastname;
     String jwt;
 
+    public User(String eml, String uid, String firstName, String lastName, int phoneNumber, String pwd) {
+    }
+
     public String getUserid() {
         return userid;
     }

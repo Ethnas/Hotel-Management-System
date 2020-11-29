@@ -7,20 +7,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import no.ntnu.hmsproject.R;
 import no.ntnu.hmsproject.domain.LoggedUser;
+import no.ntnu.hmsproject.network.ApiLinks;
 
 
 public class FragmentLogin extends Fragment {
@@ -29,6 +38,8 @@ public class FragmentLogin extends Fragment {
 
     private String token;
     LoggedUser loggedUser = new LoggedUser();
+
+    public FragmentLogin() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,25 +72,77 @@ public class FragmentLogin extends Fragment {
         submitView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context = getActivity();
-                RequestQueue requestQueue = Volley.newRequestQueue(context);
-                String url = "http://localhost:8080/HMSProject/api/auth/login" + "?uid=" + uidView.getText() + "?pwd=" + pwdView.getText();
+                loginUser();
+            }
+        });
 
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        testKnapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Trykket", Toast.LENGTH_LONG).show();
+                testLogin();
+            }
+        });
+
+        return view;
+    }
+
+    public void loginUser() {
+        Context context = getActivity();
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        String url = "http://10.22.184.117:8080/HMSProject/api/auth/login" + "?uid=" + uidView.getText() + "&pwd=" + pwdView.getText();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     LoggedUser.getInstance().setJwt(response);
                     LoggedUser.getInstance().setLoggedIn(true);
+
+                    System.out.println(response);
 
                     System.out.println("Things went smooth");
 
 
                 }, error -> {
-                    System.out.println("Something went wrong");
-                });
-                requestQueue.add(stringRequest);
-            }
+            System.out.println(error);
+            System.out.println("Something went wrong");
         });
 
-        return view;
+        System.out.println(stringRequest);
+        requestQueue.add(stringRequest);
+    }
+
+    public void testLogin() {
+        Context context = getActivity();
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiLinks.CURRENT_USER_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("nicerdicer");
+                System.out.println(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("not nice");
+                System.out.println(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<String, String>();
+
+                String authToken = "Bearer " + LoggedUser.getInstance().getJwt();
+                headers.put("Authorization", authToken);
+
+                System.out.println("(Inside call) Token: " + LoggedUser.getInstance().getJwt());
+                return headers;
+            }
+        };
+
+        System.out.println("Token: " + LoggedUser.getInstance().getJwt());
+        requestQueue.add(stringRequest);
+        System.out.println(stringRequest);
     }
 }

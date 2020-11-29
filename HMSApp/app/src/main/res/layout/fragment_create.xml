@@ -14,79 +14,90 @@
 
 
     <EditText
-        android:id="@+id/create_uid"
+        android:id="@+id/create_eml"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
         android:autofillHints="@string/eml"
         android:hint="@string/eml"
         android:inputType="textShortMessage"
         android:selectAllOnFocus="true"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/create_eml"
+        android:id="@+id/create_uid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
         android:autofillHints="@string/uid"
         android:hint="@string/uid"
         android:inputType="textShortMessage"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/create_eml" />
 
     <EditText
         android:id="@+id/create_firstname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
         android:autofillHints="@string/firstname"
         android:hint="@string/firstname"
         android:inputType="textShortMessage"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/create_uid" />
 
     <EditText
         android:id="@+id/create_lastname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="328dp"
         android:autofillHints="@string/lastname"
         android:hint="@string/lastname"
         android:inputType="textShortMessage"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/create_firstname" />
+
+    <EditText
+        android:id="@+id/create_tlf"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/tlf"
+        android:hint="@string/tlf"
+        android:inputType="textShortMessage"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_lastname" />
 
     <EditText
         android:id="@+id/create_pwd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="392dp"
         android:autofillHints="@string/pwd"
         android:hint="@string/pwd"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/create_tlf" />
+
+
 
     <Button
         android:id="@+id/create_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="460dp"
         android:text="@string/create_submit"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/create_pwd"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
