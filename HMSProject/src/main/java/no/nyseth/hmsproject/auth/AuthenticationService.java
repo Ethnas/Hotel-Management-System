@@ -169,7 +169,7 @@ public class AuthenticationService {
     
     @GET
     @Path("currentuser")
-    @RolesAllowed(value = {Group.USER})
+    @RolesAllowed({Group.USER, Group.STAFF})
     @Produces(MediaType.APPLICATION_JSON)
     public User getCurrentUser() {
         /*if (principal == null) {

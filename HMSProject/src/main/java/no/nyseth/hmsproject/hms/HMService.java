@@ -9,7 +9,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 import javax.annotation.security.DeclareRoles;
@@ -30,6 +33,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.SecurityContext;
 import lombok.extern.java.Log;
 import no.nyseth.hmsproject.auth.AuthenticationService;
@@ -62,6 +66,10 @@ public class HMService {
     
     @Inject
     JsonWebToken principal;
+    
+    @Inject
+    @ConfigProperty(name = "photo.storage.path", defaultValue = "images")
+    String photoPath;
 
     //GETCURRENTUSER!
     
@@ -467,4 +475,69 @@ public class HMService {
         return em.createNativeQuery("SELECT * FROM RoomType", Room.class).getResultList();
     }
     
+    
+    @POST
+    @Path("testimage")
+    @RolesAllowed({Group.STAFF})
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response testImage(FormDataMultiPart images) {
+        ResponseBuilder resp;
+        resp = parseImage(images);
+        return resp.build();
+    }
+    
+    private ResponseBuilder parseImage(FormDataMultiPart images) {
+        ResponseBuilder resp;
+        try {
+            Map<String, List<FormDataBodyPart>> fs = images.getFields();
+            Set<String> set = fs.keySet();
+            Iterator<String> it = set.iterator();
+            List<FormDataBodyPart> itemImages = null;
+            while (it.hasNext()) {
+                String s = it.next();
+                itemImages = images.getFields(s);
+            }
+            System.out.println("checking for photo");
+            if (itemImages != null) {
+                for (FormDataBodyPart imageParts : itemImages) {
+                    InputStream is = imageParts.getEntityAs(InputStream.class);
+                    ContentDisposition meta = imageParts.getContentDisposition();
+                    //String pid = UUID.randomUUID().toString();
+                    byte[] imageBytes = new byte[(int) is.available()];
+                    is.read(imageBytes);
+                    System.out.println("test");
+                    
+                    DamageImage itemImg = new DamageImage();
+                    //itemImg.setImageId(pid);
+                    itemImg.setImage(imageBytes);
+                    itemImg.setMimeType(meta.getType());
+                    itemImg.setFilesize(meta.getSize());
+                    DamageReport dr = em.find(DamageReport.class, 101);
+                    itemImg.setReport(dr);
+                    System.out.println("Adding photo");
+                    em.persist(itemImg);
+                }
+                
+            }
+            resp = Response.ok();
+        } catch(Exception e) {
+            System.out.println("error adding photo");
+            e.printStackTrace();
+            resp = Response.serverError();
+        }
+        return resp;
+    }
+    
+    private void printFields(FormDataMultiPart images) {
+        Map<String, List<FormDataBodyPart>> fs = images.getFields();
+        Set<String> set = fs.keySet();
+        Iterator<String> it = set.iterator();
+        int i = 0;
+        while(it.hasNext()) {
+            String s = it.next();
+            System.out.println("Field " + i + " : " + s);
+            i++;
+        }
+    }
+
 }
