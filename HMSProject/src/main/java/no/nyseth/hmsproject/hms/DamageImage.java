@@ -6,6 +6,7 @@
 package no.nyseth.hmsproject.hms;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,7 +39,7 @@ public class DamageImage {
     private long filesize;
     
     @Lob
-    @Column(name="Image")
+    @Column(name="Image", columnDefinition="bytea")
     private byte[] image;
     
     @ManyToOne

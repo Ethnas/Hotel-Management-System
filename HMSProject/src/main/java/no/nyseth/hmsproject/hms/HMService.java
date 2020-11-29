@@ -1,23 +1,21 @@
 package no.nyseth.hmsproject.hms;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 import java.util.logging.Level;
-import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -39,12 +37,12 @@ import lombok.extern.java.Log;
 import no.nyseth.hmsproject.auth.AuthenticationService;
 import no.nyseth.hmsproject.auth.Group;
 import no.nyseth.hmsproject.auth.User;
-import no.nyseth.hmsproject.hms.RoomType;
-import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.jwt.JsonWebToken;
-import org.glassfish.jersey.media.multipart.ContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
         
 @Path("hotel")
@@ -483,35 +481,27 @@ public class HMService {
     public Response testImage(FormDataMultiPart images) {
         ResponseBuilder resp;
         resp = parseImage(images);
+        //saveImage();
         return resp.build();
     }
     
     private ResponseBuilder parseImage(FormDataMultiPart images) {
         ResponseBuilder resp;
         try {
-            Map<String, List<FormDataBodyPart>> fs = images.getFields();
-            Set<String> set = fs.keySet();
-            Iterator<String> it = set.iterator();
-            List<FormDataBodyPart> itemImages = null;
-            while (it.hasNext()) {
-                String s = it.next();
-                itemImages = images.getFields(s);
-            }
             System.out.println("checking for photo");
+            List<FormDataBodyPart> itemImages = images.getFields("images");
             if (itemImages != null) {
                 for (FormDataBodyPart imageParts : itemImages) {
-                    InputStream is = imageParts.getEntityAs(InputStream.class);
-                    ContentDisposition meta = imageParts.getContentDisposition();
-                    //String pid = UUID.randomUUID().toString();
-                    byte[] imageBytes = new byte[(int) is.available()];
-                    is.read(imageBytes);
+                    InputStream is = imageParts.getValueAs(InputStream.class);
+                    FormDataContentDisposition meta = imageParts.getFormDataContentDisposition();
+                    System.out.println("imagePrts filename: " + meta.getFileName());
+                    byte[] imageBytes = IOUtils.toByteArray(is);
                     System.out.println("test");
                     
                     DamageImage itemImg = new DamageImage();
-                    //itemImg.setImageId(pid);
                     itemImg.setImage(imageBytes);
                     itemImg.setMimeType(meta.getType());
-                    itemImg.setFilesize(meta.getSize());
+                    itemImg.setFilesize(imageBytes.length);
                     DamageReport dr = em.find(DamageReport.class, 101);
                     itemImg.setReport(dr);
                     System.out.println("Adding photo");
@@ -528,16 +518,17 @@ public class HMService {
         return resp;
     }
     
-    private void printFields(FormDataMultiPart images) {
-        Map<String, List<FormDataBodyPart>> fs = images.getFields();
-        Set<String> set = fs.keySet();
-        Iterator<String> it = set.iterator();
-        int i = 0;
-        while(it.hasNext()) {
-            String s = it.next();
-            System.out.println("Field " + i + " : " + s);
-            i++;
-        }
+    private void saveImage() {
+        DamageImage image = em.find(DamageImage.class, 552);
+        byte[] data = image.getImage();
+      try{
+      ByteArrayInputStream bis = new ByteArrayInputStream(data);
+      BufferedImage bImage2 = ImageIO.read(bis);
+      ImageIO.write(bImage2, "png", new File("C:\\Users\\Erlend\\Desktop\\output.png") );
+      System.out.println("image created");
+      }catch(Exception e) {
+          
+      }
     }
 
 }
