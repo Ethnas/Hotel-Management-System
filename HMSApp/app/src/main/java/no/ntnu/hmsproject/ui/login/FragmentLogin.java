@@ -63,7 +63,7 @@ public class FragmentLogin extends Fragment {
             public void onClick(View view) {
                 Context context = getActivity();
                 RequestQueue requestQueue = Volley.newRequestQueue(context);
-                String url = "http://linkgoeshere:8080/HMSProject/api/auth/login" + "?uid=" + uidView.getText() + "?pwd=" + pwdView.getText();
+                String url = "http://localhost:8080/HMSProject/api/auth/login" + "?uid=" + uidView.getText() + "?pwd=" + pwdView.getText();
 
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {

@@ -22,6 +22,13 @@
     <string name="firstname">Fornavn</string>
     <string name="lastname">Etternavn</string>
 
+    <string name="userTitle">Registrer eller logg inn</string>
+    <string name="userDesc">Trykk nedenfor for å logge inn eller opprette en bruker</string>
+
+    <string name="l_m_nav_create">Opprett bruker</string>
+    <string name="l_m_nav_login">Logg inn</string>
+    <string name="l_m_nav_login_google">Logg inn med Google</string>
+
     <!-- knapper -->
     <string name="create_submit">Registrer</string>
     <string name="login_submit">Logg inn</string>

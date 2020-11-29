@@ -9,7 +9,14 @@
         android:id="@+id/nav_home"
         android:name="no.ntnu.hmsproject.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_login_main"
+            app:destination="@id/nav_login_main" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_booking"
+            app:destination="@id/nav_booking" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -49,5 +56,29 @@
         android:id="@+id/nav_booking_add"
         android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingAdd"
         tools:layout="@layout/fragment_booking_add"/>
+
+    <fragment
+        android:id="@+id/nav_login_main"
+        android:name="no.ntnu.hmsproject.ui.login.FragmentLoginMain"
+        tools:layout="@layout/fragment_login_main">
+        <action
+            android:id="@+id/action_nav_login_main_to_nav_login"
+            app:destination="@id/nav_login" />
+        <action
+            android:id="@+id/action_nav_login_main_to_nav_create"
+            app:destination="@id/nav_create" />
+        <action
+            android:id="@+id/action_nav_login_main_to_activityLoginGoogle"
+            app:destination="@id/activityLoginGoogle" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_create"
+        android:name="no.ntnu.hmsproject.ui.login.FragmentCreate"
+        tools:layout="@layout/fragment_create">
+        <action
+            android:id="@+id/action_nav_to_login"
+            app:destination="@id/nav_login"/>
+    </fragment>
 
 </navigation>
