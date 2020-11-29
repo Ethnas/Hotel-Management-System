@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
     tools:context=".ui.hmsservice.damagereport.FragmentDamReportAdd">
 
     <TextView
@@ -19,8 +20,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="80dp"
         android:text="Skaderapport"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="1"
+        android:layout_marginTop="80dp"
         />
 
     <TextView
@@ -37,6 +45,7 @@
         android:id="@+id/add_damrep_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
 
         android:hint="@string/damageTitle"
         android:autofillHints="@string/damageTitle"
