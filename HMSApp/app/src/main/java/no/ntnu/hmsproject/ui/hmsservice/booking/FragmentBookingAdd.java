@@ -1,5 +1,6 @@
 package no.ntnu.hmsproject.ui.hmsservice.booking;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,20 +11,38 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import no.ntnu.hmsproject.R;
+import no.ntnu.hmsproject.domain.Booking;
+import no.ntnu.hmsproject.domain.LoggedUser;
+import no.ntnu.hmsproject.network.ApiLinks;
 
 
 public class FragmentBookingAdd extends Fragment {
+    TextView roomTypeV;
+    TextView startDateV;
+    TextView endDateV;
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -38,6 +57,105 @@ public class FragmentBookingAdd extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booking_add, container, false);
 
+        roomTypeV = view.findViewById(R.id.addBooking_roomtype);
+        startDateV = view.findViewById(R.id.addBooking_startdate);
+        endDateV = view.findViewById(R.id.addBooking_enddate);
+
+        Button addbookingV = (Button) view.findViewById(R.id.addbooking_submit);
+
+        addbookingV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addBooking();
+            }
+        });
+
         return view;
+    }
+
+    private void addBooking() {
+        final HashMap<String, String> addBookingMap = new HashMap<>();
+        addBookingMap.put("bookingRoomType", roomTypeV.getText().toString());
+        addBookingMap.put("bookingStartDate", startDateV.getText().toString());
+        addBookingMap.put("bookingEndDate", endDateV.getText().toString());
+
+        String roomType = roomTypeV.getText().toString();
+        String startDate = startDateV.getText().toString();
+        String endDate = endDateV.getText().toString();
+
+        if (roomType.isEmpty()) {
+            roomTypeV.setError("Ingen romtype fylt inn");
+            roomTypeV.requestFocus();
+            return;
+        }
+
+        if (startDate.isEmpty()) {
+            startDateV.setError("Ingen startsdato fylt inn");
+            startDateV.requestFocus();
+            return;
+        }
+
+        if (endDate.isEmpty()) {
+            endDateV.setError("Ingen sluttdato fylt inn");
+            endDateV.requestFocus();
+            return;
+        }
+
+        Context context = getActivity();
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST, ApiLinks.ADD_BOOKING_URL,
+                response -> {
+                    try {
+                        JSONObject obj = new JSONObject(response);
+
+                        if (!obj.getBoolean("error")) {
+                            JSONObject jsonObject = obj.getJSONObject("booking");
+                            Booking booking = new Booking(
+                                    jsonObject.getString("bookingRoomType"),
+                                    jsonObject.getString("bookingStartDate"),
+                                    jsonObject.getString("bookingEndDate")
+                            );
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                },
+                error -> {
+                    Toast.makeText(getActivity(), "Soemthing wenth wrong ", Toast.LENGTH_LONG).show();
+                    System.out.println("Something went wrong");
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                final HashMap<String, String> addBookingMap = new HashMap<>();
+
+
+
+                addBookingMap.put("bookingRoomType", roomType);
+                addBookingMap.put("bookingStartDate", startDate);
+                addBookingMap.put("bookingEndDate", endDate);
+                return addBookingMap;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<String, String>();
+
+                String authToken = "Bearer " + LoggedUser.getInstance().getJwt();
+                headers.put("Authorization", authToken);
+
+                System.out.println("(Inside call) Token: " + LoggedUser.getInstance().getJwt());
+                return headers;
+            }
+
+        };
+
+        requestQueue.add(stringRequest);
+        System.out.println("Map: " + addBookingMap);
+        System.out.println("SR: " + stringRequest);
     }
 }

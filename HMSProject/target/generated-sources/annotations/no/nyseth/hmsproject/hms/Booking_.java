@@ -8,7 +8,11 @@ import no.nyseth.hmsproject.auth.User;
 import no.nyseth.hmsproject.hms.Room;
 import no.nyseth.hmsproject.hms.RoomType;
 
+<<<<<<< Updated upstream
 @Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-30T10:18:46")
+=======
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-11-30T11:57:24")
+>>>>>>> Stashed changes
 @StaticMetamodel(Booking.class)
 public class Booking_ { 
 

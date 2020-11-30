@@ -13,6 +13,10 @@ public class ApiLinks {
     public static final String CURRENT_USER_URL = BASE_URL + "auth/currentuser";
 
 
+    //Service
+    public static final String ADD_BOOKING_URL = BASE_URL + "hotel/addbooking";
+
+
 
     public static final Response.ErrorListener dumdumListener = new Response.ErrorListener() {
         @Override

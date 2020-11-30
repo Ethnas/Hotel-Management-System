@@ -78,6 +78,7 @@ public class FragmentCreate extends Fragment {
         return view;
     }
 
+    /*
     public void volleyPost(){
         String postUrl = ApiLinks.CREATE_URL;
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
@@ -119,6 +120,8 @@ public class FragmentCreate extends Fragment {
         requestQueue.add(jsonObjectRequest);
 
     }
+
+     */
 
     private void createUser() {
 
