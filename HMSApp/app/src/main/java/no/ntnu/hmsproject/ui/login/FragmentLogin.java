@@ -80,7 +80,7 @@ public class FragmentLogin extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Trykket", Toast.LENGTH_LONG).show();
-                testLogin();
+                testMore();
             }
         });
 
@@ -144,5 +144,8 @@ public class FragmentLogin extends Fragment {
         System.out.println("Token: " + LoggedUser.getInstance().getJwt());
         requestQueue.add(stringRequest);
         System.out.println(stringRequest);
+    }
+
+    public void testMore() {
     }
 }

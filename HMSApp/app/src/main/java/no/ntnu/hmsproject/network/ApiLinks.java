@@ -18,6 +18,7 @@ public class ApiLinks {
     public static final String ADD_BOOKING_URL = BASE_URL + "hotel/addbooking";
 
     //Damage Report
+    public static final String GET_ALL_DAMAGE_REPORT_URL = BASE_URL + "hotel/getDamageReports";
     public static final String ADD_DAMAGE_REPORT_URL = BASE_URL + "hotel/addDamageReport";
 
     //Room Type
