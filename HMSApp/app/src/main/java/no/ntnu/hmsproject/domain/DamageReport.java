@@ -5,6 +5,10 @@ public class DamageReport {
     String damageDesc;
     String bookingId;
 
+
+
+    String damageId;
+
     public DamageReport(String damageTitle, String bookingid, String damageDesc) {
     }
 
@@ -30,5 +34,13 @@ public class DamageReport {
 
     public void setBookingId(String bookingId) {
         this.bookingId = bookingId;
+    }
+
+    public String getDamageId() {
+        return damageId;
+    }
+
+    public void setDamageId(String damageId) {
+        this.damageId = damageId;
     }
 }

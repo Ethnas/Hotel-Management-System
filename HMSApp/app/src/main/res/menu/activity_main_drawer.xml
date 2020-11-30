@@ -21,5 +21,9 @@
             android:id="@+id/nav_damrep_add"
             android:icon="@drawable/ic_menu_camera"
             android:title="add damrep"/>
+        <item
+            android:id="@+id/nav_damrep_list"
+            android:icon="@drawable/common_google_signin_btn_icon_dark"
+            android:title="damreplist"/>
     </group>
 </menu>
