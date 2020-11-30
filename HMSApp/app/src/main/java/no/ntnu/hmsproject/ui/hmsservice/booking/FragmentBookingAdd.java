@@ -74,10 +74,13 @@ public class FragmentBookingAdd extends Fragment {
     }
 
     private void addBooking() {
+        //Kind of a duplicate, here to verify that the maps are proper.
         final HashMap<String, String> addBookingMap = new HashMap<>();
         addBookingMap.put("bookingRoomType", roomTypeV.getText().toString());
         addBookingMap.put("bookingStartDate", startDateV.getText().toString());
         addBookingMap.put("bookingEndDate", endDateV.getText().toString());
+
+        //Loads the textview into string variables and checks if they are not empty.
 
         String roomType = roomTypeV.getText().toString();
         String startDate = startDateV.getText().toString();
@@ -100,6 +103,8 @@ public class FragmentBookingAdd extends Fragment {
             endDateV.requestFocus();
             return;
         }
+
+        //StringRequest
 
         Context context = getActivity();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -132,8 +137,6 @@ public class FragmentBookingAdd extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 final HashMap<String, String> addBookingMap = new HashMap<>();
-
-
 
                 addBookingMap.put("bookingRoomType", roomType);
                 addBookingMap.put("bookingStartDate", startDate);

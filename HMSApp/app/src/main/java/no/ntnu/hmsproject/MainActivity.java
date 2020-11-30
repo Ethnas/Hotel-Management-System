@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_login, R.id.nav_booking_add)
+                R.id.nav_home, R.id.nav_login, R.id.nav_booking_add, R.id.nav_damrep_add)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -69,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_booking_add:
                         Toast.makeText(MainActivity.this, "Book", Toast.LENGTH_LONG).show();
                         fab.hide();
+                        break;
+                    case R.id.nav_damrep_add:
+                        Toast.makeText(MainActivity.this, "thing", Toast.LENGTH_LONG).show();
                         break;
                     default:
                         fab.show();

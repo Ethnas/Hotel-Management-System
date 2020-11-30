@@ -81,4 +81,9 @@
             app:destination="@id/nav_login"/>
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_damrep_add"
+        android:name="no.ntnu.hmsproject.ui.hmsservice.damagereport.FragmentDamReportAdd"
+        tools:layout="@layout/fragment_dam_report_add"/>
+
 </navigation>

@@ -17,5 +17,9 @@
             android:id="@+id/nav_booking_add"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="add booking"/>
+        <item
+            android:id="@+id/nav_damrep_add"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="add damrep"/>
     </group>
 </menu>
