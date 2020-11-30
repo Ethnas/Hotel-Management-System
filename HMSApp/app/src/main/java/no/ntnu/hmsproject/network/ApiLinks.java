@@ -13,12 +13,15 @@ public class ApiLinks {
     public static final String CURRENT_USER_URL = BASE_URL + "auth/currentuser";
 
 
-    ////Service
+    //-------------------Service
     //Booking
     public static final String ADD_BOOKING_URL = BASE_URL + "hotel/addbooking";
 
     //Damage Report
     public static final String ADD_DAMAGE_REPORT_URL = BASE_URL + "hotel/addDamageReport";
+
+    //Room Type
+    public static final String ADD_ROOMTYPE_URL = BASE_URL + "hotel/addRoomType";
 
 
 
