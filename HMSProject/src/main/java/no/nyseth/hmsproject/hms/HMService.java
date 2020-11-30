@@ -2,16 +2,12 @@ package no.nyseth.hmsproject.hms;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -37,7 +33,6 @@ import lombok.extern.java.Log;
 import no.nyseth.hmsproject.auth.AuthenticationService;
 import no.nyseth.hmsproject.auth.Group;
 import no.nyseth.hmsproject.auth.User;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.jwt.JsonWebToken;
@@ -69,22 +64,12 @@ public class HMService {
     @ConfigProperty(name = "photo.storage.path", defaultValue = "images")
     String photoPath;
 
-    //GETCURRENTUSER!
     
     private User getCurrentUser() {
         System.out.println("ASDOKASDOKASODKASODKASDK = " + principal.getName());
         return em.find(User.class, principal.getName());
     }
-
     
-
-    //Booking
-        //addBooking
-        //@POST
-        //@RolesAllowed({Group.USER}) //alle grupper.
-        //@Consumes({MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_JSON})
-        //FormDataParam
-        //Romtype, innsjekkingsdato, utsjekkingsdato. (innsjekking og utsjekking genererer totalpris (egen knapp eller funksjon hvor å hente pris?))
 
     /**
      * 
@@ -100,7 +85,7 @@ public class HMService {
     
     @POST
     @Path("addbooking")
-    @RolesAllowed({Group.USER})
+    @RolesAllowed({Group.USER, Group.STAFF})
     public Response addBooking(@FormParam("bookingRoomType") String bookingRoomType, 
                 @FormParam("bookingStartDate") String bookingStartDate, 
                 @FormParam("bookingEndDate") String bookingEndDate) {
@@ -113,6 +98,7 @@ public class HMService {
         
         LocalDate dateStart = LocalDate.now();
         LocalDate dateEnd = LocalDate.now();
+        ResponseBuilder resp;
         
         try {
             log.log(Level.INFO, "attempting to add date");
@@ -125,27 +111,41 @@ public class HMService {
             e.printStackTrace();
         }
         
-        bookingtbb.setBookingStartDate(dateStart);
-        bookingtbb.setBookingEndDate(dateEnd);
-        bookingtbb.setUser(booker);
+        if (checkDatePast(dateStart) || checkDatePast(dateEnd)) {
+            resp = Response.status(Response.Status.NOT_ACCEPTABLE);
+        } else {
+            bookingtbb.setBookingStartDate(dateStart);
+            bookingtbb.setBookingEndDate(dateEnd);
+            bookingtbb.setUser(booker);
 
-        //default values
-        bookingtbb.setBookingAccepted("false");
-        bookingtbb.setBookingStatus("inactive");
-            
-        log.log(Level.INFO, "added apps");
-        em.persist(bookingtbb);
-            //IMAGE SHIT
-        return Response.ok().build();
+            //default values
+            bookingtbb.setBookingAccepted("false");
+            bookingtbb.setBookingStatus("inactive");
+
+            log.log(Level.INFO, "added apps");
+            em.persist(bookingtbb);
+
+            List bookingIdList = em.createNativeQuery("SELECT d.bookingid FROM Booking d WHERE d.username = " + "'" + booker.getUsername() + "'" 
+                    + " AND d.bookingstartdate = " + "'" + dateStart + "'" + " AND d.bookingenddate = " + "'" + dateEnd + "'").getResultList();
+            int i = (int) bookingIdList.get(bookingIdList.size()-1);
+            MailService mail = new MailService();
+            mail.sendMail(booker.getEmail(), "Booking recieved: " + i + " recieved", "We have received your booking with id " + i 
+                    + ". You will receive a notification when your booking has been updated.");
+            resp = Response.ok();
+        }
+        return resp.build();
     }
     
     
     public LocalDate dateParser(String bookingDate) throws ParseException {
         
-        //Date date = new SimpleDateFormat("yyyy-MM--dd").parse(bookingDate);
         LocalDate date = LocalDate.parse(bookingDate/*, DateTimeFormatter.BASIC_ISO_DATE*/);
         
         return date;
+    }
+    
+    private boolean checkDatePast(LocalDate date) {
+        return date.isBefore(LocalDate.now());
     }
 
     /**
@@ -161,7 +161,7 @@ public class HMService {
      */
     @DELETE
     @Path("removebooking")
-    @RolesAllowed({Group.USER})
+    @RolesAllowed({Group.USER, Group.STAFF})
     public Response removeBooking(@QueryParam("bookingid") int bookingid) {
         log.log(Level.INFO, "checking for booking -1", bookingid);
         Booking bookingtbd = em.find(Booking.class, bookingid);
@@ -172,6 +172,9 @@ public class HMService {
             if (bookingtbd.getUser().equals(bookingDeleter)) {
                 log.log(Level.INFO, "user verified, moving onto deletion", bookingid);
                 em.remove(bookingtbd);
+                MailService mail = new MailService();
+                mail.sendMail(bookingtbd.getUser().getEmail(), "Booking: " + bookingid + " deleted", 
+                        "Hi, your booking with id " + bookingid + " has been deleted from our systems.");
                 return Response.ok().build();
             }
         }
@@ -180,10 +183,6 @@ public class HMService {
         return Response.notModified().build();
         
     }
-    
-        //updateBooking
-            //@PUT
-            //@RolesAllowed({Group.USER}) //alle grupper, men kun den som la inn booking (eller ansatt?)
     
     /**
      * 
@@ -203,23 +202,30 @@ public class HMService {
     
     @PUT
     @Path("updatebooking")
-    @RolesAllowed({Group.USER})
+    @RolesAllowed({Group.USER, Group.STAFF})
     public Response updateBooking(@FormParam("bookingid") int bookingid, 
             @FormParam("bookingRoomType") String bookingRoomType, 
             @FormParam("bookingStartDate") String bookingStartDate,
             @FormParam("bookingEndDate") String bookingEndDate) {
         
+        RoomType bookingType = em.find(RoomType.class, bookingRoomType);
         log.log(Level.INFO, "checking if booking exists", bookingid);
         Booking bookingtbu = em.find(Booking.class, bookingid);
+        
+        RoomType rt = bookingtbu.getRoomType();
+        String sDate = bookingtbu.getBookingStartDate().toString();
+        String eDate = bookingtbu.getBookingEndDate().toString();
+        ResponseBuilder resp;
               
         if (bookingtbu != null) {
             log.log(Level.INFO, "Booking exists, moving to checking if correct user");
+            
             User bookingUpdater = this.getCurrentUser();
             
              if (bookingtbu.getUser().equals(bookingUpdater)) {
-                 
-                RoomType bookingType = em.find(RoomType.class, bookingRoomType);
-                bookingtbu.setRoomType(bookingType);;
+                em.getTransaction().begin();
+                
+                bookingtbu.setRoomType(bookingType);
                 
                 LocalDate dateStart = LocalDate.now();
                 LocalDate dateEnd = LocalDate.now();
@@ -234,20 +240,35 @@ public class HMService {
                     log.log(Level.INFO, "wrong when adding date");
                     e.printStackTrace();
                 }
-
+                
+                if (checkDatePast(dateStart) || checkDatePast(dateEnd)) {
+                    resp = Response.status(Response.Status.NOT_ACCEPTABLE);
+                }
                 bookingtbu.setBookingStartDate(dateStart);
                 bookingtbu.setBookingEndDate(dateEnd);
-                return Response.ok().build();
+                em.getTransaction().commit();
+                
+                MailService mail = new MailService();
+                mail.sendMail(bookingUpdater.getEmail(), "Booking: " + bookingid + " updated", 
+                        "Hi, your booking with id " + bookingid + " has been updated in our systems." +
+                                "\nThese changes were made:" +
+                                "\n Roomtype: " + rt + " changed to " + bookingType +
+                                "\n Start date: " + sDate + " changed to " + dateStart.toString() +
+                                "\n End date: " + eDate + "changed to" + dateEnd.toString());
+                
+                resp = Response.ok();
                  
              } else {
                 log.log(Level.INFO, "user not verified, cancelling");
-                return Response.status(Response.Status.BAD_REQUEST).build();
+                resp = Response.status(Response.Status.BAD_REQUEST);
             }
             
         } 
-        
-        log.log(Level.INFO, "booking doesnt exist!");
-        return Response.notModified().build();
+            else {
+                log.log(Level.INFO, "booking doesnt exist!");
+                resp = Response.notModified();
+        }
+        return resp.build();
     }
     
     
@@ -270,11 +291,12 @@ public class HMService {
             Room roomN = em.find(Room.class, RoomNumber);
             bookingtba.setRoom(roomN);
             
+            MailService mail = new MailService();
+            mail.sendMail(bookingtba.getUser().getEmail(), "Booking accepted:" + bookingtba.getBookingId(), 
+                    "Your booking " + bookingtba.getBookingId() + "has been accepted. We are excited for your stay with us.");
+            
         }
-        
-        
-        
-        
+
         log.log(Level.INFO, "attempting to check if user OK", bookingid);
         return Response.ok().build();
     }
