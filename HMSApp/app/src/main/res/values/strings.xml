@@ -37,7 +37,7 @@
     <string name="update_submit">Oppdater</string>
 
     <!-- service; bookings etc.-->
-    <string name="roomType">Romtype</string>
+    <string name="roomType">Romtype:</string>
     <string name="roomPrice">Rompris</string>
     <string name="bookingStartDate">Startsdato - yyyy-MM-dd</string>
     <string name="bookingEndDate">Sluttdato  - yyyy-MM-dd</string>

@@ -3,4 +3,12 @@
     <color name="colorPrimary">#067891</color>
     <color name="colorPrimaryDark">#054173</color>
     <color name="colorAccent">#8a8a8a</color>
+
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="productGridBackgroundColor">#FFFFFF</color>
+    <color name="textInputOutlineColor">#FBB8AC</color>
+
+    <color name="borderColor">#adadad</color>
 </resources>
