@@ -8,7 +8,7 @@ COPY src ./src
 RUN --mount=type=cache,target=/root/.m2 mvn -f pom.xml clean package
 
 ## Copy isolated build from intermediate container(useful on server)
-FROM payara/micro AS prod
+FROM payara/server-full:5.201 AS prod
 ## Fixes clock in payara log
 ENV TZ Europe/Oslo
 COPY --from=build /app/target/HMSProject-1.0-SNAPSHOT.war $DEPLOY_DIR/HMSProject-1.0-SNAPSHOT.war
