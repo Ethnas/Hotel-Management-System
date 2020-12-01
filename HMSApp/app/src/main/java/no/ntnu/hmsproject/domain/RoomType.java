@@ -1,7 +1,11 @@
 package no.ntnu.hmsproject.domain;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RoomType {
+    @SerializedName("type")
     String roomtype;
+    @SerializedName("roomPrice")
     String roomPrice;
 
     public RoomType(String roomType, String roomPrice) {

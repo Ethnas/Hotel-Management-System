@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import no.ntnu.hmsproject.MarginDecoration;
 import no.ntnu.hmsproject.R;
 import no.ntnu.hmsproject.adapter.DamageReportAdapter;
 import no.ntnu.hmsproject.domain.DamageReport;
@@ -36,7 +37,7 @@ public class FragmentDamReportList extends Fragment {
     private RelativeLayout relativeLayout;
     private ArrayList<DamageReport> damageReports = new ArrayList<>();
     private ArrayList<DamageReport> filteredReports = new ArrayList<>();
-    private DamageReportAdapter damageReportAdapter;
+    private DamageReportAdapter damageReportAdapter = new DamageReportAdapter();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class FragmentDamReportList extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(damageReportAdapter);
+        recyclerView.addItemDecoration(new MarginDecoration(10));
 
         getDamage(() -> damageReportAdapter.notifyDataSetChanged());
 
@@ -53,6 +55,9 @@ public class FragmentDamReportList extends Fragment {
     }
 
     private void getDamage(Runnable callback){
+        System.out.println("Got to get damage");
+        Context context = getActivity();
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
         GsonRequest gsonRequest = new GsonRequest(
                 ApiLinks.GET_ALL_DAMAGE_REPORT_URL,
                 Request.Method.GET,
@@ -61,13 +66,12 @@ public class FragmentDamReportList extends Fragment {
                 new Response.Listener<DamageReport[]>() {
                     @Override
                     public void onResponse(DamageReport[] response) {
+                        System.out.println("Got damage response");
+                        System.out.println(response.length);
                         damageReports.clear();
                         damageReports.addAll(Arrays.asList(response));
-                        damageReports = damageReports.stream()
-                                .filter(damageReport -> damageReport.getDamageId() == null)
-                                .sorted((o1, o2) -> o1.getDamageId().compareTo(o2.getDamageId()))
-                                .collect(Collectors.toCollection(ArrayList::new));
-                        filteredReports = damageReports;
+                        System.out.println(damageReports);
+                        damageReportAdapter.setDamageReportList(damageReports);
                         if (callback != null) {
                             callback.run();
                         }
@@ -79,5 +83,6 @@ public class FragmentDamReportList extends Fragment {
                         System.out.println(error);
                     }
                 });
+        requestQueue.add(gsonRequest);
     }
 }

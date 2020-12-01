@@ -1,15 +1,32 @@
 package no.ntnu.hmsproject.domain;
 
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.annotations.SerializedName;
+
 public class User {
 
+    @SerializedName("username")
     String userid;
+    @SerializedName("email")
     String email;
     String password;
+    @SerializedName("firstName")
     String firstname;
+    @SerializedName("lastName")
     String lastname;
     String jwt;
+    @SerializedName("phone")
+    String phone;
 
     public User(String eml, String uid, String firstName, String lastName, int phoneNumber, String pwd) {
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getUserid() {

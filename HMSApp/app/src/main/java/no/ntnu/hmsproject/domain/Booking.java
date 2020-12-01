@@ -1,21 +1,51 @@
 package no.ntnu.hmsproject.domain;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Booking {
+    @SerializedName("bookingId")
     int bookingId;
 
     //Booking specific fields
+    @SerializedName("bookingStartDate")
     String bookingStartDate;
+    @SerializedName("bookingEndDate")
     String bookingEndDate;
+    @SerializedName("bookingAccepted")
     String bookingAccepted;
+    @SerializedName("bookingStatus")
     String bookingStatus;
 
     //RoomType
     String roomType;
 
+    @SerializedName("roomTypes")
+    RoomType rt;
+
     //Room
+    @SerializedName("roomNumber")
     String room;
 
+    @SerializedName("user")
+    User user;
+
     public Booking(String bookingRoomType, String booingStartDate, String bookingEndDate) {
+    }
+
+    public RoomType getRt() {
+        return rt;
+    }
+
+    public void setRt(RoomType rt) {
+        this.rt = rt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getBookingId() {

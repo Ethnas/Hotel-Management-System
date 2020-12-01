@@ -16,9 +16,18 @@ import no.ntnu.hmsproject.domain.DamageReport;
 
 public class DamageReportAdapter extends RecyclerView.Adapter<DamageReportAdapter.DamageReportViewHolder> {
     List<DamageReport> damageReportList;
+    OnClickListener listener = position -> {};
 
     public DamageReportAdapter() {
         this.damageReportList = new ArrayList<>();
+    }
+
+    public List<DamageReport> getDamageReportList() {
+        return this.damageReportList;
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -31,13 +40,21 @@ public class DamageReportAdapter extends RecyclerView.Adapter<DamageReportAdapte
 
     @Override
     public void onBindViewHolder(@NonNull DamageReportViewHolder holder, int position) {
-        holder.damageReportId.setText(damageReportList.get(position).getBookingId());
+        holder.damageReportId.setText(damageReportList.get(position).getReportId());
+        System.out.println(damageReportList.get(position).getReportId());
+        System.out.println(damageReportList.get(position).getDamageDescription());
+        System.out.println(damageReportList.get(position).getDamageTitle());
+        System.out.println(damageReportList.get(position).getBooking().getBookingId());
         holder.damageReportTitle.setText(damageReportList.get(position).getDamageTitle());
         }
 
     @Override
     public int getItemCount() {
         return damageReportList.size();
+    }
+
+    interface OnClickListener {
+        void onClick(int position);
     }
 
     public void setDamageReportList(ArrayList<DamageReport> list) {
@@ -52,12 +69,7 @@ public class DamageReportAdapter extends RecyclerView.Adapter<DamageReportAdapte
 
         public DamageReportViewHolder(@NonNull View view) {
             super(view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
+            view.setOnClickListener(v -> listener.onClick(getAdapterPosition()));
             this.damageReportId = view.findViewById(R.id.damageReportId);
             this.damageReportTitle = view.findViewById(R.id.damageReportTitle);
         }

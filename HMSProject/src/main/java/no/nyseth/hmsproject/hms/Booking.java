@@ -51,8 +51,8 @@ public class Booking implements Serializable {
     public User user;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="RoomType")
-    public RoomType roomType;
+    @JoinColumn(name="RoomTypes")
+    public RoomType roomTypes;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="RoomNumber")

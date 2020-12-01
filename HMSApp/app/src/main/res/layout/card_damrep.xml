@@ -15,14 +15,14 @@
         android:id="@+id/damageReportId"
         android:layout_width="359dp"
         android:layout_height="wrap_content"
-        android:text="Navn"
+        android:text="ReportID"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/damageReportTitle"
         android:layout_width="359dp"
         android:layout_height="wrap_content"
-        android:text="Pris"
+        android:text="Title"
         android:textStyle="bold"
         android:layout_below="@+id/damageReportId"/>
 

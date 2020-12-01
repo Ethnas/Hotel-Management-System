@@ -94,7 +94,7 @@ public class HMService {
         Booking bookingtbb = new Booking(); 
         
         RoomType bookingType = em.find(RoomType.class, bookingRoomType);
-        bookingtbb.setRoomType(bookingType);
+        bookingtbb.setRoomTypes(bookingType);
         
         LocalDate dateStart = LocalDate.now();
         LocalDate dateEnd = LocalDate.now();
@@ -212,7 +212,7 @@ public class HMService {
         log.log(Level.INFO, "checking if booking exists", bookingid);
         Booking bookingtbu = em.find(Booking.class, bookingid);
         
-        RoomType rt = bookingtbu.getRoomType();
+        RoomType rt = bookingtbu.getRoomTypes();
         String sDate = bookingtbu.getBookingStartDate().toString();
         String eDate = bookingtbu.getBookingEndDate().toString();
         ResponseBuilder resp;
@@ -225,7 +225,7 @@ public class HMService {
              if (bookingtbu.getUser().equals(bookingUpdater)) {
                 em.getTransaction().begin();
                 
-                bookingtbu.setRoomType(bookingType);
+                bookingtbu.setRoomTypes(bookingType);
                 
                 LocalDate dateStart = LocalDate.now();
                 LocalDate dateEnd = LocalDate.now();
@@ -353,7 +353,7 @@ public class HMService {
 
         damageReport.setDamageTitle(damageTitle);
         damageReport.setDamageDescription(damageDesc);
-        damageReport.setBookingid(booking);
+        damageReport.setBooking(booking);
         
         em.persist(damageReport);
         //Photo things
@@ -396,7 +396,7 @@ public class HMService {
 
             damageReport.setDamageTitle(damageTitle);
             damageReport.setDamageDescription(damageDesc);
-            damageReport.setBookingid(booking);
+            damageReport.setBooking(booking);
 
             em.merge(damageReport);
             return Response.ok().build();
@@ -431,7 +431,7 @@ public class HMService {
         log.log(Level.INFO, "user verified, attempting to add roomtype");
 
         RoomType roomType = new RoomType();
-        roomType.setRoomType(roomtype);
+        roomType.setType(roomtype);
         roomType.setRoomPrice(RoomPrice);
 
         em.persist(roomType);

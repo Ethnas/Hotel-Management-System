@@ -38,11 +38,11 @@ public class DamageReport implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO) //Nødvendig her?
     public int reportId;
     
-    public String DamageTitle;
+    public String damageTitle;
     public String damageDescription;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="bookingid")
-    public Booking bookingid;
+    @JoinColumn(name="booking")
+    public Booking booking;
     
 }

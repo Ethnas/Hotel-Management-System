@@ -1,13 +1,21 @@
 package no.ntnu.hmsproject.domain;
 
+import com.google.gson.annotations.SerializedName;
+
 public class DamageReport {
+    @SerializedName("damageTitle")
     String damageTitle;
-    String damageDesc;
-    String bookingId;
 
+    @SerializedName("damageDescription")
+    String damageDescription;
 
+    String sendBookingId;
 
-    String damageId;
+    @SerializedName("reportId")
+    String reportId;
+
+    @SerializedName("booking")
+    Booking booking;
 
     public DamageReport(String damageTitle, String bookingid, String damageDesc) {
     }
@@ -20,27 +28,35 @@ public class DamageReport {
         this.damageTitle = damageTitle;
     }
 
-    public String getDamageDesc() {
-        return damageDesc;
+    public String getDamageDescription() {
+        return damageDescription;
     }
 
-    public void setDamageDesc(String damageDesc) {
-        this.damageDesc = damageDesc;
+    public void setDamageDescription(String damageDescription) {
+        this.damageDescription = damageDescription;
     }
 
-    public String getBookingId() {
-        return bookingId;
+    public String getSendBookingId() {
+        return sendBookingId;
     }
 
-    public void setBookingId(String bookingId) {
-        this.bookingId = bookingId;
+    public void setSendBookingId(String sendBookingId) {
+        this.sendBookingId = sendBookingId;
     }
 
-    public String getDamageId() {
-        return damageId;
+    public String getReportId() {
+        return reportId;
     }
 
-    public void setDamageId(String damageId) {
-        this.damageId = damageId;
+    public void setReportId(String reportId) {
+        this.reportId = reportId;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 }

@@ -7,7 +7,7 @@ public class ApiLinks {
 
 
     //skole ip
-    public static final String BASE_URL = "http://10.22.184.117:8080/HMSProject/api/";
+    public static final String BASE_URL = "http://10.22.193.136:8080/HMSProject/api/";
 
     public static final String CREATE_URL = BASE_URL + "auth/create";
     public static final String CURRENT_USER_URL = BASE_URL + "auth/currentuser";
