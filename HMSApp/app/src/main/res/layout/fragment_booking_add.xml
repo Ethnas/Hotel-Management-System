@@ -76,6 +76,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/edittextbackground"
         android:textColorHint="#adadad"
+        android:theme="@style/AppTheme.DynamicBorderColor"
 
         android:hint="@string/bookingStartDate"
         android:autofillHints="@string/bookingStartDate"
@@ -93,6 +94,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/edittextbackground"
         android:textColorHint="#adadad"
+        android:theme="@style/AppTheme.DynamicBorderColor"
         android:layout_marginTop="10dp"
 
         android:hint="@string/bookingEndDate"

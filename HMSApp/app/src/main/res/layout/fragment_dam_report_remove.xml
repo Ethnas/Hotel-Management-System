@@ -49,6 +49,7 @@
         android:layout_marginTop="80dp"
         android:background="@drawable/edittextbackground"
         android:textColorHint="#adadad"
+        android:theme="@style/AppTheme.DynamicBorderColor"
 
         android:hint="@string/bookingId"
         android:autofillHints="@string/bookingId"
