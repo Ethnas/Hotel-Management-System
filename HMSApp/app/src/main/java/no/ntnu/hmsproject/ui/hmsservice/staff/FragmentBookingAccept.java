@@ -2,65 +2,101 @@ package no.ntnu.hmsproject.ui.hmsservice.staff;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.lang.reflect.Array;
+import java.util.HashMap;
 
 import no.ntnu.hmsproject.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentBookingAccept#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FragmentBookingAccept extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentBookingAccept() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentBookingAccept.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentBookingAccept newInstance(String param1, String param2) {
-        FragmentBookingAccept fragment = new FragmentBookingAccept();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class FragmentBookingAccept extends Fragment implements AdapterView.OnItemSelectedListener{
+    TextView bookingIdV;
+    Spinner acceptV;
+    Spinner statusV;
+    Spinner roomV;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_booking_accept, container, false);
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_booking_accept, container, false);
+
+        bookingIdV = view.findViewById(R.id.acceptbooking_bookingid);
+
+        //Spinner for accept
+        acceptV = (Spinner) view.findViewById(R.id.acceptbooking_accepted);
+        ArrayAdapter adapterAccept = ArrayAdapter.createFromResource(getActivity(), R.array.acceptbooking_accept_array, android.R.layout.simple_spinner_item);
+        adapterAccept.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        acceptV.setAdapter(adapterAccept);
+
+        /*
+        //Spinner for status
+        statusV = (Spinner) view.findViewById(R.id.acceptbooking_status);
+        ArrayAdapter adapterStatus = ArrayAdapter.createFromResource(getActivity(), R.array.acceptbooking_status_array, android.R.layout.simple_spinner_item);
+        adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statusV.setAdapter(adapterStatus);
+         */
+
+        //Spinner for room
+        roomV = (Spinner) view.findViewById(R.id.acceptbooking_room);
+        ArrayAdapter adapterRoom = ArrayAdapter.createFromResource(getActivity(), R.array.room_array, android.R.layout.simple_spinner_item);
+        adapterRoom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roomV.setAdapter(adapterRoom);
+
+
+        Button acceptBookingV = (Button) view.findViewById(R.id.acceptbooking_submit);
+
+        acceptBookingV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
+
+        return view;
+    }
+
+    private void acceptBooking() {
+        final HashMap<String, String> acceptBookingMap = new HashMap<>();
+        acceptBookingMap.put("bookingid", bookingIdV.getText().toString());
+        acceptBookingMap.put("bookingStatus", acceptV.getSelectedItem().toString());
+        acceptBookingMap.put("roomNumber", roomV.getSelectedItem().toString());
+
+        //TODO - StringRequest.
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+        adapterView.getItemAtPosition(pos);
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

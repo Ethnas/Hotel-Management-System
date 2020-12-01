@@ -11,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,8 +36,9 @@ import no.ntnu.hmsproject.domain.LoggedUser;
 import no.ntnu.hmsproject.network.ApiLinks;
 
 
-public class FragmentBookingAdd extends Fragment {
-    TextView roomTypeV;
+public class FragmentBookingAdd extends Fragment implements AdapterView.OnItemSelectedListener  {
+    //TextView roomTypeV;
+    Spinner roomTypeV;
     TextView startDateV;
     TextView endDateV;
 
@@ -57,7 +61,14 @@ public class FragmentBookingAdd extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booking_add, container, false);
 
-        roomTypeV = view.findViewById(R.id.addBooking_roomtype);
+        //roomTypeV = view.findViewById(R.id.addBooking_roomtype);
+
+        //Spinner for roomtype
+        roomTypeV = (Spinner) view.findViewById(R.id.addBooking_roomtype);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.roomtype_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roomTypeV.setAdapter(adapter);
+
         startDateV = view.findViewById(R.id.addBooking_startdate);
         endDateV = view.findViewById(R.id.addBooking_enddate);
 
@@ -76,21 +87,16 @@ public class FragmentBookingAdd extends Fragment {
     private void addBooking() {
         //Kind of a duplicate, here to verify that the maps are proper.
         final HashMap<String, String> addBookingMap = new HashMap<>();
-        addBookingMap.put("bookingRoomType", roomTypeV.getText().toString());
+        addBookingMap.put("bookingRoomType", roomTypeV.getSelectedItem().toString());
         addBookingMap.put("bookingStartDate", startDateV.getText().toString());
         addBookingMap.put("bookingEndDate", endDateV.getText().toString());
 
         //Loads the textview into string variables and checks if they are not empty.
 
-        String roomType = roomTypeV.getText().toString();
+        String roomType = roomTypeV.getSelectedItem().toString();
         String startDate = startDateV.getText().toString();
         String endDate = endDateV.getText().toString();
 
-        if (roomType.isEmpty()) {
-            roomTypeV.setError("Ingen romtype fylt inn");
-            roomTypeV.requestFocus();
-            return;
-        }
 
         if (startDate.isEmpty()) {
             startDateV.setError("Ingen startsdato fylt inn");
@@ -160,5 +166,15 @@ public class FragmentBookingAdd extends Fragment {
         requestQueue.add(stringRequest);
         System.out.println("Map: " + addBookingMap);
         System.out.println("SR: " + stringRequest);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+        adapterView.getItemAtPosition(pos);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

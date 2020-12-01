@@ -48,6 +48,9 @@
     <string name="damageDesc">Beskrivelse</string>
     <string name="reportId">Rapport ID</string>
 
+    <string name="acceptBookingAccept">Aksepter</string>
+    <string name="acceptBookingStatus">Sett status</string>
+
     <!-- booking main -->
     <string name="b_m_nav_add">Legg inn booking</string>
     <string name="b_m_nav_rem">Fjern booking</string>
@@ -73,4 +76,29 @@
     <!-- nav -->
     <string name="nav_menu_login">Logg inn</string>
     <string name="nav_menu_booking">Booking</string>
+
+    <string-array name="roomtype_array">
+        <item>Single</item>
+        <item>Double</item>
+        <item>Suite</item>
+    </string-array>
+
+    <string-array name="acceptbooking_accept_array">
+        <item>Aksepter</item>
+        <item>Ikke aksepter</item>
+    </string-array>
+
+    <string-array name="acceptbooking_status_array">
+        <item>Aktiv</item>
+        <item>Inaktiv</item>
+    </string-array>
+
+    <string-array name="room_array">
+        <item>000</item>
+        <item>101</item>
+        <item>102</item>
+        <item>103</item>
+        <item>104</item>
+        <item>105</item>
+    </string-array>
 </resources>

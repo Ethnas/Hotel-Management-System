@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +52,7 @@ public class FragmentRoomTypeAdd extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_room_type_add, container, false);
 
-        roomTypeV = view.findViewById(R.id.add_roomtype_price);
+        roomTypeV = view.findViewById(R.id.add_roomtype_roomtype);
         priceV = view.findViewById(R.id.add_roomtype_price);
 
         Button addRoomTypeV = (Button) view.findViewById(R.id.addroomtype_submit);

@@ -42,6 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/booking_main_id"
         />
 
+    <!--
     <EditText
         android:id="@+id/addBooking_roomtype"
         android:layout_width="wrap_content"
@@ -56,7 +57,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/booking_main_desc"
+        />-->
+
+    <Spinner
+        android:id="@+id/addBooking_roomtype"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/booking_main_desc"
         />
+
 
     <EditText
         android:id="@+id/addBooking_startdate"

@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="80dp"
-        android:text="Legg til booking"
+        android:text="Aksepter en booking"
         android:textColor="#fff"
         android:textStyle="bold"
         android:textSize="30sp"
@@ -48,8 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="80dp"
 
-        android:hint="@string/roomType"
-        android:autofillHints="@string/roomType"
+        android:hint="@string/bookingId"
+        android:autofillHints="@string/bookingId"
 
         android:inputType="textShortMessage"
         android:selectAllOnFocus="true"
@@ -58,43 +58,42 @@
         app:layout_constraintTop_toBottomOf="@id/booking_accept_main_desc"
         />
 
-    <EditText
+    <Spinner
         android:id="@+id/acceptbooking_accepted"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:hint="@string/bookingStartDate"
-        android:autofillHints="@string/bookingStartDate"
-
-        android:inputType="textShortMessage"
-        android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/acceptbooking_bookingid"
         />
 
-    <EditText
+    <!--
+    <Spinner
         android:id="@+id/acceptbooking_status"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:hint="@string/bookingStartDate"
-        android:autofillHints="@string/bookingStartDate"
-
-        android:inputType="textShortMessage"
-        android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acceptbooking_bookingid"
+        app:layout_constraintTop_toBottomOf="@id/acceptbooking_accepted"
+        />-->
+
+
+    <Spinner
+        android:id="@+id/acceptbooking_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/acceptbooking_accepted"
         />
 
     <Button
-        android:id="@+id/addbooking_submit"
+        android:id="@+id/acceptbooking_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acceptbooking_status"
+        app:layout_constraintTop_toBottomOf="@id/acceptbooking_room"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
