@@ -17,7 +17,7 @@ address = ":443"
 [certificatesResolvers.buypass.acme]
 email = "erlendniko@gmail.com"
 storage = "acme.json"
-caServer = "https://api.buypass.com/acme/directory"
+# caServer = "https://api.buypass.com/acme/directory"
 
 [certificatesResolvers.buypass.acme.httpChallenge]
 entryPoint = "web"

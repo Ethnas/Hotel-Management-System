@@ -11,8 +11,9 @@ services:
     expose:
       - "8080"
     ports:
-      - "127.0.0.1:8181:8181"
-      - "127.0.0.1:4848:4848"
+      - "8181:8181"
+      - "4848:4848"
+      - "8080:8080"
     labels:
       - "traefik.http.services.api.loadbalancer.server.port=8080"
       - "traefik.http.routers.api.rule=Host(`hms.northeurope.cloudapp.azure.com`)"
