@@ -15,7 +15,7 @@ address = ":80"
 address = ":443"
 
 [certificatesResolvers.buypass.acme]
-email = "mail@example.com"
+email = "erlendniko@gmail.com"
 storage = "acme.json"
 caServer = "https://api.buypass.com/acme/directory"
 

@@ -12,6 +12,3 @@ FROM payara/micro AS prod
 ## Fixes clock in payara log
 ENV TZ Europe/Oslo
 COPY --from=build /app/target/HMSProject-1.0-SNAPSHOT.war $DEPLOY_DIR/HMSProject-1.0-SNAPSHOT.war
-RUN mkdir /opt/payara/images
-RUN chown payara:payara /opt/payara/images
-USER payara
