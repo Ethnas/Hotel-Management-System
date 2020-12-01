@@ -275,17 +275,17 @@ public class HMService {
     @PUT
     @Path("staff/updateBookingStaff")
     @RolesAllowed({Group.STAFF})
-    public Response staffBookingAccept(@QueryParam("bookingid") int bookingid, @QueryParam("bookingStatus") String bookingStatus, 
+    public Response staffBookingAccept(@QueryParam("bookingid") int bookingid, 
             @QueryParam("bookingAccepted") String bookingAccepted, @QueryParam("RoomNumber") int RoomNumber,
             @Context SecurityContext sc) {
         
         log.log(Level.INFO, "checking if booking exists");
         Booking bookingtba = em.find(Booking.class, bookingid);
+        ResponseBuilder resp;
         
         if (bookingtba != null) {
             log.log(Level.INFO, "booking exists, moving onto update");
             
-            bookingtba.setBookingStatus(bookingStatus);
             bookingtba.setBookingAccepted(bookingAccepted);
             
             Room roomN = em.find(Room.class, RoomNumber);
@@ -294,11 +294,63 @@ public class HMService {
             MailService mail = new MailService();
             mail.sendMail(bookingtba.getUser().getEmail(), "Booking accepted:" + bookingtba.getBookingId(), 
                     "Your booking " + bookingtba.getBookingId() + "has been accepted. We are excited for your stay with us.");
+            resp = Response.ok();
             
+        } else {
+            resp = Response.notModified();
         }
 
         log.log(Level.INFO, "attempting to check if user OK", bookingid);
-        return Response.ok().build();
+        return resp.build();
+    }
+    
+    @PUT
+    @Path("staff/checkin")
+    @RolesAllowed(Group.STAFF)
+    public Response checkIn(@QueryParam("bookingid") int bookingid, @QueryParam("status") String status) {
+        Booking booking = em.find(Booking.class, bookingid);
+        ResponseBuilder resp;
+        if (booking != null) {
+            booking.setBookingStatus(status);
+            Room room = booking.getRoom();
+            room.setRoomStatus("occupied");
+            resp = Response.ok();
+        } else {
+            resp = Response.notModified();
+        }
+        return resp.build();
+    }
+    
+    @PUT
+    @Path("staff/checkout")
+    @RolesAllowed(Group.STAFF)
+    public Response checkOut(@QueryParam("bookingid") int bookingid, @QueryParam("status") String status) {
+        Booking booking = em.find(Booking.class, bookingid);
+        ResponseBuilder resp;
+        if (booking != null) {
+            booking.setBookingStatus(status);
+            Room room = booking.getRoom();
+            room.setRoomStatus("maintenance");
+            resp = Response.ok();
+        } else {
+            resp = Response.notModified();
+        }
+        return resp.build();
+    }
+    
+    @PUT
+    @Path("staff/updateroomstatus")
+    @RolesAllowed(Group.STAFF)
+    public Response updateRoomStatus(@QueryParam("roomnumber") int roomnumber, @QueryParam("roomstatus") String roomstatus) {
+        Room room = em.find(Room.class, roomnumber);
+        ResponseBuilder resp;
+        if (room != null) {
+            room.setRoomStatus(roomstatus);
+            resp = Response.ok();
+        } else {
+            resp = Response.notModified();
+        }
+        return resp.build();
     }
     
     /**
