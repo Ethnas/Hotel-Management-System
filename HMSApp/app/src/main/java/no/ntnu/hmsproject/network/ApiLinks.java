@@ -7,7 +7,7 @@ public class ApiLinks {
 
 
     //skole ip
-    public static final String BASE_URL = "https://hms.northeurope.cloudapp.azure.com/HMSProject/api/";
+    public static final String BASE_URL = "https://hms.northeurope.cloudapp.azure.com/HMSProject-1.0-SNAPSHOT/api/";
 
     public static final String CREATE_URL = BASE_URL + "auth/create";
     public static final String CURRENT_USER_URL = BASE_URL + "auth/currentuser";
