@@ -24,6 +24,8 @@ public class ApiLinks {
     //Room Type
     public static final String ADD_ROOMTYPE_URL = BASE_URL + "hotel/addRoomType";
 
+    //Staff
+    public static final String ACCEPT_BOOKING_URL = BASE_URL + "hotel/staff/updateBookingStaff";
 
 
 

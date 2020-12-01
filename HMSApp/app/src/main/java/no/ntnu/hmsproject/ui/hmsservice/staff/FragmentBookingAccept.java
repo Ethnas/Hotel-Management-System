@@ -1,5 +1,6 @@
 package no.ntnu.hmsproject.ui.hmsservice.staff;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,10 +17,19 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.lang.reflect.Array;
 import java.util.HashMap;
+import java.util.Map;
 
 import no.ntnu.hmsproject.R;
+import no.ntnu.hmsproject.domain.LoggedUser;
+import no.ntnu.hmsproject.network.ApiLinks;
 
 public class FragmentBookingAccept extends Fragment implements AdapterView.OnItemSelectedListener{
     TextView bookingIdV;
@@ -71,7 +81,7 @@ public class FragmentBookingAccept extends Fragment implements AdapterView.OnIte
         acceptBookingV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                acceptBooking();
             }
         });
 
@@ -86,7 +96,43 @@ public class FragmentBookingAccept extends Fragment implements AdapterView.OnIte
         acceptBookingMap.put("bookingStatus", acceptV.getSelectedItem().toString());
         acceptBookingMap.put("roomNumber", roomV.getSelectedItem().toString());
 
-        //TODO - StringRequest.
+
+        String bookingId = acceptV.getSelectedItem().toString();
+        String bookingStatus = acceptV.getSelectedItem().toString();
+        String bookingRoom = roomV.getSelectedItem().toString();
+
+        Context context = getActivity();
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        String url = ApiLinks.ACCEPT_BOOKING_URL + "?bookingid=" + bookingId
+                + "&bookingAccepted=" + bookingStatus + "&RoomNumber=" + bookingRoom;
+
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.PUT, url,
+                response -> {
+                    System.out.println(response);
+                    System.out.println("Things went smooth");
+                },
+                error -> {
+                    System.out.println(error);
+                    System.out.println("Something went wrong");
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<String, String>();
+
+                String authToken = "Bearer " + LoggedUser.getInstance().getJwt();
+                headers.put("Authorization", authToken);
+
+                System.out.println("(Inside call) Token: " + LoggedUser.getInstance().getJwt());
+                return headers;
+            }
+
+        };
+
+        requestQueue.add(stringRequest);
+        System.out.println("SR: "+ stringRequest);
     }
 
     @Override

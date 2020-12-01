@@ -14,60 +14,68 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+    <!-- title things -->
+    <string name="generic_welcome">Please fill out the boxes below</string>
+
     <!-- login og create-->
-    <string name="uid">Brukernavn</string>
-    <string name="pwd">Passord</string>
-    <string name="eml">Epost</string>
-    <string name="tlf">Telefon</string>
-    <string name="firstname">Fornavn</string>
-    <string name="lastname">Etternavn</string>
+    <string name="uid">Username</string>
+    <string name="pwd">Password</string>
+    <string name="eml">Email</string>
+    <string name="tlf">Phone</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
 
-    <string name="userTitle">Registrer eller logg inn</string>
-    <string name="userDesc">Trykk nedenfor for å logge inn eller opprette en bruker</string>
+    <string name="userTitle">Create user or login</string>
+    <string name="userDesc">Please click a button below to create a user or login</string>
 
-    <string name="l_m_nav_create">Opprett bruker</string>
-    <string name="l_m_nav_login">Logg inn</string>
-    <string name="l_m_nav_login_google">Logg inn med Google</string>
+    <string name="l_m_nav_create">Create a user</string>
+    <string name="l_m_nav_login">Login</string>
+    <string name="l_m_nav_login_google">Login with Google</string>
 
     <!-- knapper -->
-    <string name="create_submit">Registrer</string>
-    <string name="login_submit">Logg inn</string>
-    <string name="add_submit">Legg inn</string>
-    <string name="remove_submit">Fjern</string>
-    <string name="update_submit">Oppdater</string>
+    <string name="create_submit">Create</string>
+    <string name="login_submit">Login</string>
+    <string name="add_submit">Send</string>
+    <string name="remove_submit">Remove</string>
+    <string name="update_submit">Update</string>
 
     <!-- service; bookings etc.-->
-    <string name="roomType">Romtype:</string>
-    <string name="roomPrice">Rompris</string>
-    <string name="bookingStartDate">Startsdato - yyyy-MM-dd</string>
-    <string name="bookingEndDate">Sluttdato  - yyyy-MM-dd</string>
+    <string name="roomType">Room Type</string>
+    <string name="roomPrice">Room Price</string>
+    <string name="bookingStartDate">Startdate - yyyy-MM-dd</string>
+    <string name="bookingEndDate">Enddate  - yyyy-MM-dd</string>
     <string name="bookingId">Booking ID</string>
-    <string name="bookingStatus">Booking status</string>
+    <string name="bookingStatus">Booking Status</string>
 
-    <string name="damageTitle">Tittel</string>
-    <string name="damageDesc">Beskrivelse</string>
-    <string name="reportId">Rapport ID</string>
+    <string name="damageTitle">Title</string>
+    <string name="damageDesc">Description</string>
+    <string name="reportId">Report ID</string>
 
-    <string name="acceptBookingAccept">Aksepter</string>
-    <string name="acceptBookingStatus">Sett status</string>
+    <string name="acceptBookingAccept">Accept</string>
+    <string name="acceptBookingStatus">Set status</string>
 
     <!-- booking main -->
-    <string name="b_m_nav_add">Legg inn booking</string>
-    <string name="b_m_nav_rem">Fjern booking</string>
-    <string name="b_n_nav_upd">Oppdater booking</string>
-    <string name="b_m_nav_get">Hent mine bookings</string>
+    <string name="b_m_nav_accept">Accept booking</string>
+    <string name="b_m_nav_add">Add booking</string>
+    <string name="b_m_nav_rem">Remove booking</string>
+    <string name="b_n_nav_upd">Update booking</string>
+    <string name="b_m_nav_get">Get my bookings</string>
 
     <!-- damage report main -->
-    <string name="dr_m_nav_add">Legg til rapport</string>
-    <string name="dr_m_nav_rem">Fjern rapport</string>
-    <string name="dr_m_nav_upd">Oppdater rapport</string>
-    <string name="dr_m_nav_get">Hent rapporter</string>
+    <string name="dr_m_nav_add">Add report</string>
+    <string name="dr_m_nav_rem">Remove report</string>
+    <string name="dr_m_nav_upd">Update report</string>
+    <string name="dr_m_nav_get">Get reports</string>
 
     <!-- roomtype main -->
-    <string name="rt_m_nav_add">Legg til romtype</string>
-    <string name="rt_m_nav_rem">Fjern romtype</string>
-    <string name="rt_m_nav_upd">Oppdater romtype</string>
-    <string name="rt_n_nav_get">Hent romtyper</string>
+    <string name="rt_m_nav_add">Add room type</string>
+    <string name="rt_m_nav_rem">Remove room type</string>
+    <string name="rt_m_nav_upd">Update room type</string>
+    <string name="rt_n_nav_get">Get room type</string>
+
+    <string name="checkin_title">Check-in</string>
+    <string name="checkout_title">Check-out</string>
+    <string name="update_room">Update room status</string>
 
 
     <string name="server_client_id">210365446598-2trslj7u3surefvojuvoqaqq26gl08cs.apps.googleusercontent.com</string>
@@ -84,13 +92,13 @@
     </string-array>
 
     <string-array name="acceptbooking_accept_array">
-        <item>Aksepter</item>
-        <item>Ikke aksepter</item>
+        <item>Accept</item>
+        <item>Reject</item>
     </string-array>
 
     <string-array name="acceptbooking_status_array">
-        <item>Aktiv</item>
-        <item>Inaktiv</item>
+        <item>Active</item>
+        <item>Inactive</item>
     </string-array>
 
     <string-array name="room_array">
