@@ -116,3 +116,5 @@ lint/tmp/
 
 # Android Profiling
 *.hprof
+
+HMSProject/hms-acme.json
