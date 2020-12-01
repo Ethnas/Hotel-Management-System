@@ -34,7 +34,6 @@
         android:id="@+id/login_pwd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
         android:background="@drawable/edittextbackground"
         android:textColorHint="#adadad"
         android:theme="@style/AppTheme.DynamicBorderColor"
@@ -43,20 +42,17 @@
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/login_uid" />
 
     <Button
         android:id="@+id/login_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="324dp"
         android:text="@string/login_submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/login_pwd"  />
 
     <Button
         android:id="@+id/testknapp"
@@ -69,14 +65,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <Button
+        android:id="@+id/clear_text_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/login_status"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@id/login_uid"
-        app:layout_constraintEnd_toEndOf="@id/login_uid"
-        />
+        android:text="Clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_submit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

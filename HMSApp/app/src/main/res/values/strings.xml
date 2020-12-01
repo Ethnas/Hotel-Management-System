@@ -13,6 +13,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="home_greeting">Welcome to HMS App!</string>
+    <string name="home_instruction">Please click the drawer above to login and book a stay!</string>
+
 
     <!-- title things -->
     <string name="generic_welcome">Please fill out the boxes below</string>
@@ -92,8 +95,9 @@
     </string-array>
 
     <string-array name="acceptbooking_accept_array">
-        <item>Accept</item>
-        <item>Reject</item>
+        <item>Accepted</item>
+        <item>Not Accepted</item>
+        <item>Rejected</item>
     </string-array>
 
     <string-array name="acceptbooking_status_array">

@@ -9,14 +9,14 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_login"
+            android:id="@+id/nav_create"
             android:icon="@drawable/ic_menu_camera"
             android:title="opprett bruker/logg inn"
             />
         <item
-            android:id="@+id/nav_booking_add"
+            android:id="@+id/nav_booking_rem"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="add booking"/>
+            android:title="upd booking"/>
         <item
             android:id="@+id/nav_damrep_add"
             android:icon="@drawable/ic_menu_camera"

@@ -44,8 +44,8 @@
 
     <Spinner
         android:id="@+id/addBooking_roomtype"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +56,7 @@
     <EditText
         android:id="@+id/addBooking_startdate"
         android:layout_width="270dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@drawable/edittextbackground"
         android:textColorHint="#adadad"
         android:theme="@style/AppTheme.DynamicBorderColor"
@@ -74,7 +74,7 @@
     <EditText
         android:id="@+id/addBooking_enddate"
         android:layout_width="270dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@drawable/edittextbackground"
         android:textColorHint="#adadad"
         android:theme="@style/AppTheme.DynamicBorderColor"
@@ -96,9 +96,19 @@
         style="@style/ButtonTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="12dp"
         android:text="@string/add_submit"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addBooking_enddate"
-        />
+        app:layout_constraintTop_toBottomOf="@id/addBooking_enddate" />
+
+    <Button
+        android:id="@+id/clear_text_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="236dp"
+        android:text="Clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addBooking_enddate"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

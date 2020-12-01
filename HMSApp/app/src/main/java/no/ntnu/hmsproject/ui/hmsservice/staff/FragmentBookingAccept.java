@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -23,7 +23,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ import no.ntnu.hmsproject.domain.LoggedUser;
 import no.ntnu.hmsproject.network.ApiLinks;
 
 public class FragmentBookingAccept extends Fragment implements AdapterView.OnItemSelectedListener{
-    TextView bookingIdV;
+    EditText bookingIdV;
     Spinner acceptV;
     Spinner statusV;
     Spinner roomV;
@@ -97,9 +96,15 @@ public class FragmentBookingAccept extends Fragment implements AdapterView.OnIte
         acceptBookingMap.put("roomNumber", roomV.getSelectedItem().toString());
 
 
-        String bookingId = acceptV.getSelectedItem().toString();
+        String bookingId = bookingIdV.getText().toString();
         String bookingStatus = acceptV.getSelectedItem().toString();
         String bookingRoom = roomV.getSelectedItem().toString();
+
+        if (bookingId.isEmpty()) {
+            bookingIdV.setError("Empty field, please fill out");
+            bookingIdV.requestFocus();
+            return;
+        }
 
         Context context = getActivity();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -143,6 +148,5 @@ public class FragmentBookingAccept extends Fragment implements AdapterView.OnIte
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 }

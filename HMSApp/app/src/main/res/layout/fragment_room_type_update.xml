@@ -11,17 +11,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
-    tools:context=".ui.hmsservice.room">
+    tools:context=".ui.hmsservice.roomtype.FragmentRoomTypeUpdate">
 
     <TextView
-        android:id="@+id/add_roomtype_title"
+        android:id="@+id/upd_roomtype_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="80dp"
-        android:text="@string/rt_m_nav_add"
+        android:text="@string/rt_m_nav_upd"
         android:textColor="#fff"
         android:textStyle="bold"
         android:textSize="30sp"
@@ -32,37 +32,28 @@
         />
 
     <TextView
-        android:id="@+id/add_roomtype_desc"
+        android:id="@+id/upd_roomtype_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/generic_welcome"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_roomtype_title"
+        app:layout_constraintTop_toBottomOf="@id/upd_roomtype_title"
         />
 
-    <EditText
-        android:id="@+id/add_roomtype_roomtype"
+    <Spinner
+        android:id="@+id/upd_roomtype_roomtype"
         android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="80dp"
-        android:background="@drawable/edittextbackground"
-        android:textColorHint="#adadad"
-        android:theme="@style/AppTheme.DynamicBorderColor"
+        android:layout_height="40dp"
 
-        android:hint="@string/roomType"
-        android:autofillHints="@string/roomType"
-
-        android:inputType="textShortMessage"
-        android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_roomtype_desc"
+        app:layout_constraintTop_toBottomOf="@id/upd_roomtype_desc"
         />
 
     <EditText
-        android:id="@+id/add_roomtype_price"
+        android:id="@+id/upd_roomtype_price"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittextbackground"
@@ -77,16 +68,16 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_roomtype_roomtype"
+        app:layout_constraintTop_toBottomOf="@id/upd_roomtype_roomtype"
         />
 
     <Button
-        android:id="@+id/addroomtype_submit"
+        android:id="@+id/updroomtype_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_submit"
+        android:text="@string/update_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_roomtype_price"
+        app:layout_constraintTop_toBottomOf="@id/upd_roomtype_price"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

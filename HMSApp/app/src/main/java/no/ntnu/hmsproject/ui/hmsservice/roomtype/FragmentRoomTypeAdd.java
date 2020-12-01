@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,11 +35,12 @@ import no.ntnu.hmsproject.domain.RoomType;
 import no.ntnu.hmsproject.network.ApiLinks;
 
 public class FragmentRoomTypeAdd extends Fragment {
-    TextView roomTypeV;
-    TextView priceV;
+    EditText roomTypeV;
+    EditText priceV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
     }
 

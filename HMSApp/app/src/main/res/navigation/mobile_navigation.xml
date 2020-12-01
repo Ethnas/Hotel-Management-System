@@ -58,6 +58,11 @@
         tools:layout="@layout/fragment_booking_add"/>
 
     <fragment
+        android:id="@+id/nav_booking_rem"
+        android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingRemove"
+        tools:layout="@layout/fragment_booking_remove"/>
+
+    <fragment
         android:id="@+id/nav_login_main"
         android:name="no.ntnu.hmsproject.ui.login.FragmentLoginMain"
         tools:layout="@layout/fragment_login_main">
@@ -95,5 +100,10 @@
         android:id="@+id/nav_accept_booking"
         android:name="no.ntnu.hmsproject.ui.hmsservice.staff.FragmentBookingAccept"
         tools:layout="@layout/fragment_booking_accept"/>
+
+    <fragment
+        android:id="@+id/nav_booking_upd"
+        android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingUpdate"
+        tools:layout="@layout/fragment_booking_update"/>
 
 </navigation>

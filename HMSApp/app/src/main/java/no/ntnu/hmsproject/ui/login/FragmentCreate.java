@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,12 +44,12 @@ import no.ntnu.hmsproject.network.GsonRequest;
  *
  */
 public class FragmentCreate extends Fragment {
-    TextView emlV;
-    TextView uidV;
-    TextView firstNameV;
-    TextView lastNameV;
-    TextView tlfV;
-    TextView pwdV;
+    EditText emlV;
+    EditText uidV;
+    EditText firstNameV;
+    EditText lastNameV;
+    EditText tlfV;
+    EditText pwdV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

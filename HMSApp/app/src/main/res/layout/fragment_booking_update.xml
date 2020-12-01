@@ -42,20 +42,11 @@
         app:layout_constraintTop_toBottomOf="@id/booking_main_id"
         />
 
-    <EditText
+    <Spinner
         android:id="@+id/updBooking_roomtype"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_margin="80dp"
-        android:background="@drawable/edittextbackground"
-        android:textColorHint="#adadad"
-        android:theme="@style/AppTheme.DynamicBorderColor"
 
-        android:hint="@string/roomType"
-        android:autofillHints="@string/roomType"
-
-        android:inputType="textShortMessage"
-        android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/booking_main_desc"

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,8 +34,8 @@ import no.ntnu.hmsproject.network.ApiLinks;
 
 
 public class FragmentLogin extends Fragment {
-    TextView uidView;
-    TextView pwdView;
+    EditText uidView;
+    EditText pwdView;
 
     private String token;
     LoggedUser loggedUser = new LoggedUser();
@@ -67,7 +68,7 @@ public class FragmentLogin extends Fragment {
         uidView = view.findViewById(R.id.login_uid);
         pwdView = view.findViewById(R.id.login_pwd);
         Button submitView = (Button) view.findViewById(R.id.login_submit);
-        Button testKnapp = (Button) view.findViewById(R.id.testknapp);
+
 
         submitView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,11 +77,24 @@ public class FragmentLogin extends Fragment {
             }
         });
 
+
+
+        Button clearTextView = (Button) view.findViewById(R.id.clear_text_submit);
+        clearTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uidView.getText().clear();
+                pwdView.getText().clear();
+            }
+        });
+
+        //TODO - SLETT DEN HER NÅR FERDIGSTILT!
+        Button testKnapp = (Button) view.findViewById(R.id.testknapp);
         testKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Trykket", Toast.LENGTH_LONG).show();
-                testMore();
+                testLogin();
             }
         });
 
@@ -112,6 +126,9 @@ public class FragmentLogin extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+
+
+    //TODO - SLETT DEN HER NÅR FERDIGSTILT!
     public void testLogin() {
         Context context = getActivity();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -144,8 +161,5 @@ public class FragmentLogin extends Fragment {
         System.out.println("Token: " + LoggedUser.getInstance().getJwt());
         requestQueue.add(stringRequest);
         System.out.println(stringRequest);
-    }
-
-    public void testMore() {
     }
 }
