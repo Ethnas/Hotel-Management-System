@@ -15,7 +15,7 @@ services:
       - "127.0.0.1:4848:4848"
     labels:
       - "traefik.http.services.api.loadbalancer.server.port=8080"
-      - "traefik.http.routers.api.rule=Host(hms.northeurope.cloudapp.azure.com)"
+      - "traefik.http.routers.api.rule=Host(`hms.northeurope.cloudapp.azure.com`)"
       - "traefik.http.routers.api.tls=true"
       - "traefik.http.routers.api.tls.certresolver=buypass"
 
