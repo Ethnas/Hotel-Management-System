@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.api.Api;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -105,7 +106,7 @@ public class FragmentLogin extends Fragment {
         Context context = getActivity();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        String url = "http://10.22.184.117:8080/HMSProject/api/auth/login" + "?uid=" + uidView.getText() + "&pwd=" + pwdView.getText();
+        String url = ApiLinks.LOGIN_URL + "?uid=" + uidView.getText() + "&pwd=" + pwdView.getText();
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {

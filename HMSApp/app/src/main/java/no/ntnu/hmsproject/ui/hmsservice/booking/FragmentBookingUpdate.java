@@ -110,7 +110,7 @@ public class FragmentBookingUpdate extends Fragment implements AdapterView.OnIte
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         StringRequest stringRequest = new StringRequest(
-                Request.Method.PUT, ApiLinks.REMOVE_BOOKING_URL,
+                Request.Method.PUT, ApiLinks.UPDATE_BOOKING_URL,
                 response -> {
                     try {
                         JSONObject obj = new JSONObject(response);
