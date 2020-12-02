@@ -46,11 +46,26 @@
             app:destination="@+id/nav_home"/>
     </fragment>
 
-    <activity
+
+    <!-- booking -->
+    <!-- booking -->
+    <!-- booking -->
+
+    <fragment
         android:id="@+id/nav_booking"
         android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingMain"
         android:label="@string/nav_menu_booking"
-        tools:layout="@layout/fragment_booking_main"/>
+        tools:layout="@layout/fragment_booking_main">
+        <action
+            android:id="@+id/action_nav_booking_main_to_add"
+            app:destination="@id/nav_booking_add"/>
+        <action
+            android:id="@+id/action_nav_booking_main_to_rem"
+            app:destination="@id/nav_booking_rem"/>
+        <action
+            android:id="@+id/action_nav_booking_main_to_upd"
+            app:destination="@id/nav_booking_upd"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_booking_add"
@@ -61,6 +76,15 @@
         android:id="@+id/nav_booking_rem"
         android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingRemove"
         tools:layout="@layout/fragment_booking_remove"/>
+
+    <fragment
+        android:id="@+id/nav_booking_upd"
+        android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingUpdate"
+        tools:layout="@layout/fragment_booking_update"/>
+
+    <!-- login -->
+    <!-- login -->
+    <!-- login -->
 
     <fragment
         android:id="@+id/nav_login_main"
@@ -118,10 +142,6 @@
         android:name="no.ntnu.hmsproject.ui.hmsservice.staff.FragmentBookingAccept"
         tools:layout="@layout/fragment_booking_accept"/>
 
-    <fragment
-        android:id="@+id/nav_booking_upd"
-        android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingUpdate"
-        tools:layout="@layout/fragment_booking_update"/>
 
 
 </navigation>

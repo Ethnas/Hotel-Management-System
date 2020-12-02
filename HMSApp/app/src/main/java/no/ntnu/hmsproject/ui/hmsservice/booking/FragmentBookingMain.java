@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -27,11 +29,10 @@ import no.ntnu.hmsproject.R;
 import no.ntnu.hmsproject.domain.LoggedUser;
 
 
-public class FragmentBookingMain extends AppCompatActivity {
+public class FragmentBookingMain extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        setContentView(R.layout.fragment_booking_main);
         super.onCreate(savedInstanceState);
     }
 
@@ -39,12 +40,16 @@ public class FragmentBookingMain extends AppCompatActivity {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booking_main, container, false);
 
-        Button goTo_addView = (Button) view.findViewById(R.id.booking_main_nav_addbooking);
-        goTo_addView.setOnClickListener(new View.OnClickListener() {
+
+        Button gotoAddV = (Button) view.findViewById(R.id.booking_main_nav_addbooking);
+        Button gotoRemV = (Button) view.findViewById(R.id.booking_main_nav_rembooking);
+        Button gotoUpdV = (Button) view.findViewById(R.id.booking_main_nav_updbooking);
+
+        gotoAddV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(FragmentBookingMain.this, "dritfaen", Toast.LENGTH_LONG).show();
-
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                //navController.navigate();
             }
         });
 

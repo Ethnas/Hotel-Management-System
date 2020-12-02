@@ -11,17 +11,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
-    tools:context=".ui.hmsservice.staff.FragmentBookingAccept">
+    tools:context=".ui.hmsservice.staff.FragmentUpdateRoomStatus">
 
     <TextView
-        android:id="@+id/booking_accept_main_title"
+        android:id="@+id/upd_roomstatus_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="80dp"
-        android:text="@string/b_m_nav_accept"
+        android:text="@string/checkout_title"
         android:textColor="#fff"
         android:textStyle="bold"
         android:textSize="30sp"
@@ -32,75 +32,41 @@
         />
 
     <TextView
-        android:id="@+id/booking_accept_main_desc"
+        android:id="@+id/upd_roomstatus_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/generic_welcome"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/booking_accept_main_title"
-        />
-
-    <EditText
-        android:id="@+id/acceptbooking_bookingid"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="80dp"
-        android:background="@drawable/edittextbackground"
-        android:textColorHint="#adadad"
-        android:theme="@style/AppTheme.DynamicBorderColor"
-
-        android:hint="@string/bookingId"
-        android:autofillHints="@string/bookingId"
-
-        android:inputType="textShortMessage"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/booking_accept_main_desc"
+        app:layout_constraintTop_toBottomOf="@id/upd_roomstatus_main"
         />
 
     <Spinner
-        android:id="@+id/acceptbooking_accepted"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/transparent"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acceptbooking_bookingid"
-        />
-
-    <!--
-    <Spinner
-        android:id="@+id/acceptbooking_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acceptbooking_accepted"
-        />-->
-
-
-    <Spinner
-        android:id="@+id/acceptbooking_room"
+        android:id="@+id/upd_roomstatus_room"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acceptbooking_accepted"
+        app:layout_constraintTop_toBottomOf="@id/upd_roomstatus_desc"
+        />
+
+    <Spinner
+        android:id="@+id/upd_roomstatus_status"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/upd_roomstatus_room"
         />
 
     <Button
-        android:id="@+id/acceptbooking_submit"
-        style="@style/ButtonTest"
-        android:layout_marginTop="5dp"
+        android:id="@+id/upd_roomstatus_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_submit"
+        android:text="@string/checkout_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acceptbooking_room"
-        />
+        app:layout_constraintTop_toBottomOf="@id/upd_roomstatus_status"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

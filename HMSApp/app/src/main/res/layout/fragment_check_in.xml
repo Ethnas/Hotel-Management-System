@@ -11,17 +11,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
-    tools:context=".ui.hmsservice.staff.FragmentBookingAccept">
+    tools:context=".ui.hmsservice.staff.FragmentCheckIn">
 
     <TextView
-        android:id="@+id/booking_accept_main_title"
+        android:id="@+id/check_in_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="80dp"
-        android:text="@string/b_m_nav_accept"
+        android:text="@string/checkin_title"
         android:textColor="#fff"
         android:textStyle="bold"
         android:textSize="30sp"
@@ -32,18 +32,18 @@
         />
 
     <TextView
-        android:id="@+id/booking_accept_main_desc"
+        android:id="@+id/check_in_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/generic_welcome"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/booking_accept_main_title"
+        app:layout_constraintTop_toBottomOf="@id/check_in_main"
         />
 
     <EditText
-        android:id="@+id/acceptbooking_bookingid"
+        android:id="@+id/check_in_bookingid"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_margin="80dp"
@@ -52,55 +52,21 @@
         android:theme="@style/AppTheme.DynamicBorderColor"
 
         android:hint="@string/bookingId"
-        android:autofillHints="@string/bookingId"
+        android:autofillHints="@string/bookingStatus"
 
         android:inputType="textShortMessage"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/booking_accept_main_desc"
-        />
-
-    <Spinner
-        android:id="@+id/acceptbooking_accepted"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/transparent"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acceptbooking_bookingid"
-        />
-
-    <!--
-    <Spinner
-        android:id="@+id/acceptbooking_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acceptbooking_accepted"
-        />-->
-
-
-    <Spinner
-        android:id="@+id/acceptbooking_room"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acceptbooking_accepted"
+        app:layout_constraintTop_toBottomOf="@id/check_in_desc"
         />
 
     <Button
-        android:id="@+id/acceptbooking_submit"
-        style="@style/ButtonTest"
-        android:layout_marginTop="5dp"
+        android:id="@+id/check_in_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_submit"
+        android:text="@string/checkin_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/acceptbooking_room"
-        />
+        app:layout_constraintTop_toBottomOf="@id/check_in_bookingid"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

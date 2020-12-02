@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.android.volley.AuthFailureError;
@@ -30,11 +29,9 @@ import no.ntnu.hmsproject.R;
 import no.ntnu.hmsproject.domain.LoggedUser;
 import no.ntnu.hmsproject.network.ApiLinks;
 
-public class FragmentBookingAccept extends Fragment implements AdapterView.OnItemSelectedListener {
-    EditText bookingIdV;
-    Spinner acceptV;
-    Spinner statusV;
+public class FragmentUpdateRoomStatus extends Fragment implements AdapterView.OnItemSelectedListener  {
     Spinner roomV;
+    Spinner statusV;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,67 +47,41 @@ public class FragmentBookingAccept extends Fragment implements AdapterView.OnIte
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_booking_accept, container, false);
-
-        bookingIdV = view.findViewById(R.id.acceptbooking_bookingid);
-
-        //Spinner for accept
-        acceptV = (Spinner) view.findViewById(R.id.acceptbooking_accepted);
-        ArrayAdapter adapterAccept = ArrayAdapter.createFromResource(getActivity(), R.array.acceptbooking_accept_array, android.R.layout.simple_spinner_item);
-        adapterAccept.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        acceptV.setAdapter(adapterAccept);
-
-        /*
-        //Spinner for status
-        statusV = (Spinner) view.findViewById(R.id.acceptbooking_status);
-        ArrayAdapter adapterStatus = ArrayAdapter.createFromResource(getActivity(), R.array.acceptbooking_status_array, android.R.layout.simple_spinner_item);
-        adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        statusV.setAdapter(adapterStatus);
-         */
+        View view = inflater.inflate(R.layout.fragment_update_room_status, container, false);
 
         //Spinner for room
-        roomV = (Spinner) view.findViewById(R.id.acceptbooking_room);
+        roomV = (Spinner) view.findViewById(R.id.upd_roomstatus_room);
         ArrayAdapter adapterRoom = ArrayAdapter.createFromResource(getActivity(), R.array.room_array, android.R.layout.simple_spinner_item);
         adapterRoom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roomV.setAdapter(adapterRoom);
 
+        //Spinner for status
+        statusV = (Spinner) view.findViewById(R.id.upd_roomstatus_status);
+        ArrayAdapter adapterStatus = ArrayAdapter.createFromResource(getActivity(), R.array.acceptbooking_status_array, android.R.layout.simple_spinner_item);
+        adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statusV.setAdapter(adapterStatus);
 
-        Button acceptBookingV = (Button) view.findViewById(R.id.acceptbooking_submit);
+        Button updateRoomStatusV = (Button) view.findViewById(R.id.upd_roomstatus_submit);
 
-        acceptBookingV.setOnClickListener(new View.OnClickListener() {
+        updateRoomStatusV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                acceptBooking();
+                updateRoomStatus();
             }
         });
-
 
 
         return view;
     }
 
-    private void acceptBooking() {
-        final HashMap<String, String> acceptBookingMap = new HashMap<>();
-        acceptBookingMap.put("bookingid", bookingIdV.getText().toString());
-        acceptBookingMap.put("bookingStatus", acceptV.getSelectedItem().toString());
-        acceptBookingMap.put("roomNumber", roomV.getSelectedItem().toString());
-
-
-        String bookingId = bookingIdV.getText().toString();
-        String bookingAccepted = acceptV.getSelectedItem().toString();
-        String bookingRoom = roomV.getSelectedItem().toString();
-
-        if (bookingId.isEmpty()) {
-            bookingIdV.setError("Empty field, please fill out");
-            bookingIdV.requestFocus();
-            return;
-        }
+    private void updateRoomStatus() {
+        String room = roomV.getSelectedItem().toString();
+        String status = statusV.getSelectedItem().toString();
 
         Context context = getActivity();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        String url = ApiLinks.ACCEPT_BOOKING_URL + "?bookingid=" + bookingId
-                + "&bookingAccepted=" + bookingAccepted + "&RoomNumber=" + bookingRoom;
+        String url = ApiLinks.UPDATE_ROOM_STATUS_URL + "?roomnumber=" + room + "&roomstatus=" + status;
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT, url,
@@ -122,7 +93,7 @@ public class FragmentBookingAccept extends Fragment implements AdapterView.OnIte
                     System.out.println(error);
                     System.out.println("Something went wrong");
                 }
-        ) {
+        ){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<String, String>();
@@ -133,20 +104,20 @@ public class FragmentBookingAccept extends Fragment implements AdapterView.OnIte
                 System.out.println("(Inside call) Token: " + LoggedUser.getInstance().getJwt());
                 return headers;
             }
-
         };
 
         requestQueue.add(stringRequest);
-        System.out.println("SR: "+ stringRequest);
+        System.out.println("SR: " + stringRequest);
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
         adapterView.getItemAtPosition(pos);
-
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

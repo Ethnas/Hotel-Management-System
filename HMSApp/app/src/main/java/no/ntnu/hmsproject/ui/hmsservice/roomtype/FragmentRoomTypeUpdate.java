@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +35,7 @@ import no.ntnu.hmsproject.domain.LoggedUser;
 import no.ntnu.hmsproject.domain.RoomType;
 import no.ntnu.hmsproject.network.ApiLinks;
 
-public class FragmentRoomTypeUpdate extends Fragment {
+public class FragmentRoomTypeUpdate extends Fragment implements AdapterView.OnItemSelectedListener  {
     Spinner roomTypeV;
     EditText priceV;
 
@@ -137,5 +138,15 @@ public class FragmentRoomTypeUpdate extends Fragment {
         requestQueue.add(stringRequest);
         System.out.println("Map: " + updRoomTypeMap);
         System.out.println("SR: " + stringRequest);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+        adapterView.getItemAtPosition(pos);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

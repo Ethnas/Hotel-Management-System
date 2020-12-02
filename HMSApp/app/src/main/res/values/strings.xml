@@ -105,6 +105,13 @@
         <item>Inactive</item>
     </string-array>
 
+    <string-array name="roomstatus_array">
+        <item>Free</item>
+        <item>Occupied</item>
+        <item>Maintenance</item>
+        <item>Out of order</item>
+    </string-array>
+
     <string-array name="room_array">
         <item>000</item>
         <item>101</item>
@@ -112,5 +119,18 @@
         <item>103</item>
         <item>104</item>
         <item>105</item>
+        <item>106</item>
+        <item>107</item>
+        <item>108</item>
+        <item>109</item>
+        <item>201</item>
+        <item>202</item>
+        <item>203</item>
+        <item>204</item>
+        <item>205</item>
+        <item>206</item>
+        <item>207</item>
+        <item>208</item>
+        <item>209</item>
     </string-array>
 </resources>

@@ -11,7 +11,7 @@ public class ApiLinks {
     //
 
 
-    //skole ip
+    //server ip
     public static final String BASE_URL = "https://hms.northeurope.cloudapp.azure.com/HMSProject-1/api/";
 
     public static final String LOGIN_URL = BASE_URL + "auth/login";
@@ -38,6 +38,9 @@ public class ApiLinks {
 
     //Staff
     public static final String ACCEPT_BOOKING_URL = BASE_URL + "hotel/staff/updateBookingStaff";
+    public static final String CHECK_IN_URL = BASE_URL + "hotel/staff/checkin";
+    public static final String CHECK_OUT_URL = BASE_URL + "hotel/staff/checkout";
+    public static final String UPDATE_ROOM_STATUS_URL = BASE_URL + "hotel/staff/updateroomstatus";
 
 
 
