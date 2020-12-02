@@ -32,6 +32,7 @@
 
     <EditText
         android:id="@+id/login_pwd"
+        android:layout_marginTop="10dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edittextbackground"
@@ -47,6 +48,8 @@
 
     <Button
         android:id="@+id/login_submit"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_submit"
@@ -56,6 +59,7 @@
 
     <Button
         android:id="@+id/testknapp"
+        style="@style/ButtonTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="480dp"
@@ -67,6 +71,8 @@
 
     <Button
         android:id="@+id/clear_text_submit"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Clear"

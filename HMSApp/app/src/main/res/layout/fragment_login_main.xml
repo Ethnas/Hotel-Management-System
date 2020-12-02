@@ -39,6 +39,7 @@
 
     <Button
         android:id="@+id/login_main_create"
+        style="@style/ButtonTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
@@ -49,6 +50,8 @@
 
     <Button
         android:id="@+id/login_main_login"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +61,8 @@
 
     <Button
         android:id="@+id/login_main_google"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
