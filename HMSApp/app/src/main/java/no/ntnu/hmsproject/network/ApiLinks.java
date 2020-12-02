@@ -27,6 +27,7 @@ public class ApiLinks {
     public static final String REMOVE_BOOKING_URL = BASE_URL + "hotel/removebooking";
     public static final String UPDATE_BOOKING_URL = BASE_URL + "hotel/updatebooking";
     public static final String GET_SPECIFIC_BOOKING_URL = BASE_URL + "hotel/getbooking";
+    public static final String GET_ALL_BOOKING_URL = BASE_URL + "hotel/getAllBookings";
 
 
     //Damage Report

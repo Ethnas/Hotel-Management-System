@@ -62,7 +62,6 @@ public class DamageReportListAdapter extends RecyclerView.Adapter<DamageReportLi
     }
 
     class DamageReportViewHolder extends RecyclerView.ViewHolder {
-        View view;
         TextView damageReportId;
         TextView damageReportTitle;
 

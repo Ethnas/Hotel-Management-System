@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Booking {
     @SerializedName("bookingId")
-    int bookingId;
+    String bookingId;
 
     //Booking specific fields
     @SerializedName("bookingStartDate")
@@ -51,11 +51,11 @@ public class Booking {
         this.user = user;
     }
 
-    public int getBookingId() {
+    public String getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(int bookingId) {
+    public void setBookingId(String bookingId) {
         this.bookingId = bookingId;
     }
 

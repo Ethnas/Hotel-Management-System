@@ -77,7 +77,7 @@ public class FragmentDamRepDetails extends Fragment {
         viewBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int bookingId = damageReport.getBooking().getBookingId();
+                int bookingId = Integer.parseInt(damageReport.getBooking().getBookingId());
                 FragmentDamRepDetailsDirections.ActionNavDamrepDetailsToBooking action = FragmentDamRepDetailsDirections.actionNavDamrepDetailsToBooking(bookingId);
                 Navigation.findNavController(v).navigate(action);
             }

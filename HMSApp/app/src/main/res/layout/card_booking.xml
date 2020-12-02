@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/parent"
+    android:layout_margin="10dp"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/booking_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BookingID"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/booking_startdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BookingStartDate"
+            android:textStyle="bold"
+            android:layout_below="@+id/booking_id"/>
+
+        <TextView
+            android:id="@+id/booking_enddate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BookingEndDate"
+            android:textStyle="bold"
+            android:layout_below="@+id/booking_startdate"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

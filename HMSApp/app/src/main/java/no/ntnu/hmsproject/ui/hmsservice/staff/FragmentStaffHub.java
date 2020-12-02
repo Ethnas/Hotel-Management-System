@@ -58,7 +58,7 @@ public class FragmentStaffHub extends Fragment {
             }
         });
 
-        /*
+
         gotoBookings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +67,7 @@ public class FragmentStaffHub extends Fragment {
                 navController.navigate(action);
             }
         });
-         */
+
 
         gotoAccepting.setOnClickListener(new View.OnClickListener() {
             @Override

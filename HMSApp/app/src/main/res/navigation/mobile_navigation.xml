@@ -105,6 +105,24 @@
         android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingUpdate"
         tools:layout="@layout/fragment_booking_update"/>
 
+    <fragment
+        android:id="@+id/nav_booking_details"
+        android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingDetails"
+        tools:layout="@layout/fragment_booking_details">
+        <argument
+            android:name="bookingId"
+            app:argType="integer"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_booking_list"
+        android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingList"
+        tools:layout="@layout/fragment_booking_list">
+        <action
+            android:id="@+id/action_nav_booking_list_to_booking_details"
+            app:destination="@id/nav_booking_details"/>
+    </fragment>
+
 
     <!-- STAFF -->
     <!-- STAFF -->
@@ -129,6 +147,9 @@
         <action
             android:id="@+id/action_nav_stafhfub_to_accept"
             app:destination="@id/nav_accept_booking"/>
+        <action
+            android:id="@+id/action_nav_staffhub_to_bookings"
+            app:destination="@id/nav_booking_list"/>
     </fragment>
 
     <fragment
@@ -211,14 +232,7 @@
             app:destination="@id/nav_booking_details"/>
     </fragment>
 
-    <fragment
-        android:id="@+id/nav_booking_details"
-        android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingDetails"
-        tools:layout="@layout/fragment_booking_details">
-        <argument
-            android:name="bookingId"
-            app:argType="integer"/>
-    </fragment>
+
 
 
 
