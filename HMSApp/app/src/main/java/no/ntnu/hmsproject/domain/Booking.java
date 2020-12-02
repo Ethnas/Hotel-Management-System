@@ -29,6 +29,9 @@ public class Booking {
     @SerializedName("user")
     User user;
 
+    public Booking(String bookingid, String bookingRoomType, String booingStartDate, String bookingEndDate) {
+    }
+
     public Booking(String bookingRoomType, String booingStartDate, String bookingEndDate) {
     }
 

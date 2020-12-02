@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_create, R.id.nav_booking_rem, R.id.nav_damrep_add, R.id.nav_damrep_list, R.id.nav_accept_booking)
+                R.id.nav_home, R.id.nav_login_main, R.id.nav_booking, R.id.nav_staffhub_main)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -62,22 +62,17 @@ public class MainActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 int menuId = destination.getId();
                 switch(menuId) {
-                    case R.id.nav_create:
-                        Toast.makeText(MainActivity.this, "logg inn", Toast.LENGTH_LONG).show();
+                    case R.id.nav_login_main:
+                        Toast.makeText(MainActivity.this, "Create/Login", Toast.LENGTH_LONG).show();
                         fab.hide();
                         break;
-                    case R.id.nav_booking_rem:
-                        Toast.makeText(MainActivity.this, "Book", Toast.LENGTH_LONG).show();
+                    case R.id.nav_booking:
+                        Toast.makeText(MainActivity.this, "Booking", Toast.LENGTH_LONG).show();
                         fab.hide();
                         break;
-                    case R.id.nav_damrep_add:
-                        Toast.makeText(MainActivity.this, "thing", Toast.LENGTH_LONG).show();
+                    case R.id.nav_staffhub_main:
+                        Toast.makeText(MainActivity.this, "Staff Hub", Toast.LENGTH_LONG).show();
                         break;
-                    case R.id.nav_damrep_list:
-                        Toast.makeText(MainActivity.this, "damreplist", Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.nav_accept_booking:
-                        Toast.makeText(MainActivity.this, "asdf", Toast.LENGTH_LONG).show();
                     default:
                         fab.show();
                         break;

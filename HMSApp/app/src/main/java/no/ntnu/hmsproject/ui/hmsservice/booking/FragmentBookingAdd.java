@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,8 +40,8 @@ import no.ntnu.hmsproject.network.ApiLinks;
 public class FragmentBookingAdd extends Fragment implements AdapterView.OnItemSelectedListener  {
     //TextView roomTypeV;
     Spinner roomTypeV;
-    TextView startDateV;
-    TextView endDateV;
+    EditText startDateV;
+    EditText endDateV;
 
 
     @Override
@@ -78,6 +79,15 @@ public class FragmentBookingAdd extends Fragment implements AdapterView.OnItemSe
             @Override
             public void onClick(View view) {
                 addBooking();
+            }
+        });
+
+        Button clearText = (Button) view.findViewById(R.id.clear_text_submit);
+        clearText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startDateV.getText().clear();
+                endDateV.getText().clear();
             }
         });
 
@@ -143,7 +153,6 @@ public class FragmentBookingAdd extends Fragment implements AdapterView.OnItemSe
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 final HashMap<String, String> addBookingMap = new HashMap<>();
-
                 addBookingMap.put("bookingRoomType", roomType);
                 addBookingMap.put("bookingStartDate", startDate);
                 addBookingMap.put("bookingEndDate", endDate);

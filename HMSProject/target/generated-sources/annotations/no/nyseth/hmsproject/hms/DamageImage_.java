@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import no.nyseth.hmsproject.hms.DamageReport;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-12-01T11:49:17")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-12-02T14:43:50")
 @StaticMetamodel(DamageImage.class)
 public class DamageImage_ { 
 

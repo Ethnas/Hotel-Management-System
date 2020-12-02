@@ -38,6 +38,7 @@ import no.ntnu.hmsproject.network.ApiLinks;
 
 
 public class FragmentBookingUpdate extends Fragment implements AdapterView.OnItemSelectedListener {
+    EditText bookingIdV;
     Spinner roomTypeV;
     EditText startDateV;
     EditText endDateV;
@@ -64,6 +65,7 @@ public class FragmentBookingUpdate extends Fragment implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roomTypeV.setAdapter(adapter);
 
+        bookingIdV = view.findViewById(R.id.updbooking_id);
         startDateV = view.findViewById(R.id.updBooking_startdate);
         endDateV = view.findViewById(R.id.updBooking_startdate);
 
@@ -82,12 +84,14 @@ public class FragmentBookingUpdate extends Fragment implements AdapterView.OnIte
 
     private void updateBooking() {
         final HashMap<String, String> updBookingMap = new HashMap<>();
+        updBookingMap.put("bookingid", bookingIdV.getText().toString());
         updBookingMap.put("bookingRoomType", roomTypeV.getSelectedItem().toString());
         updBookingMap.put("bookingStartDate", startDateV.getText().toString());
         updBookingMap.put("bookingEndDate", endDateV.getText().toString());
 
         //Loads the textview into string variables and checks if they are not empty.
 
+        String bookingid = bookingIdV.getText().toString();
         String roomType = roomTypeV.getSelectedItem().toString();
         String startDate = startDateV.getText().toString();
         String endDate = endDateV.getText().toString();
@@ -118,6 +122,7 @@ public class FragmentBookingUpdate extends Fragment implements AdapterView.OnIte
                         if (!obj.getBoolean("error")) {
                             JSONObject jsonObject = obj.getJSONObject("booking");
                             Booking booking = new Booking(
+                                    jsonObject.getString("bookingid"),
                                     jsonObject.getString("bookingRoomType"),
                                     jsonObject.getString("bookingStartDate"),
                                     jsonObject.getString("bookingEndDate")
@@ -137,7 +142,7 @@ public class FragmentBookingUpdate extends Fragment implements AdapterView.OnIte
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 final HashMap<String, String> updBookingMap = new HashMap<>();
-
+                updBookingMap.put("bookingid", bookingid);
                 updBookingMap.put("bookingRoomType", roomType);
                 updBookingMap.put("bookingStartDate", startDate);
                 updBookingMap.put("bookingEndDate", endDate);

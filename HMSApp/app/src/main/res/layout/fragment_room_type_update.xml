@@ -36,7 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/generic_welcome"
-        android:textColor="#000000"
+        android:textColor="#adadad"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upd_roomtype_title"
@@ -73,6 +74,8 @@
 
     <Button
         android:id="@+id/updroomtype_submit"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/update_submit"

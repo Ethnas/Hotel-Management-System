@@ -15,7 +15,7 @@ tools:context=".ui.login.ActivityLoginGoogle">
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     android:layout_marginTop="80dp"
-    android:text="@string/userTitle"
+    android:text="Login with Google"
     android:textColor="#fff"
     android:textStyle="bold"
     android:textSize="30sp"
@@ -30,12 +30,13 @@ tools:context=".ui.login.ActivityLoginGoogle">
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/userDesc"
-    android:textColor="#000000"
+    android:textColor="#adadad"
+    android:textStyle="italic"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/login_main_id"
     />
-
+<!--
 <Button
     android:id="@+id/login_main_create"
     style="@style/ButtonTest"
@@ -56,7 +57,7 @@ tools:context=".ui.login.ActivityLoginGoogle">
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/login_main_create"
-    android:text="@string/l_m_nav_login"/>
+    android:text="@string/l_m_nav_login"/>-->
 
 <com.google.android.gms.common.SignInButton
     android:id="@+id/sign_in_button"

@@ -37,6 +37,7 @@ public class ActivityLoginGoogle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_google);
+        getSupportActionBar().show();
 
         // Request only the user's ID token, which can be used to identify the
         // user securely to your backend. This will contain the user's basic

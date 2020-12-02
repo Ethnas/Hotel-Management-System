@@ -43,7 +43,7 @@ public class FragmentDamReportRemove extends Fragment {
 
         reportIdV = view.findViewById(R.id.remove_reportid);
 
-        Button removeDamRepV = (Button) view.findViewById(R.id.remove_damrep_submit);
+        Button removeDamRepV = (Button) view.findViewById(R.id.removebooking_submit);
 
         removeDamRepV.setOnClickListener(new View.OnClickListener() {
             @Override
