@@ -311,7 +311,6 @@ public class HMService {
         Booking booking = em.find(Booking.class, bookingid);
         ResponseBuilder resp;
         if (booking != null) {
-            booking.setBookingStatus(status);
             Room room = booking.getRoom();
             room.setRoomStatus("occupied");
             resp = Response.ok();
@@ -328,7 +327,6 @@ public class HMService {
         Booking booking = em.find(Booking.class, bookingid);
         ResponseBuilder resp;
         if (booking != null) {
-            booking.setBookingStatus(status);
             Room room = booking.getRoom();
             room.setRoomStatus("maintenance");
             resp = Response.ok();
