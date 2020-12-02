@@ -92,7 +92,7 @@
     <string name="reports">Go To Reports</string>
     <string name="roomview">Go To Room Overview</string>
     <string name="roomstatus">Update Room status</string>
-
+    <string name="accepting">Update bookings</string>
 
 
     <!-- nav -->
@@ -102,9 +102,9 @@
 
     <!-- arrays for spinner -->
     <string-array name="roomtype_array">
-        <item>Single</item>
-        <item>Double</item>
-        <item>Suite</item>
+        <item>single</item>
+        <item>double</item>
+        <item>suite</item>
     </string-array>
 
     <string-array name="acceptbooking_accept_array">

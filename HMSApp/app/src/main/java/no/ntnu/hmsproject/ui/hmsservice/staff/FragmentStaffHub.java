@@ -35,6 +35,7 @@ public class FragmentStaffHub extends Fragment {
         Button gotoCheckIn = (Button) view.findViewById(R.id.staffhub_checkin);
         Button gotoCheckOut = (Button) view.findViewById(R.id.staffhub_checkout);
         Button gotoBookings = (Button) view.findViewById(R.id.staffhub_booking); //TODO - ADD LATER
+        Button gotoAccepting = (Button) view.findViewById(R.id.staffhub_accept);
         Button gotoReports = (Button) view.findViewById(R.id.staffhub_report);
         Button gotoRoomView = (Button) view.findViewById(R.id.staffhub_roomview);
         Button gotoRoomStatus = (Button) view.findViewById(R.id.staffhub_roomstatus);
@@ -67,6 +68,15 @@ public class FragmentStaffHub extends Fragment {
             }
         });
          */
+
+        gotoAccepting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                NavDirections action = FragmentStaffHubDirections.actionNavStafhfubToAccept();
+                navController.navigate(action);
+            }
+        });
 
         gotoReports.setOnClickListener(new View.OnClickListener() {
             @Override

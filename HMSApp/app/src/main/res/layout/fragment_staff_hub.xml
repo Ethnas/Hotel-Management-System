@@ -72,6 +72,17 @@
         app:layout_constraintTop_toBottomOf="@id/staffhub_checkout"
         android:text="@string/bookings" />
 
+
+    <Button
+        android:id="@+id/staffhub_accept"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffhub_booking"
+        android:text="@string/accepting" />
     <Button
         android:id="@+id/staffhub_report"
         style="@style/ButtonTest"
@@ -80,7 +91,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/staffhub_booking"
+        app:layout_constraintTop_toBottomOf="@id/staffhub_accept"
         android:text="@string/reports" />
 
     <Button

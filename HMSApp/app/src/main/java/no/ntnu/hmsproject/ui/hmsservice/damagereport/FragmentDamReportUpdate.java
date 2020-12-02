@@ -33,6 +33,7 @@ import no.ntnu.hmsproject.network.ApiLinks;
 
 
 public class FragmentDamReportUpdate extends Fragment {
+    EditText damRepIdV;
     EditText damRepTitleV;
     EditText damRepBookingIdV;
     EditText damRepDescV;
@@ -48,6 +49,7 @@ public class FragmentDamReportUpdate extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dam_report_update, container, false);
 
+        damRepIdV = view.findViewById(R.id.upd_damrep_bookingid);
         damRepTitleV = view.findViewById(R.id.upd_damrep_title);
         damRepBookingIdV = view.findViewById(R.id.upd_damrep_bookingid);
         damRepDescV = view.findViewById(R.id.upd_damrep_desc);
@@ -66,6 +68,7 @@ public class FragmentDamReportUpdate extends Fragment {
 
     private void updReport() {
         final HashMap<String, String> updDamRepMap = new HashMap<>();
+        updDamRepMap.put("reportId", damRepIdV.getText().toString());
         updDamRepMap.put("damageTitle", damRepTitleV.getText().toString());
         updDamRepMap.put("bookingid", damRepBookingIdV.getText().toString());
         updDamRepMap.put("damageDesc", damRepDescV.getText().toString());
@@ -104,9 +107,10 @@ public class FragmentDamReportUpdate extends Fragment {
                         if(!obj.getBoolean("error")) {
                             JSONObject jsonObject = obj.getJSONObject("damagereport");
                             DamageReport damageReport = new DamageReport(
+                                jsonObject.getString("reportId"),
                                 jsonObject.getString("damageTitle"),
-                                jsonObject.getString("bookingid"),
-                                jsonObject.getString("damageDesc")
+                                jsonObject.getString("damageDesc"),
+                                jsonObject.getString("bookingid")
                             );
                         }
                     } catch (JSONException e) {
@@ -122,10 +126,11 @@ public class FragmentDamReportUpdate extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 final HashMap<String, String> updDamRepMap = new HashMap<>();
-
+                updDamRepMap.put("reportId", damRepIdV.getText().toString());
                 updDamRepMap.put("damageTitle", damageTitle);
-                updDamRepMap.put("bookingid", bookingid);
                 updDamRepMap.put("damageDesc", damageDesc);
+                updDamRepMap.put("bookingid", bookingid);
+
 
                 return updDamRepMap;
             }

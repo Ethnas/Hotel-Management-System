@@ -20,6 +20,9 @@ public class DamageReport {
     public DamageReport(String damageTitle, String bookingid, String damageDesc) {
     }
 
+    public DamageReport(String reportId, String damageTitle, String bookingid, String damageDesc) {
+    }
+
     public String getDamageTitle() {
         return damageTitle;
     }

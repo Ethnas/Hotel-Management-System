@@ -134,7 +134,7 @@ public class FragmentBookingAdd extends Fragment implements AdapterView.OnItemSe
                         if (!obj.getBoolean("error")) {
                             JSONObject jsonObject = obj.getJSONObject("booking");
                             Booking booking = new Booking(
-                                    jsonObject.getString("bookingid"), jsonObject.getString("bookingRoomType"),
+                                    jsonObject.getString("bookingRoomType"),
                                     jsonObject.getString("bookingStartDate"),
                                     jsonObject.getString("bookingEndDate")
                             );
@@ -153,7 +153,6 @@ public class FragmentBookingAdd extends Fragment implements AdapterView.OnItemSe
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 final HashMap<String, String> addBookingMap = new HashMap<>();
-
                 addBookingMap.put("bookingRoomType", roomType);
                 addBookingMap.put("bookingStartDate", startDate);
                 addBookingMap.put("bookingEndDate", endDate);

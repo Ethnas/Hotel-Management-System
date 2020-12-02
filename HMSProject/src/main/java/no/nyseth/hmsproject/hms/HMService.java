@@ -223,7 +223,7 @@ public class HMService {
             User bookingUpdater = this.getCurrentUser();
             
              if (bookingtbu.getUser().equals(bookingUpdater)) {
-                em.getTransaction().begin();
+                //em.getTransaction().begin();
                 
                 bookingtbu.setRoomTypes(bookingType);
                 
@@ -246,7 +246,8 @@ public class HMService {
                 }
                 bookingtbu.setBookingStartDate(dateStart);
                 bookingtbu.setBookingEndDate(dateEnd);
-                em.getTransaction().commit();
+                //em.getTransaction().commit();
+                em.merge(bookingtbu);
                 
                 MailService mail = new MailService();
                 mail.sendMail(bookingUpdater.getEmail(), "Booking: " + bookingid + " updated", 
