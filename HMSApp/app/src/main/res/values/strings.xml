@@ -98,6 +98,7 @@
     <!-- nav -->
     <string name="nav_menu_login">Logg inn</string>
     <string name="nav_menu_booking">Booking</string>
+    <string name="damage_report_image">Damage report image</string>
 
 
     <!-- arrays for spinner -->

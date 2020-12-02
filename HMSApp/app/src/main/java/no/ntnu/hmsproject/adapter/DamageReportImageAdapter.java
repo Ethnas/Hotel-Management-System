@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import no.ntnu.hmsproject.R;
 import no.ntnu.hmsproject.domain.DamageImage;
+import no.ntnu.hmsproject.domain.DamageReport;
 
 
 public class DamageReportImageAdapter extends RecyclerView.Adapter<DamageReportImageAdapter.DamageReportImageViewHolder> {
@@ -59,7 +61,6 @@ public class DamageReportImageAdapter extends RecyclerView.Adapter<DamageReportI
     }
 
     class DamageReportImageViewHolder extends RecyclerView.ViewHolder {
-        View view;
         ImageView imageView;
 
         public DamageReportImageViewHolder(@NonNull View view) {

@@ -57,17 +57,27 @@ public class FragmentDamRepDetails extends Fragment {
     @Nullable
     public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dam_rep_details, container, false);
+        this.id = view.findViewById(R.id.damrep_detail_id);
+        this.title = view.findViewById(R.id.damrep_details_title);
+        this.desc = view.findViewById(R.id.damrep_detail_desc);
+        this.viewBooking = view.findViewById(R.id.damrep_view_booking);
         assert getArguments() != null;
         FragmentDamRepDetailsArgs args = FragmentDamRepDetailsArgs.fromBundle(getArguments());
         int reportId = args.getReportId();
         getDamageReport(reportId);
-        id = view.findViewById(R.id.damageReportId);
         getDamageImages(reportId);
         recyclerView = view.findViewById(R.id.recycler_view_dam_report_images);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(damageReportImageAdapter);
         recyclerView.addItemDecoration(new MarginDecoration(5));
+
+        viewBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         return view;
     }
@@ -88,6 +98,7 @@ public class FragmentDamRepDetails extends Fragment {
                     @Override
                     public void onResponse(DamageReport response) {
                         damageReport = response;
+                        setTextFields();
                     }
                 },
                 new Response.ErrorListener() {
@@ -104,11 +115,14 @@ public class FragmentDamRepDetails extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String report = Integer.toString(reportId);
         String url = ApiLinks.GET_DAMAGE_REPORT_IMAGES + "?reportid=" + report;
+        HashMap<String, String> headers = new HashMap<>();
+        String authToken = "Bearer " + LoggedUser.getInstance().getJwt();
+        headers.put("Authorization", authToken);
 
         GsonRequest gsonRequest = new GsonRequest(
                 url, Request.Method.GET,
                 DamageImage[].class,
-                new HashMap<String, String>(),
+                headers,
                 new Response.Listener<DamageImage[]>() {
                     @Override
                     public void onResponse(DamageImage[] response) {
@@ -129,5 +143,11 @@ public class FragmentDamRepDetails extends Fragment {
 
     public List<DamageImage> getImages() {
         return this.images;
+    }
+
+    private void setTextFields() {
+        id.setText("Report ID: " + damageReport.getReportId());
+        title.setText("Title: " + damageReport.getDamageTitle());
+        desc.setText("Description: " + damageReport.getDamageDescription());
     }
 }

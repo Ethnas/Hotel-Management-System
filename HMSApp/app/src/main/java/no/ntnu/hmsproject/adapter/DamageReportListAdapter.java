@@ -75,9 +75,6 @@ public class DamageReportListAdapter extends RecyclerView.Adapter<DamageReportLi
                     int reportId = Integer.parseInt(reportView.getText().toString());
                     System.out.println(reportId);
                     FragmentDamReportListDirections.ActionNavDamrepDetails action = FragmentDamReportListDirections.actionNavDamrepDetails(reportId);
-                    //NavDirections action = FragmentDamReportListDirections.actionNavDamrepDetails(reportId);
-                    //action.getArguments().putInt("reportId", reportId);
-                    //System.out.println("Argument reportid: " + action.getArguments().getInt("reportId"));
                     Navigation.findNavController(view).navigate(action);
                 }
             });

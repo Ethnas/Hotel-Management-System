@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import no.ntnu.hmsproject.R;
+import no.ntnu.hmsproject.network.ApiLinks;
 
 
 public class ActivityLoginGoogle extends AppCompatActivity {
@@ -83,7 +84,7 @@ public class ActivityLoginGoogle extends AppCompatActivity {
 
     private void sendIdToServer(String idToken) {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://52.169.109.222:8080/HMSProject/api/auth/login";
+        String url = ApiLinks.LOGIN_URL;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
