@@ -616,5 +616,14 @@ public class HMService {
           
       }
     }
+    
+    @GET
+    @Path("getdamageimages")
+    @RolesAllowed(Group.STAFF)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<DamageImage> getDamageImages(@QueryParam("reportid") int reportid) {
+        return em.createNativeQuery("SELECT * FROM DamageImages WHERE reportid = " +
+                "'" + reportid + "'", DamageImage.class).getResultList();
+    }
 
 }

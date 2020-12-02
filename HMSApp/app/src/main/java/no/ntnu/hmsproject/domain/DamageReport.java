@@ -2,12 +2,17 @@ package no.ntnu.hmsproject.domain;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DamageReport {
     @SerializedName("damageTitle")
     String damageTitle;
 
     @SerializedName("damageDescription")
     String damageDescription;
+
+    List<DamageImage> photos = new ArrayList<>();
 
     String sendBookingId;
 

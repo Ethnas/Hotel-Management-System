@@ -11,33 +11,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 import no.ntnu.hmsproject.MarginDecoration;
 import no.ntnu.hmsproject.R;
-import no.ntnu.hmsproject.adapter.DamageReportAdapter;
+import no.ntnu.hmsproject.adapter.DamageReportListAdapter;
 import no.ntnu.hmsproject.domain.DamageReport;
 import no.ntnu.hmsproject.network.ApiLinks;
 import no.ntnu.hmsproject.network.GsonRequest;
 
 public class FragmentDamReportList extends Fragment {
     private RecyclerView recyclerView;
-    private RelativeLayout relativeLayout;
     private ArrayList<DamageReport> damageReports = new ArrayList<>();
-    private ArrayList<DamageReport> filteredReports = new ArrayList<>();
-    private DamageReportAdapter damageReportAdapter = new DamageReportAdapter();
+    private DamageReportListAdapter damageReportListAdapter = new DamageReportListAdapter();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,10 +41,10 @@ public class FragmentDamReportList extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view_dam_report);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(damageReportAdapter);
+        recyclerView.setAdapter(damageReportListAdapter);
         recyclerView.addItemDecoration(new MarginDecoration(10));
 
-        getDamage(() -> damageReportAdapter.notifyDataSetChanged());
+        getDamage(() -> damageReportListAdapter.notifyDataSetChanged());
 
         return view;
     }
@@ -71,7 +66,7 @@ public class FragmentDamReportList extends Fragment {
                         damageReports.clear();
                         damageReports.addAll(Arrays.asList(response));
                         System.out.println(damageReports);
-                        damageReportAdapter.setDamageReportList(damageReports);
+                        damageReportListAdapter.setDamageReportList(damageReports);
                         if (callback != null) {
                             callback.run();
                         }

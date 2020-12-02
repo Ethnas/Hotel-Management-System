@@ -25,11 +25,14 @@ public class ApiLinks {
     public static final String REMOVE_BOOKING_URL = BASE_URL + "hotel/removebooking";
     public static final String UPDATE_BOOKING_URL = BASE_URL + "hotel/updatebooking";
 
+
     //Damage Report
     public static final String GET_ALL_DAMAGE_REPORT_URL = BASE_URL + "hotel/getDamageReports";
     public static final String ADD_DAMAGE_REPORT_URL = BASE_URL + "hotel/addDamageReport";
     public static final String REMOVE_DAMAGE_REPORT_URL = BASE_URL + "hotel/removeDamageReport";
-    public static final String UPDATE_DAMAGE_REPORT_URL = BASE_URL + "hotle/updateDamageReport";
+    public static final String UPDATE_DAMAGE_REPORT_URL = BASE_URL + "hotel/updateDamageReport";
+    public static final String GET_SPECIFIC_DAMAGE_REPORT = BASE_URL + "hotel/getspecificreport";
+    public static final String GET_DAMAGE_REPORT_IMAGES = BASE_URL + "hotel/getdamageimages";
 
     //Room Type
     public static final String ADD_ROOMTYPE_URL = BASE_URL + "hotel/addRoomType";

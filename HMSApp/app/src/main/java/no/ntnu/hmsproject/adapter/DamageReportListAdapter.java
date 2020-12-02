@@ -15,14 +15,13 @@ import java.util.List;
 
 import no.ntnu.hmsproject.R;
 import no.ntnu.hmsproject.domain.DamageReport;
-import no.ntnu.hmsproject.ui.hmsservice.damagereport.FragmentDamRepDetails;
 import no.ntnu.hmsproject.ui.hmsservice.damagereport.FragmentDamReportListDirections;
 
-public class DamageReportAdapter extends RecyclerView.Adapter<DamageReportAdapter.DamageReportViewHolder> {
+public class DamageReportListAdapter extends RecyclerView.Adapter<DamageReportListAdapter.DamageReportViewHolder> {
     public List<DamageReport> damageReportList;
     OnClickListener listener = position -> {};
 
-    public DamageReportAdapter() {
+    public DamageReportListAdapter() {
         this.damageReportList = new ArrayList<>();
     }
 
@@ -45,10 +44,6 @@ public class DamageReportAdapter extends RecyclerView.Adapter<DamageReportAdapte
     @Override
     public void onBindViewHolder(@NonNull DamageReportViewHolder holder, int position) {
         holder.damageReportId.setText(damageReportList.get(position).getReportId());
-        System.out.println(damageReportList.get(position).getReportId());
-        System.out.println(damageReportList.get(position).getDamageDescription());
-        System.out.println(damageReportList.get(position).getDamageTitle());
-        System.out.println(damageReportList.get(position).getBooking().getBookingId());
         holder.damageReportTitle.setText(damageReportList.get(position).getDamageTitle());
         }
 

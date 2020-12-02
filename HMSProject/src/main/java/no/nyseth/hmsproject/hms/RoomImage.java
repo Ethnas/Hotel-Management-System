@@ -5,10 +5,43 @@
  */
 package no.nyseth.hmsproject.hms;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  *
  * @author Erlend
  */
+@Entity
+@Table(name = "RoomImages")
+@Data
+@AllArgsConstructor 
+@NoArgsConstructor
 public class RoomImage {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int imageId;
+    
+    private String mimeType;
+    
+    private long filesize;
+    
+    @Lob
+    @Column(name="Image", columnDefinition="bytea")
+    private byte[] image;
+    
+    @ManyToOne
+    @JoinColumn(name = "RoomType")
+    private RoomType roomType;
     
 }
