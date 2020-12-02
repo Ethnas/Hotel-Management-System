@@ -31,7 +31,7 @@ public class ApiLinks {
     public static final String GET_ALL_DAMAGE_REPORT_URL = BASE_URL + "hotel/getDamageReports";
     public static final String ADD_DAMAGE_REPORT_URL = BASE_URL + "hotel/addDamageReport";
     public static final String REMOVE_DAMAGE_REPORT_URL = BASE_URL + "hotel/removeDamageReport";
-    public static final String UPDATE_DAMAGE_REPORT_URL = BASE_URL + "hotle/updateDamageReport";
+    public static final String UPDATE_DAMAGE_REPORT_URL = BASE_URL + "hotel/updateDamageReport";
 
     //Room Type
     public static final String ADD_ROOMTYPE_URL = BASE_URL + "hotel/addRoomType";

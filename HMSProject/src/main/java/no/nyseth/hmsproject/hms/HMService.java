@@ -417,12 +417,20 @@ public class HMService {
     public Response removeDamageReport(@QueryParam("reportId") int reportId) {
         User reportRemover = this.getCurrentUser();
         log.log(Level.INFO, "checking if user is staff");
-                
-       
-        log.log(Level.INFO, "user verified, deleting", reportId);
-        em.remove(reportId);
+        
+        DamageReport reporttbd = em.find(DamageReport.class, reportId);
+        ResponseBuilder resp;
+        
+        if (reporttbd != null) {
+            log.log(Level.INFO, "found");
+            em.remove(reporttbd);
+            resp = Response.ok();
+        } else {
+            log.log(Level.INFO, "not found");
+            resp = Response.notModified();
+        }
 
-        return Response.ok().build();
+        return resp.build();
         
     }
 
@@ -510,9 +518,20 @@ public class HMService {
     public Response removeRoomType(@QueryParam("roomType") String roomType) {
         User roomTypeRemover = this.getCurrentUser();
         
-        log.log(Level.INFO, "user verified, checking if thing exists");
-        em.remove(roomType);
-        return Response.ok().build();
+        
+        RoomType roomtypetbd = em.find(RoomType.class, roomType);
+        ResponseBuilder resp;
+        
+        if (roomtypetbd != null) {
+            log.log(Level.INFO, "found");
+            em.remove(roomtypetbd);
+            resp = Response.ok();
+        } else {
+            log.log(Level.INFO, "not found");
+            resp = Response.notModified();
+        }
+
+        return resp.build();
     }
     
     //updateRoomType - PUT, staff, really only to change price lol
