@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,10 +15,11 @@ import java.util.List;
 
 import no.ntnu.hmsproject.R;
 import no.ntnu.hmsproject.domain.DamageReport;
+import no.ntnu.hmsproject.ui.hmsservice.damagereport.FragmentDamRepDetails;
 import no.ntnu.hmsproject.ui.hmsservice.damagereport.FragmentDamReportListDirections;
 
 public class DamageReportAdapter extends RecyclerView.Adapter<DamageReportAdapter.DamageReportViewHolder> {
-    List<DamageReport> damageReportList;
+    public List<DamageReport> damageReportList;
     OnClickListener listener = position -> {};
 
     public DamageReportAdapter() {
@@ -75,8 +77,11 @@ public class DamageReportAdapter extends RecyclerView.Adapter<DamageReportAdapte
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentDamReportListDirections.
-                    Navigation.findNavController(view).navigate(R.id.nav_damrep_details);
+                    TextView reportView = view.findViewById(R.id.damageReportId);
+                    int reportId = Integer.parseInt(reportView.getText().toString());
+                    NavDirections action = FragmentDamReportListDirections.actionNavDamrepDetails();
+                    action.getArguments().putInt("reportId", reportId);
+                    Navigation.findNavController(view).navigate(action);
                 }
             });
             this.damageReportId = view.findViewById(R.id.damageReportId);

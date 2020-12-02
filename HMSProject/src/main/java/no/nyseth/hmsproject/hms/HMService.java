@@ -467,6 +467,20 @@ public class HMService {
         return em.createNativeQuery("SELECT * FROM DamageReport", DamageReport.class).getResultList();
     }
     //addImage etc.
+    
+    /**
+     * 
+     * @param reportid report id of damage report to retrieve
+     * @return info about damage report if found
+     */
+    @GET
+    @Path("getspecificreport")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDamageReport(@QueryParam("reportid") int reportid) {
+        log.log(Level.INFO, "attempting to retrieve damage report", reportid);
+        DamageReport damageReport = em.find(DamageReport.class, reportid);
+        return Response.ok(damageReport).build();
+    }
 
     //Room
     //addRoomType - POST, staff
