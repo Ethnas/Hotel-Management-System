@@ -307,7 +307,7 @@ public class HMService {
     @PUT
     @Path("staff/checkin")
     @RolesAllowed(Group.STAFF)
-    public Response checkIn(@QueryParam("bookingid") int bookingid, @QueryParam("status") String status) {
+    public Response checkIn(@QueryParam("bookingid") int bookingid) {
         Booking booking = em.find(Booking.class, bookingid);
         ResponseBuilder resp;
         if (booking != null) {
@@ -324,7 +324,7 @@ public class HMService {
     @PUT
     @Path("staff/checkout")
     @RolesAllowed(Group.STAFF)
-    public Response checkOut(@QueryParam("bookingid") int bookingid, @QueryParam("status") String status) {
+    public Response checkOut(@QueryParam("bookingid") int bookingid) {
         Booking booking = em.find(Booking.class, bookingid);
         ResponseBuilder resp;
         if (booking != null) {
