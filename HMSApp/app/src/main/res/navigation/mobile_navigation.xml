@@ -192,7 +192,7 @@
         android:id="@+id/nav_damrep_list"
         android:name="no.ntnu.hmsproject.ui.hmsservice.damagereport.FragmentDamReportList"
         tools:layout="@layout/fragment_dam_report_list">
-        
+
         <action
             android:id="@+id/action_nav_damrep_details"
             app:destination="@id/nav_damrep_details">
@@ -205,6 +205,18 @@
         tools:layout="@layout/fragment_dam_rep_details">
         <argument
             android:name="reportId"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_nav_damrep_details_to_booking"
+            app:destination="@id/nav_booking_details"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_booking_details"
+        android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingDetails"
+        tools:layout="@layout/fragment_booking_details">
+        <argument
+            android:name="bookingId"
             app:argType="integer"/>
     </fragment>
 
@@ -226,5 +238,6 @@
         android:name="no.ntnu.hmsproject.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
 
 </navigation>

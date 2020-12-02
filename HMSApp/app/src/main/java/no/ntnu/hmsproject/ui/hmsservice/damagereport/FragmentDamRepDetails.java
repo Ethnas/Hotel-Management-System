@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +39,7 @@ import no.ntnu.hmsproject.domain.DamageReport;
 import no.ntnu.hmsproject.domain.LoggedUser;
 import no.ntnu.hmsproject.network.ApiLinks;
 import no.ntnu.hmsproject.network.GsonRequest;
+import no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingDetails;
 
 
 public class FragmentDamRepDetails extends Fragment {
@@ -47,7 +50,6 @@ public class FragmentDamRepDetails extends Fragment {
     DamageReport damageReport;
     public List<DamageImage> images = new ArrayList<>();
     private DamageReportImageAdapter damageReportImageAdapter = new DamageReportImageAdapter();
-    private RecyclerView recyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,7 +68,7 @@ public class FragmentDamRepDetails extends Fragment {
         int reportId = args.getReportId();
         getDamageReport(reportId);
         getDamageImages(reportId);
-        recyclerView = view.findViewById(R.id.recycler_view_dam_report_images);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_dam_report_images);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(damageReportImageAdapter);
@@ -75,7 +77,9 @@ public class FragmentDamRepDetails extends Fragment {
         viewBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                int bookingId = damageReport.getBooking().getBookingId();
+                FragmentDamRepDetailsDirections.ActionNavDamrepDetailsToBooking action = FragmentDamRepDetailsDirections.actionNavDamrepDetailsToBooking(bookingId);
+                Navigation.findNavController(v).navigate(action);
             }
         });
 
