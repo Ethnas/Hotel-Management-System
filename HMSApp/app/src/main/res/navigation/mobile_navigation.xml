@@ -192,14 +192,12 @@
         android:id="@+id/nav_damrep_list"
         android:name="no.ntnu.hmsproject.ui.hmsservice.damagereport.FragmentDamReportList"
         tools:layout="@layout/fragment_dam_report_list">
-        <argument
-            android:name="reportId"
-            app:argType="integer"
-            android:defaultValue="0"/>
+
 
         <action
             android:id="@+id/action_nav_damrep_details"
-            app:destination="@id/nav_damrep_details"/>
+            app:destination="@id/nav_damrep_details">
+        </action>
     </fragment>
 
     <fragment
@@ -208,8 +206,7 @@
         tools:layout="@layout/fragment_dam_rep_details">
         <argument
             android:name="reportId"
-            app:argType="integer"
-            android:defaultValue="0"/>
+            app:argType="integer"/>
     </fragment>
 
 
