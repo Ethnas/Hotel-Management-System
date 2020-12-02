@@ -68,14 +68,15 @@ public class DamageReportListAdapter extends RecyclerView.Adapter<DamageReportLi
 
         public DamageReportViewHolder(@NonNull View view) {
             super(view);
-            //view.setOnClickListener(v -> listener.onClick(getAdapterPosition()));
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     TextView reportView = view.findViewById(R.id.damageReportId);
                     int reportId = Integer.parseInt(reportView.getText().toString());
+                    System.out.println(reportId);
                     NavDirections action = FragmentDamReportListDirections.actionNavDamrepDetails();
                     action.getArguments().putInt("reportId", reportId);
+                    System.out.println("Argument reportid: " + action.getArguments().getInt("reportId"));
                     Navigation.findNavController(view).navigate(action);
                 }
             });

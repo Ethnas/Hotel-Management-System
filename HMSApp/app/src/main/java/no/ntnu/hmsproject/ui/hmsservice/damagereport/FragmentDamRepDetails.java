@@ -59,6 +59,7 @@ public class FragmentDamRepDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dam_rep_details, container, false);
         assert getArguments() != null;
         int reportId = FragmentDamRepDetailsArgs.fromBundle(getArguments()).getReportId();
+        System.out.println("ReportId " + reportId);
         getDamageReport(reportId);
         id = view.findViewById(R.id.damageReportId);
         getDamageImages(reportId);
