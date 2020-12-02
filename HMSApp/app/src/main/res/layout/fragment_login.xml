@@ -47,6 +47,7 @@
 
     <Button
         android:id="@+id/login_submit"
+        style="@style/ButtonTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_submit"
@@ -56,6 +57,7 @@
 
     <Button
         android:id="@+id/testknapp"
+        style="@style/ButtonTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="480dp"

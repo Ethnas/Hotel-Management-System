@@ -63,7 +63,9 @@
 
 
     <Button
-        android:id="@+id/remove_damrep_submit"
+        android:id="@+id/removebooking_submit"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/remove_submit"
