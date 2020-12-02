@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,8 +40,8 @@ import no.ntnu.hmsproject.network.ApiLinks;
 public class FragmentBookingAdd extends Fragment implements AdapterView.OnItemSelectedListener  {
     //TextView roomTypeV;
     Spinner roomTypeV;
-    TextView startDateV;
-    TextView endDateV;
+    EditText startDateV;
+    EditText endDateV;
 
 
     @Override
@@ -78,6 +79,15 @@ public class FragmentBookingAdd extends Fragment implements AdapterView.OnItemSe
             @Override
             public void onClick(View view) {
                 addBooking();
+            }
+        });
+
+        Button clearText = (Button) view.findViewById(R.id.clear_text_submit);
+        clearText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startDateV.getText().clear();
+                endDateV.getText().clear();
             }
         });
 
@@ -124,7 +134,7 @@ public class FragmentBookingAdd extends Fragment implements AdapterView.OnItemSe
                         if (!obj.getBoolean("error")) {
                             JSONObject jsonObject = obj.getJSONObject("booking");
                             Booking booking = new Booking(
-                                    jsonObject.getString("bookingRoomType"),
+                                    jsonObject.getString("bookingid"), jsonObject.getString("bookingRoomType"),
                                     jsonObject.getString("bookingStartDate"),
                                     jsonObject.getString("bookingEndDate")
                             );

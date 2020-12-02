@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
+    tools:context=".ui.hmsservice.staff.FragmentStaffHub">
+
+    <TextView
+        android:id="@+id/staffhub_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="80dp"
+        android:text="@string/staffhub_main"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="1" />
+
+    <TextView
+        android:id="@+id/staffhub_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/staffhub_desc"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffhub_main" />
+
+    <Button
+        android:id="@+id/staffhub_checkin"
+        style="@style/ButtonTest"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffhub_desc"
+        android:layout_marginTop="20dp"
+        android:text="@string/checkin" />
+
+    <Button
+        android:id="@+id/staffhub_checkout"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffhub_checkin"
+        android:text="@string/checkout" />
+
+    <Button
+        android:id="@+id/staffhub_booking"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffhub_checkout"
+        android:text="@string/bookings" />
+
+    <Button
+        android:id="@+id/staffhub_report"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffhub_booking"
+        android:text="@string/reports" />
+
+    <Button
+        android:id="@+id/staffhub_roomview"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffhub_report"
+        android:text="@string/roomview" />
+
+    <Button
+        android:id="@+id/staffhub_roomstatus"
+        style="@style/ButtonTest"
+        android:layout_marginTop="10dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffhub_roomview"
+        android:text="@string/roomstatus" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

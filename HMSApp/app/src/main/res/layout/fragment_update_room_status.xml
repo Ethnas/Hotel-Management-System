@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="80dp"
-        android:text="@string/checkout_title"
+        android:text="@string/roomstatus"
         android:textColor="#fff"
         android:textStyle="bold"
         android:textSize="30sp"

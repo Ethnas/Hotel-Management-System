@@ -9,25 +9,17 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_create"
+            android:id="@+id/nav_login_main"
             android:icon="@drawable/ic_menu_camera"
-            android:title="opprett bruker/logg inn"
+            android:title="Login/Create"
             />
         <item
-            android:id="@+id/nav_booking_rem"
+            android:id="@+id/nav_booking"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="upd booking"/>
+            android:title="Bookings"/>
         <item
-            android:id="@+id/nav_damrep_add"
+            android:id="@+id/nav_staffhub_main"
             android:icon="@drawable/ic_menu_camera"
-            android:title="add damrep"/>
-        <item
-            android:id="@+id/nav_damrep_list"
-            android:icon="@drawable/common_google_signin_btn_icon_dark"
-            android:title="damreplist"/>
-        <item
-            android:id="@+id/nav_accept_booking"
-            android:icon="@drawable/common_google_signin_btn_text_light_normal"
-            android:title="accept"/>
+            android:title="Staff"/>
     </group>
 </menu>

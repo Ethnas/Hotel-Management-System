@@ -8,7 +8,7 @@ import no.nyseth.hmsproject.auth.User;
 import no.nyseth.hmsproject.hms.Room;
 import no.nyseth.hmsproject.hms.RoomType;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-12-01T11:49:17")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-12-02T14:43:50")
 @StaticMetamodel(Booking.class)
 public class Booking_ { 
 

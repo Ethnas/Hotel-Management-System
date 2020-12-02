@@ -83,11 +83,24 @@
 
     <string name="server_client_id">210365446598-2trslj7u3surefvojuvoqaqq26gl08cs.apps.googleusercontent.com</string>
 
+    <!-- staff hub -->
+    <string name="staffhub_main">Staff Hub</string>
+    <string name="staffhub_desc">Click a box to proceed</string>
+    <string name="checkin">Go To Check In</string>
+    <string name="checkout">Go To Check Out</string>
+    <string name="bookings">Go To Bookings</string>
+    <string name="reports">Go To Reports</string>
+    <string name="roomview">Go To Room Overview</string>
+    <string name="roomstatus">Update Room status</string>
+
+
 
     <!-- nav -->
     <string name="nav_menu_login">Logg inn</string>
     <string name="nav_menu_booking">Booking</string>
 
+
+    <!-- arrays for spinner -->
     <string-array name="roomtype_array">
         <item>Single</item>
         <item>Double</item>

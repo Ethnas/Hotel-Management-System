@@ -49,7 +49,26 @@ public class FragmentBookingMain extends Fragment {
             @Override
             public void onClick(View view) {
                 NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                //navController.navigate();
+                NavDirections action = FragmentBookingMainDirections.actionNavBookingMainToAdd();
+                navController.navigate(action);
+            }
+        });
+
+        gotoRemV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                NavDirections action = FragmentBookingMainDirections.actionNavBookingMainToRem();
+                navController.navigate(action);
+            }
+        });
+
+        gotoUpdV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                NavDirections action = FragmentBookingMainDirections.actionNavBookingMainToUpd();
+                navController.navigate(action);
             }
         });
 

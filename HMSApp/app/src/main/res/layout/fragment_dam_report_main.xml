@@ -13,16 +13,6 @@
     android:background="@drawable/background"
     tools:context=".ui.hmsservice.damagereport.FragmentDamReportMain">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:id="@+id/nav_booking_host"
-        android:name=""
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
     <TextView
         android:id="@+id/damrep_main_id"
         android:layout_width="wrap_content"
@@ -54,9 +44,9 @@
         />
 
     <Button
-        android:id="@+id/damrep_main_nav_addbooking"
+        android:id="@+id/damrep_main_nav_addreport"
         style="@style/ButtonTest"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,36 +55,36 @@
         android:text="@string/dr_m_nav_add"/>
 
     <Button
-        android:id="@+id/damrep_main_nav_rembooking"
+        android:id="@+id/damrep_main_nav_remreport"
         style="@style/ButtonTest"
         android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/damrep_main_nav_addbooking"
+        app:layout_constraintTop_toBottomOf="@id/damrep_main_nav_addreport"
         android:text="@string/dr_m_nav_rem"/>
 
     <Button
-        android:id="@+id/damrep_main_nav_updbooking"
+        android:id="@+id/damrep_main_nav_updreport"
         style="@style/ButtonTest"
         android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/damrep_main_nav_rembooking"
+        app:layout_constraintTop_toBottomOf="@id/damrep_main_nav_remreport"
         android:text="@string/dr_m_nav_upd"/>
 
     <Button
         android:id="@+id/damrep_main_nav_getreports"
         style="@style/ButtonTest"
         android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/damrep_main_nav_updbooking"
+        app:layout_constraintTop_toBottomOf="@id/damrep_main_nav_updreport"
         android:text="@string/dr_m_nav_get"/>
 
 
