@@ -174,7 +174,10 @@ public class HMService {
             
             if (bookingtbd.getUser().equals(bookingDeleter)) {
                 log.log(Level.INFO, "user verified, moving onto deletion", bookingid);
-                em.remove(bookingtbd);
+                //em.remove(bookingtbd);
+                
+                bookingtbd.setBookingStatus("cancelled");
+                
                 MailService mail = new MailService();
                 mail.sendMail(bookingtbd.getUser().getEmail(), "Booking: " + bookingid + " deleted", 
                         "Hi, your booking with id " + bookingid + " has been deleted from our systems.");
@@ -649,6 +652,23 @@ public class HMService {
     public List<DamageImage> getDamageImages(@QueryParam("reportid") int reportid) {
         return em.createNativeQuery("SELECT * FROM DamageImages WHERE reportid = " +
                 "'" + reportid + "'", DamageImage.class).getResultList();
+    }
+    
+    @POST
+    @Path("contactus")
+    public Response contactUs(@FormParam("contecterName") String contacterName, @FormParam("contacterMail") String contacterMail, 
+            @FormParam("contacterSubject") String contacterSubject, @FormParam("contacterMessage") String contacterMessage) {
+        
+        MailService mail = new MailService();
+            mail.sendMail("kakerull214056@gmail.com", 
+                    "New message recieved from: " + contacterName + " regarding: " + contacterSubject, 
+                    "A user has sent an email\n" 
+                            + "Name: " + contacterName 
+                            + "\nEmail: " + contacterMail
+                            + "\nSubject: " + contacterSubject
+                            + "\nMessage: " + contacterMessage);
+            
+        return Response.ok().build();
     }
 
 }

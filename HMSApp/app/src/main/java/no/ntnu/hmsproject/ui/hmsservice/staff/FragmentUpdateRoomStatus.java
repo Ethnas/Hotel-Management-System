@@ -57,7 +57,7 @@ public class FragmentUpdateRoomStatus extends Fragment implements AdapterView.On
 
         //Spinner for status
         statusV = (Spinner) view.findViewById(R.id.upd_roomstatus_status);
-        ArrayAdapter adapterStatus = ArrayAdapter.createFromResource(getActivity(), R.array.acceptbooking_status_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter adapterStatus = ArrayAdapter.createFromResource(getActivity(), R.array.roomstatus_array , android.R.layout.simple_spinner_item);
         adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusV.setAdapter(adapterStatus);
 
