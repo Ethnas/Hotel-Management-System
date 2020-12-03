@@ -91,7 +91,6 @@ public class FragmentDamReportAdd extends Fragment {
             @Override
             public void onClick(View view) {
                 addReport();
-                addImage();
             }
         });
 
@@ -101,13 +100,13 @@ public class FragmentDamReportAdd extends Fragment {
 
 
     private void addReport() {
-        //final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         //Kind of a duplicate, here to verify that the maps are proper.
         final HashMap<String, String> addDamRepMap = new HashMap<>();
         addDamRepMap.put("damageTitle", damRepTitleV.getText().toString());
         addDamRepMap.put("bookingid", damRepBookingIdV.getText().toString());
         addDamRepMap.put("damageDesc", damRepDescV.getText().toString());
-        //addDamRepMap.put("image", imageString);
+        addDamRepMap.put("image", imageString);
 
 
         //Loads the textview into string variables and checks if they are not empty.
@@ -134,11 +133,11 @@ public class FragmentDamReportAdd extends Fragment {
             return;
         }
 
-//        if (imageString.isEmpty()) {
-//            damRepDescV.setError("Ingen bilde lagt til");
-//            damRepDescV.requestFocus();
-//            return;
-//        }
+        if (imageString.isEmpty()) {
+            damRepDescV.setError("Ingen bilde lagt til");
+            damRepDescV.requestFocus();
+            return;
+        }
 
         //Call
 
@@ -180,7 +179,7 @@ public class FragmentDamReportAdd extends Fragment {
                 addDamRepMap.put("damageTitle", damageTitle);
                 addDamRepMap.put("bookingid", bookingid);
                 addDamRepMap.put("damageDesc", damageDesc);
-                //addDamRepMap.put("image", imageString);
+                addDamRepMap.put("image", imageString);
 
                 return addDamRepMap;
             }
@@ -202,15 +201,6 @@ public class FragmentDamReportAdd extends Fragment {
         System.out.println("SR: " + stringRequest);
 
     }
-
-    private void addImage() {
-        Context context = getActivity();
-        StringRequest stringRequest = new StringRequest(
-                Request.Method.POST, ApiLinks.
-        )
-
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
