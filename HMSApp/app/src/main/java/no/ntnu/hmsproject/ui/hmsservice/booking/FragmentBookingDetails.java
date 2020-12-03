@@ -33,6 +33,7 @@ public class FragmentBookingDetails extends Fragment {
     TextView bookingStart;
     TextView bookingEnd;
     TextView bookingStatus;
+    TextView bookingAccepted;
     TextView roomNumber;
     Booking booking;
 
@@ -49,6 +50,7 @@ public class FragmentBookingDetails extends Fragment {
         this.bookingStart = view.findViewById(R.id.booking_details_datestart);
         this.bookingEnd = view.findViewById(R.id.booking_details_dateend);
         this.bookingStatus = view.findViewById(R.id.booking_details_status);
+        this.bookingAccepted = view.findViewById(R.id.booking_details_accepted);
         this.roomNumber = view.findViewById(R.id.booking_details_roomnumber);
         FragmentBookingDetailsArgs args = FragmentBookingDetailsArgs.fromBundle(getArguments());
         int bookingId = args.getBookingId();
@@ -89,5 +91,6 @@ public class FragmentBookingDetails extends Fragment {
         bookingEnd.setText("End date: "+ booking.getBookingEndDate());
         roomNumber.setText("Room number: " + booking.getRn().getRoomNumber());
         bookingStatus.setText("Booking status: " + booking.getBookingStatus());
+        bookingAccepted.setText("Booking apporoval: " + booking.getBookingAccepted());
     }
 }
