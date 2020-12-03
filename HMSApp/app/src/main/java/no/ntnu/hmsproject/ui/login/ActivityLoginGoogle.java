@@ -3,6 +3,7 @@ package no.ntnu.hmsproject.ui.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import no.ntnu.hmsproject.R;
+import no.ntnu.hmsproject.domain.LoggedUser;
 import no.ntnu.hmsproject.network.ApiLinks;
 
 
@@ -84,14 +86,17 @@ public class ActivityLoginGoogle extends AppCompatActivity {
 
     private void sendIdToServer(String idToken) {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = ApiLinks.LOGIN_URL;
+        String url = ApiLinks.LOGIN_GOOGLE_URL;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
-            //TODO
+                    LoggedUser.getInstance().setJwt(response);
+                    LoggedUser.getInstance().setLoggedIn(true);
 
+                    System.out.println(response);
 
-                    System.out.println("Pog?");
+                    System.out.println("Things went smooth");
+
                 }, error -> {
             System.out.println("Shit very fuck");
         }) {
@@ -100,6 +105,7 @@ public class ActivityLoginGoogle extends AppCompatActivity {
             {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("idToken", idToken);
+                params.put("clientid", getString(R.string.server_client_id));
 
                 return params;
             }
@@ -135,8 +141,6 @@ public class ActivityLoginGoogle extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             String idToken = account.getIdToken();
-
-            // TODO(developer): send ID Token to server and validate
             sendIdToServer(idToken);
 
             //TODO updateUI(account);
