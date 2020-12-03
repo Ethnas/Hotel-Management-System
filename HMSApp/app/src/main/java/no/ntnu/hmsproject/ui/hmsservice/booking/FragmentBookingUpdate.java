@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -116,6 +118,9 @@ public class FragmentBookingUpdate extends Fragment implements AdapterView.OnIte
         StringRequest stringRequest = new StringRequest(
                 Request.Method.PUT, ApiLinks.UPDATE_BOOKING_URL,
                 response -> {
+                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                    navController.popBackStack();
+
                     try {
                         JSONObject obj = new JSONObject(response);
 
