@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:id="@+id/parent"
+    android:backgroundTint="@color/colorPrimaryDark"
     android:layout_margin="10dp"
     android:padding="10dp">
 
@@ -15,6 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="BookingID"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
             android:textStyle="bold" />
 
         <TextView
@@ -22,6 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="BookingStartDate"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:textColor="#cccccc"
             android:textStyle="bold"
             android:layout_below="@+id/booking_id"/>
 
@@ -30,6 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="BookingEndDate"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:textColor="#cccccc"
             android:textStyle="bold"
             android:layout_below="@+id/booking_startdate"/>
 

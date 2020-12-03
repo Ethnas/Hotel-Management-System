@@ -16,20 +16,20 @@
         android:id="@+id/booking_details_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Booking id"
         android:shadowColor="#000000"
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="1"
+        android:text="Booking id"
         android:textColor="#fff"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.141" />
+        app:layout_constraintVertical_bias="0.15" />
 
     <TextView
         android:id="@+id/booking_details_roomtype"
@@ -37,8 +37,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="Room type"
+        android:textColor="#cccccc"
+        android:textStyle="italic|bold"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/booking_details_id" />
 
@@ -48,8 +50,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Date start"
+        android:textColor="#cccccc"
+        android:textStyle="italic|bold"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/booking_details_roomtype" />
 
@@ -59,8 +63,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Date end"
+        android:textColor="#cccccc"
+        android:textStyle="italic|bold"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/booking_details_datestart" />
 
@@ -70,11 +76,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Status"
+        android:textColor="#cccccc"
+        android:textStyle="italic|bold"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/booking_details_dateend"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/booking_details_dateend" />
 
     <TextView
         android:id="@+id/booking_details_roomnumber"
@@ -82,10 +89,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Room number"
+        android:textColor="#cccccc"
+        android:textStyle="italic|bold"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/booking_details_status"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/booking_details_status" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

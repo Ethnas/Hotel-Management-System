@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/parent"
     android:layout_margin="10dp"
+    android:backgroundTint="@color/colorPrimaryDark"
     android:padding="10dp">
 
 <RelativeLayout
@@ -12,19 +13,25 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/damageReportId"
-        android:layout_width="359dp"
-        android:layout_height="wrap_content"
-        android:text="ReportID"
-        android:textStyle="bold" />
-
-    <TextView
         android:id="@+id/damageReportTitle"
         android:layout_width="359dp"
         android:layout_height="wrap_content"
         android:text="Title"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/damageReportId"
+        android:layout_width="359dp"
+        android:layout_height="wrap_content"
+        android:text="ReportID"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textColor="#cccccc"
         android:textStyle="bold"
-        android:layout_below="@+id/damageReportId"/>
+        android:layout_below="@id/damageReportTitle"/>
 
 </RelativeLayout>
 </androidx.cardview.widget.CardView>
