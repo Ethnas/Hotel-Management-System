@@ -150,7 +150,7 @@ public class FragmentDamReportAdd extends Fragment {
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                     NavDirections action = FragmentBookingAddDirections.actionNavBookaddToThenkyou();
                     navController.navigate(action);
-                    
+
                     try {
                         JSONObject obj = new JSONObject(response);
 

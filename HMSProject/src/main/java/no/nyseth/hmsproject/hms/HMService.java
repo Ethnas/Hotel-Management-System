@@ -40,6 +40,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
+import org.glassfish.jersey.media.multipart.FormDataParam;
         
 @Path("hotel")
 @Stateless
@@ -588,6 +589,40 @@ public class HMService {
     public List<RoomType> getAllRoomTypes() {
         log.log(Level.INFO, "attempting to retrieve all rooms");
         return em.createNativeQuery("SELECT * FROM RoomType", Room.class).getResultList();
+    }
+    
+    @POST
+    @Path("testimage")
+    @RolesAllowed(Group.STAFF)
+    public Response testImage(@FormDataParam("reportid") int reportid, FormDataMultiPart images) {
+        ResponseBuilder resp;
+        resp = parseImages(reportid, images);
+        return resp.build();
+    }
+    
+    private ResponseBuilder parseImages(int reportid, FormDataMultiPart images) {
+        ResponseBuilder resp;
+        try {
+            List<FormDataBodyPart> itemImages = images.getFields("images");
+            if (itemImages != null) {
+                for (FormDataBodyPart imagePart : itemImages) {
+                    InputStream is = imagePart.getValueAs(InputStream.class);
+                    FormDataContentDisposition meta = imagePart.getFormDataContentDisposition();
+                    byte[] imageBytes = IOUtils.toByteArray(is);
+                    DamageImage itemImg = new DamageImage(); 
+                    itemImg.setImage(imageBytes);
+                    itemImg.setMimeType(meta.getType());
+                    itemImg.setFilesize(imageBytes.length);
+                    DamageReport dr = em.find(DamageReport.class, reportid);
+                    itemImg.setReport(dr); 
+                    em.persist(itemImg); 
+                }
+            }
+            resp = Response.ok();
+        } catch (Exception e) {
+            resp = Response.notModified();
+        }
+        return resp;
     }
     
     private ResponseBuilder parseImage(String images, String damageDesc, int bookingId) {
