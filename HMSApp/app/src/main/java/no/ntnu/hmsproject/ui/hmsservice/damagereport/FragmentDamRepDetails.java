@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -121,6 +122,7 @@ public class FragmentDamRepDetails extends Fragment {
         String url = ApiLinks.GET_DAMAGE_REPORT_IMAGES + "?reportid=" + report;
         HashMap<String, String> headers = new HashMap<>();
         String authToken = "Bearer " + LoggedUser.getInstance().getJwt();
+        System.out.println(authToken);
         headers.put("Authorization", authToken);
 
         GsonRequest gsonRequest = new GsonRequest(

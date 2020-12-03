@@ -142,8 +142,8 @@ public class AuthenticationService {
             if (verifyGoogleToken(idToken)) {
                 String headerToken = authLoginGoogle(idToken);
                 if (headerToken != null) {
-                    resp = Response.ok(token)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token);
+                    resp = Response.ok(headerToken)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + headerToken);
                 } else {
                     resp = Response.status(Response.Status.UNAUTHORIZED);
                 }

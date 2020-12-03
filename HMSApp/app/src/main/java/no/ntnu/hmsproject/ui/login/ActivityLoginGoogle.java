@@ -35,6 +35,7 @@ public class ActivityLoginGoogle extends AppCompatActivity {
     private static final int RC_SIGN_IN = 3;
     private static final String TAG = "ActivityLoginGoogle";
     GoogleSignInClient googleSignInClient;
+    LoggedUser loggedUser = new LoggedUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
