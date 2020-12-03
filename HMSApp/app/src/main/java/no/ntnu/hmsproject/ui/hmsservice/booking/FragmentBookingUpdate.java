@@ -67,7 +67,7 @@ public class FragmentBookingUpdate extends Fragment implements AdapterView.OnIte
 
         bookingIdV = view.findViewById(R.id.updbooking_id);
         startDateV = view.findViewById(R.id.updBooking_startdate);
-        endDateV = view.findViewById(R.id.updBooking_startdate);
+        endDateV = view.findViewById(R.id.updBooking_enddate);
 
         Button addbookingV = (Button) view.findViewById(R.id.updbooking_submit);
 
@@ -135,7 +135,6 @@ public class FragmentBookingUpdate extends Fragment implements AdapterView.OnIte
 
                 },
                 error -> {
-                    Toast.makeText(getActivity(), "Soemthing wenth wrong ", Toast.LENGTH_LONG).show();
                     System.out.println("Something went wrong");
                 }
         ) {

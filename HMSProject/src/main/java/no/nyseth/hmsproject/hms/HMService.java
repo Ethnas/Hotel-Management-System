@@ -121,6 +121,9 @@ public class HMService {
             //default values
             bookingtbb.setBookingAccepted("false");
             bookingtbb.setBookingStatus("inactive");
+            
+            Room defaultRoom = em.find(Room.class, 0);
+            bookingtbb.setRoom(defaultRoom);
 
             log.log(Level.INFO, "added apps");
             em.persist(bookingtbb);
