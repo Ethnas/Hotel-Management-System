@@ -1,7 +1,13 @@
 package no.ntnu.hmsproject;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
@@ -23,11 +29,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+
 import no.ntnu.hmsproject.ui.login.ActivityLoginGoogle;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openNewActivity();
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                      //  .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                takePhoto();
+//            }
+//        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -64,27 +72,48 @@ public class MainActivity extends AppCompatActivity {
                 switch(menuId) {
                     case R.id.nav_login_main:
                         Toast.makeText(MainActivity.this, "Create/Login", Toast.LENGTH_LONG).show();
-                        fab.hide();
                         break;
                     case R.id.nav_booking:
                         Toast.makeText(MainActivity.this, "Booking", Toast.LENGTH_LONG).show();
-                        fab.hide();
                         break;
                     case R.id.nav_staffhub_main:
                         Toast.makeText(MainActivity.this, "Staff Hub", Toast.LENGTH_LONG).show();
                         break;
                     default:
-                        fab.show();
                         break;
                 }
             }
         });
     }
 
-    public void openNewActivity(){
-        Intent intent = new Intent(this, ActivityLoginGoogle.class);
-        startActivity(intent);
-    }
+//    public void takePhoto(){
+//
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (takePictureIntent.resolveActivity(this.getPackageManager()) != null) {
+//            mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"tmp_avatar_" + String.valueOf(System.currentTimeMillis()) + ".jpg"));
+//            takePictureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
+//            try {
+//                takePictureIntent.putExtra("return-data", true);
+//                startActivityForResult(takePictureIntent, 1);
+//            } catch (ActivityNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+//        super.onActivityResult(requestCode, resultCode, intent);
+//        if (resultCode == Activity.RESULT_OK) {
+//            Bundle bundle = intent.getExtras();
+//            Bitmap photo = bundle.getParcelable("data");
+//            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//            photo.compress(Bitmap.CompressFormat.PNG, 100, bos);
+//            byte[] image = bos.toByteArray();
+//            File f = new File(mImageCaptureUri.getPath());
+//            if (f.exists()) f.delete();
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

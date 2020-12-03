@@ -112,4 +112,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/add_damrep_desc"/>
+
+    <Button
+        android:id="@+id/add_image"
+        style="@style/ButtonTest"
+        android:layout_width="96dp"
+        android:layout_height="46dp"
+        android:text="@string/add_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+    <ImageView
+        android:id="@+id/add_image_view"
+        android:layout_width="288dp"
+        android:layout_height="210dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addreport_submit"
+        app:layout_constraintVertical_bias="0.592" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

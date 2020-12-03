@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -394,7 +395,8 @@ public class HMService {
     @Path("addDamageReport")
     @RolesAllowed({Group.STAFF})
     public Response addDamageReport(@FormParam("damageTitle") String damageTitle,
-            @FormParam("damageDesc") String damageDesc, @FormParam("bookingid") int bookingid) {
+            @FormParam("damageDesc") String damageDesc, @FormParam("bookingid") int bookingid, @FormParam("image") String image) {
+        ResponseBuilder resp;
         User reportAdder = this.getCurrentUser();
         log.log(Level.INFO, "checking if user is staff");
         log.log(Level.INFO, "user verified as staff, attempting to add report");
@@ -407,7 +409,8 @@ public class HMService {
         damageReport.setBooking(booking);
         
         em.persist(damageReport);
-        //Photo things
+        
+        parseImage(image, damageDesc, bookingid);
         return Response.ok().build(); 
     }
     
@@ -579,41 +582,23 @@ public class HMService {
         return em.createNativeQuery("SELECT * FROM RoomType", Room.class).getResultList();
     }
     
-    
-    @POST
-    @Path("testimage")
-    @RolesAllowed({Group.STAFF})
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response testImage(FormDataMultiPart images) {
-        ResponseBuilder resp;
-        resp = parseImage(images);
-        //saveImage();
-        return resp.build();
-    }
-    
-    private ResponseBuilder parseImage(FormDataMultiPart images) {
+    private ResponseBuilder parseImage(String images, String damageDesc, int bookingId) {
         ResponseBuilder resp;
         try {
-            System.out.println("checking for photo");
-            List<FormDataBodyPart> itemImages = images.getFields("images");
-            if (itemImages != null) {
-                for (FormDataBodyPart imageParts : itemImages) {
-                    InputStream is = imageParts.getValueAs(InputStream.class);
-                    FormDataContentDisposition meta = imageParts.getFormDataContentDisposition();
-                    System.out.println("imagePrts filename: " + meta.getFileName());
-                    byte[] imageBytes = IOUtils.toByteArray(is);
+            if (images != null) {
+                    byte[] imageBytes = images.getBytes(StandardCharsets.UTF_8);
                     System.out.println("test");
                     
                     DamageImage itemImg = new DamageImage();
                     itemImg.setImage(imageBytes);
-                    itemImg.setMimeType(meta.getType());
+                    itemImg.setMimeType("form-data");
                     itemImg.setFilesize(imageBytes.length);
-                    DamageReport dr = em.find(DamageReport.class, 101);
+                    List<DamageReport> drList = em.createNativeQuery("SELECT * FROM damagereport d WHERE d.damagedescription='"
+                            + damageDesc + "' AND d.booking='" + bookingId + "'", DamageReport.class).getResultList();
+                    DamageReport dr = drList.get(0);
                     itemImg.setReport(dr);
                     System.out.println("Adding photo");
                     em.persist(itemImg);
-                }
-                
             }
             resp = Response.ok();
         } catch(Exception e) {
@@ -622,19 +607,6 @@ public class HMService {
             resp = Response.serverError();
         }
         return resp;
-    }
-    
-    private void saveImage() {
-        DamageImage image = em.find(DamageImage.class, 552);
-        byte[] data = image.getImage();
-      try{
-      ByteArrayInputStream bis = new ByteArrayInputStream(data);
-      BufferedImage bImage2 = ImageIO.read(bis);
-      ImageIO.write(bImage2, "png", new File("C:\\Users\\Erlend\\Desktop\\output.png") );
-      System.out.println("image created");
-      }catch(Exception e) {
-          
-      }
     }
     
     @GET
