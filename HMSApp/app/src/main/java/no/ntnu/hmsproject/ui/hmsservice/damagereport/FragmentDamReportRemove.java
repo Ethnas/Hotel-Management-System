@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -73,6 +74,9 @@ public class FragmentDamReportRemove extends Fragment {
         StringRequest stringRequest = new StringRequest(
                 Request.Method.DELETE, url,
                 response -> {
+                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                    navController.popBackStack();
+
                     System.out.println(response);
                     System.out.println("Things went smooth");
                 },

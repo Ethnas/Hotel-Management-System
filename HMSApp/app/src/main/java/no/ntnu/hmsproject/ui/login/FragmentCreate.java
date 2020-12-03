@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -79,50 +81,6 @@ public class FragmentCreate extends Fragment {
         return view;
     }
 
-    /*
-    public void volleyPost(){
-        String postUrl = ApiLinks.CREATE_URL;
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-
-        JSONObject createMap = new JSONObject();
-        try {
-            createMap.put("eml", emlV.getText().toString());
-            createMap.put("uid", uidV.getText().toString());
-            createMap.put("firstName", firstNameV.getText().toString());
-            createMap.put("lastName", lastNameV.getText().toString());
-            createMap.put("phoneNumber", tlfV.getText().toString());
-            createMap.put("pwd", pwdV.getText().toString());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, createMap, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                System.out.println(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-                Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_LONG).show();
-                System.out.println(error);
-            }
-        }){
-            @Override
-            public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
-            }
-        };
-
-        System.out.println("Request: " + jsonObjectRequest);
-        System.out.println("Hashmap: " + createMap);
-        requestQueue.add(jsonObjectRequest);
-
-    }
-
-     */
 
     private void createUser() {
 
@@ -141,6 +99,10 @@ public class FragmentCreate extends Fragment {
         StringRequest stringRequest = new StringRequest(
                 Request.Method.POST, ApiLinks.CREATE_URL,
                 response -> {
+                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                    NavDirections action = FragmentCreateDirections.actionNavToLogin();
+                    navController.navigate(action);
+
                     try {
                         JSONObject obj = new JSONObject(response);
 

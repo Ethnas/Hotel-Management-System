@@ -6,6 +6,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,6 +78,8 @@ public class FragmentLogin extends Fragment {
             @Override
             public void onClick(View view) {
                 loginUser();
+
+
             }
         });
 
@@ -89,16 +94,6 @@ public class FragmentLogin extends Fragment {
             }
         });
 
-        //TODO - SLETT DEN HER NÅR FERDIGSTILT!
-        Button testKnapp = (Button) view.findViewById(R.id.testknapp);
-        testKnapp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Trykket", Toast.LENGTH_LONG).show();
-                testLogin();
-            }
-        });
-
         return view;
     }
 
@@ -110,6 +105,10 @@ public class FragmentLogin extends Fragment {
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
+                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                    NavDirections action = FragmentLoginDirections.actionNavToHome();
+                    navController.navigate(action);
+
                     LoggedUser.getInstance().setJwt(response);
                     LoggedUser.getInstance().setLoggedIn(true);
 

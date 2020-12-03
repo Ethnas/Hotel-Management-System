@@ -76,17 +76,6 @@
         app:layout_constraintTop_toBottomOf="@id/booking_main_nav_rembooking"
         android:text="@string/b_n_nav_upd"/>
 
-    <Button
-        android:id="@+id/booking_main_getbookings"
-        style="@style/ButtonTest"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/booking_main_nav_updbooking"
-        android:text="@string/b_m_nav_get"/>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

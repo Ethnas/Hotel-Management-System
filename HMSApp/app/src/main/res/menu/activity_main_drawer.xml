@@ -21,5 +21,9 @@
             android:id="@+id/nav_staffhub_main"
             android:icon="@drawable/ic_staff1_icon"
             android:title="Staff"/>
+        <item
+            android:id="@+id/nav_contactus"
+            android:icon="@drawable/abc_vector_test"
+            android:title="Contact Us"/>
     </group>
 </menu>

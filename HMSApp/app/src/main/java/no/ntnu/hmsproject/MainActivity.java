@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_login_main, R.id.nav_booking, R.id.nav_staffhub_main)
+                R.id.nav_home, R.id.nav_login_main, R.id.nav_booking, R.id.nav_staffhub_main, R.id.nav_contactus)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -72,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_staffhub_main:
                         Toast.makeText(MainActivity.this, "Staff Hub", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.nav_contactus:
+                        Toast.makeText(MainActivity.this, "Contact Us", Toast.LENGTH_LONG).show();
                         break;
                     default:
                         fab.show();
@@ -98,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+
     }
 
     @Override

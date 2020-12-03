@@ -100,6 +100,18 @@
     <string name="nav_menu_booking">Booking</string>
     <string name="damage_report_image">Damage report image</string>
 
+    <!-- contact us -->
+    <string name="cs_main">Contact Us</string>
+    <string name="cs_desc">Please fill out the boxes bellow</string>
+    <string name="cs_name">Your name</string>
+    <string name="cs_subject">Subject</string>
+    <string name="cs_email">Your email</string>
+    <string name="cs_message">You message</string>
+    <string name="cs_send">Send</string>
+
+    <string name="dest_thankyou">Thank you!</string>
+    <string name="dest_textmore">Thank you for staying with us, we are looking forward to your visit!</string>
+
 
     <!-- arrays for spinner -->
     <string-array name="roomtype_array">

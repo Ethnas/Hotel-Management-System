@@ -93,7 +93,16 @@
     <fragment
         android:id="@+id/nav_booking_add"
         android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingAdd"
-        tools:layout="@layout/fragment_booking_add"/>
+        tools:layout="@layout/fragment_booking_add">
+        <action
+            android:id="@+id/action_nav_bookadd_to_thenkyou"
+            app:destination="@id/nav_booking_thankyou"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_booking_thankyou"
+        android:name="no.ntnu.hmsproject.ui.hmsservice.booking.FragmentBookingThankYou"
+        tools:layout="@layout/fragment_booking_thank_you"/>
 
     <fragment
         android:id="@+id/nav_booking_rem"
@@ -233,9 +242,11 @@
     </fragment>
 
 
-
-
-
+    <fragment
+        android:id="@+id/nav_contactus"
+        android:name="no.ntnu.hmsproject.ui.div.FragmentContactUs"
+        android:label="Contact Us"
+        tools:layout="@layout/fragment_contact_us"/>
 
     <!-- LEGACY THINGS -->
     <!-- LEGACY THINGS -->
@@ -252,6 +263,8 @@
         android:name="no.ntnu.hmsproject.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+
 
 
 </navigation>

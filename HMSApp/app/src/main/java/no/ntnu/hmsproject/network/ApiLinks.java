@@ -23,6 +23,7 @@ public class ApiLinks {
 
 
     //-------------------Service
+    public static final String CONTACT_US_URL = BASE_URL + "hotel/contactus";
     //Booking
     public static final String ADD_BOOKING_URL = BASE_URL + "hotel/addbooking";
     public static final String REMOVE_BOOKING_URL = BASE_URL + "hotel/removebooking";
