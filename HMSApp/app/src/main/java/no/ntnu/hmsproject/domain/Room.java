@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class Room {
     @SerializedName("roomStatus")
     String roomStatus;
-    @SerializedName("type")
+    @SerializedName("roomType")
     RoomType roomType;
     @SerializedName("roomNumber")
     int roomNumber;

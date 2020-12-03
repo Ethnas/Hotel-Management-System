@@ -62,7 +62,7 @@ public class FragmentDamReportList extends Fragment {
                     @Override
                     public void onResponse(DamageReport[] response) {
                         System.out.println("Got damage response");
-                        System.out.println(response.length);
+                        //System.out.println(response.length);
                         damageReports.clear();
                         damageReports.addAll(Arrays.asList(response));
                         System.out.println(damageReports);

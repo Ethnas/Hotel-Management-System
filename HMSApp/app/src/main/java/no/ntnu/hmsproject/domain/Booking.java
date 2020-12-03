@@ -23,9 +23,9 @@ public class Booking {
     RoomType rt;
 
     //Room
-    String room;
+    String rooms;
 
-    @SerializedName("roomNumbers")
+    @SerializedName("room")
     Room rn;
 
     @SerializedName("user")
