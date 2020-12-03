@@ -148,8 +148,7 @@ public class FragmentDamReportAdd extends Fragment {
                 Request.Method.POST, ApiLinks.ADD_DAMAGE_REPORT_URL,
                 response -> {
                     NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                    NavDirections action = FragmentBookingAddDirections.actionNavBookaddToThenkyou();
-                    navController.navigate(action);
+                    navController.popBackStack();
                     
                     try {
                         JSONObject obj = new JSONObject(response);
