@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/damageReportTitle"
-        android:layout_width="359dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Title"
         android:textAlignment="center"
@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/damageReportId"
-        android:layout_width="359dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ReportID"
         android:textAlignment="center"

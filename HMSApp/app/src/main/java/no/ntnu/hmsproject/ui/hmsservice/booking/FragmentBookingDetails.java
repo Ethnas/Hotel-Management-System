@@ -87,7 +87,7 @@ public class FragmentBookingDetails extends Fragment {
         roomType.setText("Room type: " + booking.getRt().getRoomtype());
         bookingStart.setText("Start date: " + booking.getBookingStartDate());
         bookingEnd.setText("End date: "+ booking.getBookingEndDate());
-        roomNumber.setText("Room number: " + booking.getRoom());
+        roomNumber.setText("Room number: " + booking.getRn().getRoomNumber());
         bookingStatus.setText("Booking status: " + booking.getBookingStatus());
     }
 }

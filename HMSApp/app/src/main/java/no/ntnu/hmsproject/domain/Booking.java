@@ -23,8 +23,10 @@ public class Booking {
     RoomType rt;
 
     //Room
-    @SerializedName("roomNumber")
     String room;
+
+    @SerializedName("roomNumbers")
+    Room rn;
 
     @SerializedName("user")
     User user;
@@ -99,11 +101,11 @@ public class Booking {
         this.roomType = roomType;
     }
 
-    public String getRoom() {
-        return room;
+    public Room getRn() {
+        return rn;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
+    public void setRn(Room rn) {
+        this.rn = rn;
     }
 }
