@@ -53,7 +53,16 @@ import javax.ws.rs.PathParam;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
-import org.eclipse.microprofile.jwt.JsonWebToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
+import javax.ws.rs.core.Response.ResponseBuilder;
+
 
 /**
  *
@@ -118,6 +127,91 @@ public class AuthenticationService {
             return Response.ok(em.merge(user)).build();
         }
     }
+    
+    @POST
+    @Path("logingoogle")
+    public Response loginGoogle(@FormParam("idToken") String token, @FormParam("clientid") String clientId) {
+        ResponseBuilder resp;
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new JacksonFactory())
+            // Specify the CLIENT_ID of the app that accesses the backend:
+            .setAudience(Collections.singletonList(clientId))
+            .build();
+        
+        try {
+            GoogleIdToken idToken = verifier.verify(token);
+            if (verifyGoogleToken(idToken)) {
+                String headerToken = authLoginGoogle(idToken);
+                if (headerToken != null) {
+                    resp = Response.ok(token)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token);
+                } else {
+                    resp = Response.status(Response.Status.UNAUTHORIZED);
+                }
+            } else {
+                resp = Response.status(Response.Status.UNAUTHORIZED);
+            }
+        } catch (GeneralSecurityException | IOException e) {
+                e.printStackTrace();
+                resp = Response.serverError();
+        }
+        return resp.build();
+    }
+    
+    private boolean verifyGoogleToken(GoogleIdToken idToken) {
+        boolean verified;            
+            if (idToken != null ) {
+                Payload payload = idToken.getPayload();
+
+                // Print user identifier
+                String userId = payload.getSubject();
+                System.out.println("User ID: " + userId);
+                User user = em.find(User.class, userId);
+                if (user == null) {
+                    // Get profile information from payload
+                    user = new User();
+                    user.setUsername(userId);
+                    String p = userId + payload.get("name");
+                    char[] pwd = p.toCharArray();
+                    user.setPassword(hasher.generate(pwd));
+                    user.setEmail(payload.getEmail());
+                    user.setFirstName((String) payload.get("given_name"));
+                    user.setLastName((String) payload.get("family_name"));
+                    user.setPhone("12345678");
+                    Group usergroup = em.find(Group.class, Group.USER);
+                    user.getGroups().add(usergroup);
+                    em.merge(user);
+                    verified = true;
+                } else {
+                    
+                    verified = true;
+                }
+ 
+            } else {
+                System.out.println("Invalid ID token.");
+                verified = false;
+            }
+
+        return verified;
+    }
+    
+    private String authLoginGoogle(GoogleIdToken idToken) {
+        String token = null;
+        Payload payload = idToken.getPayload();
+        String uid = payload.getSubject();
+        String pwd = uid + payload.get("name");
+        CredentialValidationResult result = identityStoreHandler.validate(
+                new UsernamePasswordCredential(uid, pwd));
+        if (result.getStatus() == CredentialValidationResult.Status.VALID) {
+            token = issueToken(result.getCallerPrincipal().getName(),
+                    result.getCallerGroups());
+            
+        } else {
+            log.log(Level.INFO, "user not logged in {0}", uid);
+            
+        }
+        return token;
+    }
+    
 
     @GET
     @Path("login")
@@ -130,7 +224,7 @@ public class AuthenticationService {
         log.log(Level.INFO, "checking credentials", uid);
         if (result.getStatus() == CredentialValidationResult.Status.VALID) {
             String token = issueToken(result.getCallerPrincipal().getName(),
-                    result.getCallerGroups(), request);
+                    result.getCallerGroups());
             log.log(Level.INFO, "user logged in {0}", uid);
             return Response
                     .ok(token)
@@ -142,7 +236,7 @@ public class AuthenticationService {
         }
     }
     
-      private String issueToken(String name, Set<String> groups, HttpServletRequest request) {
+      private String issueToken(String name, Set<String> groups) {
         try {
             Date now = new Date();
             Date expiration = Date.from(LocalDateTime.now().plusDays(1L).atZone(ZoneId.systemDefault()).toInstant());

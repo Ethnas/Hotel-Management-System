@@ -13,12 +13,13 @@ public class ApiLinks {
 
     //server ip
 
-    public static final String BASE_URL = "https://hms.northeurope.cloudapp.azure.com/HMSProject-1/api/";
-    //public static final String BASE_URL = "http://10.22.186.32:8080/HMSProject/api/";
+    //public static final String BASE_URL = "https://hms.northeurope.cloudapp.azure.com/HMSProject-1/api/";
+    public static final String BASE_URL = "http://10.22.193.136:8080/HMSProject/api/";
 
     public static final String LOGIN_URL = BASE_URL + "auth/login";
     public static final String CREATE_URL = BASE_URL + "auth/create";
     public static final String CURRENT_USER_URL = BASE_URL + "auth/currentuser";
+    public static final String LOGIN_GOOGLE_URL = BASE_URL + "auth/logingoogle";
 
 
     //-------------------Service
