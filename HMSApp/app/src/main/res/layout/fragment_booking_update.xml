@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/edittextbackground"
         android:textColorHint="#adadad"
+        android:textColor="#ededed"
         android:theme="@style/AppTheme.DynamicBorderColor"
         android:layout_marginTop="10dp"
 
@@ -78,6 +79,7 @@
         android:background="@drawable/edittextbackground"
         android:textColorHint="#adadad"
         android:theme="@style/AppTheme.DynamicBorderColor"
+        android:textColor="#ededed"
         android:layout_marginTop="10dp"
 
         android:hint="@string/bookingStartDate"
@@ -96,6 +98,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/edittextbackground"
         android:textColorHint="#adadad"
+        android:textColor="#ededed"
         android:theme="@style/AppTheme.DynamicBorderColor"
         android:layout_marginTop="10dp"
 
