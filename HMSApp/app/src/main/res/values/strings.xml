@@ -99,6 +99,8 @@
     <string name="nav_menu_login">Logg inn</string>
     <string name="nav_menu_booking">Booking</string>
     <string name="damage_report_image">Damage report image</string>
+    <string name="damage_report_add_image">Damage report add image</string>
+    <string name="add_image">Add Image</string>
 
     <!-- contact us -->
     <string name="cs_main">Contact Us</string>
