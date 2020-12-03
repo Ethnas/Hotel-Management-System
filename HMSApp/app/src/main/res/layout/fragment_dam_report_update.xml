@@ -51,8 +51,8 @@
         android:textColorHint="#adadad"
         android:textColor="#ededed"
         android:theme="@style/AppTheme.DynamicBorderColor"
-        android:layout_marginTop="10dp"
-        android:layout_margin="20dp"
+        android:layout_marginTop="80dp"
+
         android:hint="@string/reportId"
         android:autofillHints="@string/reportId"
 

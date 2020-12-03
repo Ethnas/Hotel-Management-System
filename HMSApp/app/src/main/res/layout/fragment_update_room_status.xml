@@ -47,6 +47,9 @@
         android:id="@+id/upd_roomstatus_room"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/spinnerbackground"
+        android:backgroundTint="#adadad"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upd_roomstatus_desc"
@@ -55,8 +58,10 @@
     <Spinner
         android:id="@+id/upd_roomstatus_status"
         android:layout_width="270dp"
-        android:layout_height="40dp"
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/spinnerbackground"
+        android:backgroundTint="#adadad"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/upd_roomstatus_room"
